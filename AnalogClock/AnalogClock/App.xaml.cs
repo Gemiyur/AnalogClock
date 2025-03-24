@@ -2,13 +2,11 @@
 using System.Data;
 using System.Windows;
 
-namespace AnalogClock
-{
-    /// <summary>
-    /// Класс приложения.
-    /// </summary>
-    public partial class App : Application
-    {
-    }
+namespace AnalogClock;
 
+/// <summary>
+/// Класс приложения.
+/// </summary>
+public partial class App : System.Windows.Application
+{
 }

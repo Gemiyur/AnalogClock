@@ -9,16 +9,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AnalogClock
+namespace AnalogClock;
+
+/// <summary>
+/// Класс главного окна.
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Класс главного окна.
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

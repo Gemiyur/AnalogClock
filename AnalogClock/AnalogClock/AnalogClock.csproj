@@ -6,10 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
     <Version>1.0.0</Version>
     <Product>Аналоговые часы</Product>
     <Description>Часы со стрелками.</Description>
-    <Copyright>Copyright © Gemiyur 2024</Copyright>
+    <Copyright>Copyright © Gemiyur 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
