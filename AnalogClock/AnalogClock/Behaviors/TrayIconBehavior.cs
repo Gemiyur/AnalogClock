@@ -9,7 +9,7 @@ using System.Windows;
 namespace AnalogClock.Behaviors;
 
 /// <summary>
-/// Класс поведения значка в области уведомлений.
+/// Класс поведения значка в панели уведомлений.
 /// </summary>
 public class TrayIconBehavior : Behavior<Window>
 {
@@ -49,7 +49,7 @@ public class TrayIconBehavior : Behavior<Window>
             e.Cancel = true;
             AssociatedObject.Hide();
             if (ShowNotification)
-                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
+                ShowNotificationInTray("", "Приложение свёрнуто в панель уведомлений.");
         }
         else
         {
@@ -63,7 +63,7 @@ public class TrayIconBehavior : Behavior<Window>
         {
             AssociatedObject.ShowInTaskbar = !MinimizeToTray;
             if (ShowNotification && MinimizeToTray)
-                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
+                ShowNotificationInTray("", "Приложение свёрнуто в панель уведомлений.");
         }
         else
         {
