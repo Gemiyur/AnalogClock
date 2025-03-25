@@ -11,10 +11,23 @@
     <Product>Аналоговые часы</Product>
     <Description>Часы со стрелками.</Description>
     <Copyright>Copyright © Gemiyur 2025</Copyright>
+    <ApplicationIcon>Images\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\TrayIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\AppIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\TrayIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
