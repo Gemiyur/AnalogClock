@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnalogClock"
         mc:Ignorable="d"
-        Title="Аналоговые часы" Height="300" Width="500" WindowStartupLocation="CenterScreen">
+        Title="Аналоговые часы"
+        Width="500" Height="300" ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
 
