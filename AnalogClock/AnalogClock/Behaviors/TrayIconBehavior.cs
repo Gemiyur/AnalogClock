@@ -9,13 +9,13 @@ using System.Windows;
 namespace AnalogClock.Behaviors;
 
 /// <summary>
-/// Класс поведения значка в панели уведомлений.
+/// Класс поведения значка в области уведомлений.
 /// </summary>
 public class TrayIconBehavior : Behavior<Window>
 {
     private NotifyIcon? trayIcon;
 
-    private bool CloseUsingTrayIcon => true;
+    private bool CloseToTray => true;
 
     private bool MinimizeToTray => true;
 
@@ -44,12 +44,12 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void AssociatedObject_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
-        if (CloseUsingTrayIcon)
+        if (CloseToTray)
         {
             e.Cancel = true;
             AssociatedObject.Hide();
             if (ShowNotification)
-                ShowNotificationInTray("", "Приложение свёрнуто в панель уведомлений.");
+                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
         }
         else
         {
@@ -63,7 +63,7 @@ public class TrayIconBehavior : Behavior<Window>
         {
             AssociatedObject.ShowInTaskbar = !MinimizeToTray;
             if (ShowNotification && MinimizeToTray)
-                ShowNotificationInTray("", "Приложение свёрнуто в панель уведомлений.");
+                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
         }
         else
         {
