@@ -4,10 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnalogClock"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ntIconBeh="clr-namespace:AnalogClock.Behaviors"
         mc:Ignorable="d"
         Title="Аналоговые часы"
         Width="500" Height="300" ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen">
+
+    <i:Interaction.Behaviors>
+        <ntIconBeh:TrayIconBehavior />
+    </i:Interaction.Behaviors>
 
     <Grid>
 
