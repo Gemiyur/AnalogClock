@@ -7,8 +7,6 @@ namespace AnalogClock;
 
 #region Задачи (TODO)
 
-// TODOL: Сделать значки приложения и панели уведомлений.
-
 #endregion
 
 /// <summary>
