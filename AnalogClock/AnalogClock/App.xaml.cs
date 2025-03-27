@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using AnalogClock.Dialogs;
 
 namespace AnalogClock;
 
@@ -15,4 +16,5 @@ namespace AnalogClock;
 /// </summary>
 public partial class App : System.Windows.Application
 {
+    public static AboutDialog? AboutDialog { get; set; }
 }

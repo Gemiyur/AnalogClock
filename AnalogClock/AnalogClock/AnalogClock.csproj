@@ -15,6 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\About-1.png" />
+    <None Remove="Images\About-2.png" />
+    <None Remove="Images\About-3.png" />
     <None Remove="Images\TrayIcon.ico" />
   </ItemGroup>
 
@@ -27,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\About-1.png" />
+    <Resource Include="Images\About-2.png" />
+    <Resource Include="Images\About-3.png" />
     <Resource Include="Images\TrayIcon.ico" />
   </ItemGroup>
 

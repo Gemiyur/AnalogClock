@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AnalogClock.Dialogs;
 
 namespace AnalogClock.Behaviors;
 
@@ -15,11 +16,11 @@ public class TrayIconBehavior : Behavior<Window>
 {
     private NotifyIcon? trayIcon;
 
-    private bool CloseToTray => true;
+    private bool CloseToTray => false;
 
     private bool MinimizeToTray => true;
 
-    private bool ShowNotification => true;
+    private bool ShowNotification => false;
 
     protected override void OnAttached()
     {
@@ -77,35 +78,59 @@ public class TrayIconBehavior : Behavior<Window>
         {
             Icon = GetIcon(new Uri("Images/TrayIcon.ico", UriKind.Relative)),
             Text = "Часы со стрелками",
-            Visible = true,
-            ContextMenuStrip = new ContextMenuStrip()
+            Visible = true
         };
 
         ContextMenuStrip contextMenu = new();
+
         ToolStripMenuItem openMenuItem = new()
         {
             Text = "Открыть"
         };
         var font = new Font(openMenuItem.Font, System.Drawing.FontStyle.Bold);
         openMenuItem.Font = font;
+        contextMenu.Items.Add(openMenuItem);
+        openMenuItem.Click += OpenMenuItem_Click;
+
+        contextMenu.Items.Add(new ToolStripSeparator());
+
+        ToolStripMenuItem aboutMenuItem = new()
+        {
+            Text = "О программе..."
+        };
+        contextMenu.Items.Add(aboutMenuItem);
+        aboutMenuItem.Click += AboutMenuItem_Click;
+
+        contextMenu.Items.Add(new ToolStripSeparator());
+
         ToolStripMenuItem exitMenuItem = new()
         {
             Text = "Выход"
         };
-
-        contextMenu.Items.Add(openMenuItem);
         contextMenu.Items.Add(exitMenuItem);
-        trayIcon.ContextMenuStrip = contextMenu;
-
-        trayIcon.MouseClick += TrayIcon_MouseClick;
-        openMenuItem.Click += OpenMenuItem_Click;
         exitMenuItem.Click += ExitMenuItem_Click;
+
+        trayIcon.ContextMenuStrip = contextMenu;
+        trayIcon.MouseClick += TrayIcon_MouseClick;
     }
 
     private void TrayIcon_MouseClick(object? sender, MouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
             ShowAssociatedWindow();
+    }
+
+    private void AboutMenuItem_Click(object? sender, EventArgs e)
+    {
+        if (App.AboutDialog != null)
+        {
+            App.AboutDialog.Activate();
+        }
+        else
+        {
+            App.AboutDialog = new AboutDialog() { Owner = AssociatedObject };
+            App.AboutDialog.ShowDialog();
+        }
     }
 
     private void OpenMenuItem_Click(object? sender, EventArgs e)
