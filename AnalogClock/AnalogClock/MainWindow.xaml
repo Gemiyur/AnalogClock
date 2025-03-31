@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:AnalogClock"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ntIconBeh="clr-namespace:AnalogClock.Behaviors"
+        xmlns:clock="clr-namespace:AnalogClock.Controls"
+        xmlns:Options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
         mc:Ignorable="d"
         Title="Аналоговые часы"
         Width="500" Height="300" ResizeMode="CanResizeWithGrip"
@@ -15,7 +17,21 @@
         <ntIconBeh:TrayIconBehavior />
     </i:Interaction.Behaviors>
 
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/ClockDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
+    <Grid Background="#232323">
+        <Viewbox>
+            <Border BorderThickness="1">
+
+                <clock:ClockControl IsDiscrete="True" IsRunning="True" Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type clock:ClockControl}, ResourceId=ClockStyleOffice}}" />
+
+            </Border>
+        </Viewbox>
     </Grid>
 </Window>
