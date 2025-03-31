@@ -1,13 +1,18 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Brushes = System.Windows.Media.Brushes;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
-using Brushes = System.Windows.Media.Brushes;
-using Color = System.Windows.Media.Color;
 
 namespace AnalogClock.Controls;
 
+// TODO: Разобраться с модификаторами доступа.
+// TODOH: Убрать после рефакторинга непрерывный режим, оставить только дискретный (свойство IsDiscrete).
+
+/// <summary>
+/// Элемент управления "Часы".
+/// </summary>
 public class ClockControl : System.Windows.Controls.Control
 {
     ///// <summary>
@@ -19,219 +24,223 @@ public class ClockControl : System.Windows.Controls.Control
     //}
 
     /// <summary>
-    /// Initialize the clock control. Create and start the timer.
+    /// Таймер часов.
+    /// </summary>
+    private DispatcherTimer? timer = null;
+
+    /// <summary>
+    /// Время последнего срабатывания обработчика события таймера.
+    /// </summary>
+    private DateTime lastTick = DateTime.Now;
+
+    /// <summary>
+    /// Шрифт циферблата часов.
+    /// </summary>
+    private Typeface? hourFont = null;
+
+    /// <summary>
+    /// Глиф шрифта циферблата часов.
+    /// </summary>
+    private GlyphTypeface? hourFontGlyph = null;
+
+    /// <summary>
+    /// Возвращает или задаёт отображаемое на часах время.
+    /// </summary>
+    public DateTime DateTime
+    {
+        get => (DateTime)GetValue(DateTimeProperty);
+        set => SetValue(DateTimeProperty, value);
+    }
+
+    /// <summary>
+    /// Возвращает или задаёт радиус для отрисовки чисел часов.
+    /// </summary>
+    public double HourRadius
+    {
+        get => (double)GetValue(HourRadiusProperty);
+        set => SetValue(HourRadiusProperty, value);
+    }
+
+    /// <summary>
+    /// Возвращает или задаёт дискретный или непрерывный режим работы часов.
+    /// </summary>
+    /// <remarks>
+    /// true - дискретный режим<br/>
+    /// false - непрерывный режим 
+    /// </remarks>
+    public bool IsDiscrete
+    {
+        get => (bool)GetValue(IsDiscreteProperty);
+        set => SetValue(IsDiscreteProperty, value);
+    }
+
+    /// <summary>
+    /// Возвращает или задаёт работают ли часы или они остановлены.
+    /// </summary>
+    /// <remarks>
+    /// true - часы работают<br/>
+    /// false - часы остановлены 
+    /// </remarks>
+    public bool IsRunning
+    {
+        get => (bool)GetValue(IsRunningProperty);
+        set => SetValue(IsRunningProperty, value);
+    }
+
+    /// <summary>
+    /// Инициализирует элемент управления. Создаёт и запускает таймер.
     /// </summary>
     protected override void OnInitialized(EventArgs e)
     {
         base.OnInitialized(e);
+        // TODO: Может нужно создать конструктор и часть или всё перенести туда?
         InitTimer(IsRunning);
-        _hourFont = new Typeface(this.FontFamily, this.FontStyle, this.FontWeight, this.FontStretch);
-        if (!_hourFont.TryGetGlyphTypeface(out _hourFontGlyph))
-            throw new InvalidOperationException("No glyphtypeface found");
+        hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
+        // TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
+        if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
+            throw new InvalidOperationException("Глиф для шрифта не найден.");
     }
 
     /// <summary>
-    /// Initialize the timer used to drive the clock.
+    /// Вызывается после применения шаблона элемента управления.
+    /// </summary>
+    /// <remarks>
+    /// Здесь можно манипулировать шаблоном элемента управления на лету по своему усмотрению.<br/>
+    /// В данном случае рисуются числа часов на циферблате часов заданным шрифтом и цветом.<br/>
+    /// Это можно было бы сделать и в XAML, но в данном проекте предпочтительней это делать в коде.
+    /// </remarks>
+    public override void OnApplyTemplate()
+    {
+        // TODO: Возможно реализацию прорисовки часов следует вынести в отдельный метод.
+        var labels = ((DrawingGroup)Template.FindName("clockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
+        double innerOffset = (50 - HourRadius) + 1;
+        double innerCircleDiameter = HourRadius * 2;
+        double fontSize = FontSize;
+        int index = 1;
+        foreach (var label in labels)
+        {
+            var text = index.ToString();
+            var point = GetHourPosition(index);
+            var size = MeasureString(text, fontSize);
+            point.X -= ((point.X - innerOffset) / innerCircleDiameter) * size.Width;
+            point.Y += (1.0 - ((point.Y - innerOffset) / innerCircleDiameter)) * size.Height;
+            label.GlyphRun = CreateGlyphRun(text, point, fontSize);
+            label.ForegroundBrush = Brushes.DarkRed;
+            index++;
+        }
+    }
+
+    /// <summary>
+    /// Возвращает объект GlyphRun для указанного текста в указанной точке с указанным размером шрифта.
+    /// </summary>
+    /// <param name="text">Строка.</param>
+    /// <param name="point">Верхняя левая точка.</param>
+    /// <param name="fontSize">Размер шрифта.</param>
+    /// <returns>Объект GlyphRun.</returns>
+    private GlyphRun CreateGlyphRun(string text, Point point, double fontSize)
+    {
+        var glyphIndexes = new ushort[text.Length];
+        var advanceWidths = new double[text.Length];
+
+        for (var i = 0; i < text.Length; i++)
+        {
+            var glyphIndex = hourFontGlyph.CharacterToGlyphMap[text[i]];
+            glyphIndexes[i] = glyphIndex;
+            var width = hourFontGlyph.AdvanceWidths[glyphIndex] * fontSize;
+            advanceWidths[i] = width;
+        }
+
+        // Устаревшее. Так в оригинале.
+        //GlyphRun glyphRun = new GlyphRun(hourFontGlyph, 0, false, fontSize,
+        //    glyphIndexes, point, advanceWidths, null, null, null, null, null, null);
+
+        // TODO: Тут надо поэкспериментировать с масштабом экрана.
+        // Возможные варианты: 100%, 125%, 150% и 175%.
+        var pixelsPerDip = 1.25f;  // мой масштаб 125%
+        //var pixelsPerDip = 1f;  // масштаб 100%
+        //var pixelsPerDip = 1.5f;  // масштаб 150%
+        //var pixelsPerDip = 1.75f;  // масштаб 175%
+
+        //var glyphRun = new GlyphRun(hourFontGlyph, 0, false, fontSize, pixelsPerDip,
+        //    glyphIndexes, point, advanceWidths, null, null, null, null, null, null);
+        //return glyphRun;
+
+        return new GlyphRun(hourFontGlyph, 0, false, fontSize, pixelsPerDip, glyphIndexes,
+                            point, advanceWidths, null, null, null, null, null, null);
+    }
+
+    /// <summary>
+    /// Возвращает точку верхнего левого угла текста указанного часа на циферблате.
+    /// </summary>
+    /// <param name="hour">Час. Значение от 1 до 12.</param>
+    /// <returns>Точка верхнего левого угла текста часа на циферблате.</returns>
+    public Point GetHourPosition(int hour)
+    {
+        // Так в оригинале.
+        //double angle = (30.0 * hour) - 90;
+        //double rads = (Math.PI / 180) * angle;
+
+        var angle = (Math.PI / 180) * ((30.0 * hour) - 90);
+        return new Point((50 + HourRadius * Math.Cos(angle)), (50 + HourRadius * Math.Sin(angle)));
+    }
+
+    /// <summary>
+    /// Возвращает размер указанной строки с указанным размером шрифта. 
+    /// </summary>
+    private Size MeasureString(string text, double fontSize)
+    {
+        var size = new Size();
+        for (var i = 0; i < text.Length; i++)
+        {
+            var glyph = hourFontGlyph.CharacterToGlyphMap[text[i]];
+            size.Width += hourFontGlyph.AdvanceWidths[glyph] * fontSize;
+            size.Height = Math.Max(hourFontGlyph.AdvanceHeights[glyph] * (fontSize * (72.0 / 96.0)), size.Height);
+        }
+        return size;
+    }
+
+    /// <summary>
+    /// Инициализирует таймер часов.
     /// </summary>
     protected void InitTimer(bool create)
     {
-        if (create && _timer == null)
+        // TODO: Надо ли убивать таймер при остановке или просто останавливать?
+        if (create && timer == null)
         {
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(10);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(10);
             //timer.Interval = TimeSpan.FromMilliseconds(1000);
             //timer.Interval = TimeSpan.FromMilliseconds(100 - DateTime.Now.Millisecond / 10);
-            _timer.Tick += new EventHandler(Timer_Tick);
-            _timer.Start();
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
-        else if (!create && _timer != null)
+        else if (!create && timer != null)
         {
-            _timer.Stop();
-            _timer.Tick -= Timer_Tick;
-            _timer.Interval = TimeSpan.Zero;
-            _timer = null;
+            timer.Stop();
+            timer.Tick -= Timer_Tick;
+            timer.Interval = TimeSpan.Zero;
+            timer = null;
         }
     }
 
     /// <summary>
-    /// Called after the control template is applied. Here we can manipulate
-    /// the control template on the fly as desired. For now let's assign
-    /// positions to twelve TextBlock objects representing the numerals on 
-    /// the clock face. We could as well do this in the XAML, but this way 
-    /// we capture the positioning logic in code, rather than the output
-    /// of that positioning logic in XAML.
-    /// </summary>
-    public override void OnApplyTemplate()
-    {
-        DrawingGroup dg = (DrawingGroup)this.Template.FindName("clockGlyphsContainer", this);
-        var labels = dg.Children.OfType<GlyphRunDrawing>();
-        double innerOffset = (50 - NumeralRadius) + 1;
-        double innerCircleDiameter = NumeralRadius * 2;
-        double fontSizeDIP = this.FontSize;
-        double fontSizePt = fontSizeDIP * (72.0 / 96.0);
-        int index = 1;
-
-        foreach (GlyphRunDrawing grd in labels)
-        {
-            // Get the point where the numeral should be drawn
-            Point pt = GetHourPosition(index);
-
-            // Measure how much space the numeral will take
-            string strHour = index.ToString();
-            Size sz = MeasureString(strHour, fontSizeDIP);
-
-            // Now adjust the position based on where on the clock face
-            // the numeral falls, interpolating such that, at the far
-            // end of the clock, the positions are pulled inward (to the
-            // left and up) reflecting the right- and/or bottom-alignment
-            // of numerals on the far sides of the clock.
-            pt.X -= ((pt.X - innerOffset) / innerCircleDiameter) * sz.Width;
-            pt.Y += (1.0 - ((pt.Y - innerOffset) / innerCircleDiameter)) * sz.Height;
-
-            // Create the low-level glyph run for the text.
-            grd.GlyphRun = CreateGlyphRun(strHour, pt, fontSizeDIP);
-            grd.ForegroundBrush = Brushes.DarkRed;
-            index++;
-        }
-
-    }
-
-
-
-
-    /// <summary>
-    /// Compute the formal position of the specified hour on the clock face
-    /// using the parametric equation for a circle and the equation for the
-    /// angle of the hour hand.
-    /// </summary>
-    /// <param name="hour">The hour. A value from 1 to 12 inclusive.</param>
-    /// <returns>The position of the upper-left point of where the hour glyph
-    /// should be drawn.</returns>
-    public Point GetHourPosition(int hour)
-    {
-        // The long way:
-        // double angle = .5 * ((60.0 * hour) + 0)
-        // (eg: double angle = 30.0 * hour)
-        // double rads = (Math.PI / 180) * angle;
-        // double r = 38; // inner circle radius
-        // double cx = 50; // circle center (x)
-        // double cy = 50; // circle center (y)
-        // return new Point(cx + r * Math.Cos(rads), cy + r * Math.Sin(rads));
-
-        // The short way:
-        double angle = (30.0 * hour) - 90;
-        double rads = (Math.PI / 180) * angle;
-        return new Point((50 + NumeralRadius * Math.Cos(rads)), (50 + NumeralRadius * Math.Sin(rads)));
-    }
-
-
-
-    /// <summary>
-    /// Quick 'n dirty string measurement.
-    /// </summary>
-    private Size MeasureString(string str, double fontSize)
-    {
-        Size sz = new Size();
-        for (int c = 0; c < str.Length; c++)
-        {
-            ushort glyph = _hourFontGlyph.CharacterToGlyphMap[str[c]];
-            sz.Width += _hourFontGlyph.AdvanceWidths[glyph] * fontSize;
-            sz.Height = Math.Max(_hourFontGlyph.AdvanceHeights[glyph] * (fontSize * (72.0 / 96.0)), sz.Height);
-        }
-        return sz;
-    }
-
-
-    /// <summary>
-    /// Handler for the timer's Tick event.
+    /// Обработчик события срабатывания таймера часов.
     /// </summary>
     private void Timer_Tick(object? sender, EventArgs e)
     {
         DateTime now = DateTime.Now;
-        if (!IsDiscrete || now.Second != _lastTick.Second)
+        if (!IsDiscrete || now.Second != lastTick.Second)
             UpdateDateTime(now);
     }
 
-
-
     /// <summary>
-    /// Update this.DateTime to the current time.
+    /// Обновляет отображаемое время часов в текущее время.
     /// </summary>
     private void UpdateDateTime(DateTime newVal)
     {
-        _lastTick = newVal;
-        this.DateTime = (IsDiscrete) ? newVal.AddMilliseconds(-newVal.Millisecond) : newVal;
+        lastTick = newVal;
+        DateTime = (IsDiscrete) ? newVal.AddMilliseconds(-newVal.Millisecond) : newVal;
     }
-
-
-
-    /// <summary>
-    /// Get or set the clock's current time.
-    /// </summary>
-    public DateTime DateTime
-    {
-        get
-        {
-            return (DateTime)GetValue(DateTimeProperty);
-        }
-        set
-        {
-            SetValue(DateTimeProperty, value);
-        }
-    }
-
-
-
-    /// <summary>
-    /// Get or set whether the clock operates in discrete or continuous mode.
-    /// </summary>
-    public bool IsDiscrete
-    {
-        get
-        {
-            return (bool)GetValue(IsDiscreteProperty);
-        }
-        set
-        {
-            SetValue(IsDiscreteProperty, value);
-        }
-    }
-
-
-
-    /// <summary>
-    /// Get or set whether the clock is running or frozen.
-    /// </summary>
-    public bool IsRunning
-    {
-        get
-        {
-            return (bool)GetValue(IsRunningProperty);
-        }
-        set
-        {
-            SetValue(IsRunningProperty, value);
-        }
-    }
-
-
-
-    /// <summary>
-    /// Get or set whether the clock is running or frozen.
-    /// </summary>
-    public double NumeralRadius
-    {
-        get
-        {
-            return (double)GetValue(NumeralRadiusProperty);
-        }
-        set
-        {
-            SetValue(NumeralRadiusProperty, value);
-        }
-    }
-
-
 
     /// <summary>
     /// Register the "DateTime" property as a formal dependency property.
@@ -242,7 +251,14 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(ClockControl),
             new PropertyMetadata(DateTime.Now, new PropertyChangedCallback(OnDateTimeInvalidated)));
 
-
+    /// <summary>
+    /// Register the "HourRadius" property as a formal dependency property.
+    /// </summary>
+    public static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
+            "HourRadius",
+            typeof(double),
+            typeof(ClockControl),
+            new PropertyMetadata(36.0));
 
     /// <summary>
     /// Register the "IsDiscrete" property as a formal dependency property.
@@ -253,8 +269,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(ClockControl),
             new PropertyMetadata(true, new PropertyChangedCallback(OnIsDiscreteInvalidated)));
 
-
-
     /// <summary>
     /// Register the "IsRunning" property as a formal dependency property.
     /// </summary>
@@ -263,19 +277,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(bool),
             typeof(ClockControl),
             new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningInvalidated)));
-
-
-
-    /// <summary>
-    /// Register the "NumeralRadius" property as a formal dependency property.
-    /// </summary>
-    public static DependencyProperty NumeralRadiusProperty = DependencyProperty.Register(
-            "NumeralRadius",
-            typeof(double),
-            typeof(ClockControl),
-            new PropertyMetadata(36.0));
-
-
 
     /// <summary>
     /// Set up a DateTimeChanged event.
@@ -287,8 +288,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(RoutedPropertyChangedEventHandler<DateTime>),
             typeof(ClockControl));
 
-
-
     /// <summary>
     /// Set up an DiscreteChanged event.
     /// </summary>
@@ -298,8 +297,6 @@ public class ClockControl : System.Windows.Controls.Control
             RoutingStrategy.Bubble,
             typeof(RoutedPropertyChangedEventHandler<bool>),
             typeof(ClockControl));
-
-
 
     /// <summary>
     /// Set up an RunningChanged event.
@@ -311,19 +308,15 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(RoutedPropertyChangedEventHandler<bool>),
             typeof(ClockControl));
 
-
-
     /// <summary>
     /// Fire the DateTimeChanged event when the time changes.
     /// </summary>
     protected virtual void OnDateTimeChanged(DateTime oldValue, DateTime newValue)
     {
         RoutedPropertyChangedEventArgs<DateTime> args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue);
-        args.RoutedEvent = ClockControl.DateTimeChangedEvent;
+        args.RoutedEvent = DateTimeChangedEvent;
         RaiseEvent(args);
     }
-
-
 
     /// <summary>
     /// Fire the IsDiscreteChanged event when the motion type changes.
@@ -333,11 +326,9 @@ public class ClockControl : System.Windows.Controls.Control
     protected virtual void OnIsDiscreteChanged(bool oldValue, bool newValue)
     {
         RoutedPropertyChangedEventArgs<bool> args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue);
-        args.RoutedEvent = ClockControl.DiscreteChangedEvent;
+        args.RoutedEvent = DiscreteChangedEvent;
         RaiseEvent(args);
     }
-
-
 
     /// <summary>
     /// Fire the OnIsRunningChanged event when the motion type changes.
@@ -348,11 +339,9 @@ public class ClockControl : System.Windows.Controls.Control
     {
         InitTimer(newValue);
         RoutedPropertyChangedEventArgs<bool> args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue);
-        args.RoutedEvent = ClockControl.RunningChangedEvent;
+        args.RoutedEvent = RunningChangedEvent;
         RaiseEvent(args);
     }
-
-
 
     /// <summary>
     /// Will be called every time the ClockControl.DateTime property changes.
@@ -370,8 +359,6 @@ public class ClockControl : System.Windows.Controls.Control
         }
     }
 
-
-
     /// <summary>
     /// Will be called every time the ClockControl.IsDiscrete property changes.
     /// </summary>
@@ -385,8 +372,6 @@ public class ClockControl : System.Windows.Controls.Control
         if (oldValue != newValue)
             clock.OnIsDiscreteChanged(oldValue, newValue);
     }
-
-
 
     /// <summary>
     /// Will be called every time the ClockControl.IsRunning property changes.
@@ -402,74 +387,4 @@ public class ClockControl : System.Windows.Controls.Control
             clock.OnIsRunningChanged(oldValue, newValue);
     }
 
-
-
-    /// <summary>
-    /// Create a GlyphRun object corresponding to the specified text, at the
-    /// specified location and size.
-    /// </summary>
-    private GlyphRun CreateGlyphRun(string text, Point origin, double fontSize)
-    {
-        ushort[] glyphIndexes = new ushort[text.Length];
-        double[] advanceWidths = new double[text.Length];
-
-        for (int n = 0; n < text.Length; n++)
-        {
-            ushort glyphIndex = _hourFontGlyph.CharacterToGlyphMap[text[n]];
-            glyphIndexes[n] = glyphIndex;
-            double width = _hourFontGlyph.AdvanceWidths[glyphIndex] * fontSize;
-            advanceWidths[n] = width;
-        }
-
-        // Устаревшее.
-        //GlyphRun glyphRun = new GlyphRun(_hourFontGlyph, 0, false, fontSize,
-        //    glyphIndexes, origin, advanceWidths, null, null, null, null,
-        //    null, null);
-
-        var pixelsPerDip = 1.25f;
-        GlyphRun glyphRun = new GlyphRun(_hourFontGlyph, 0, false, fontSize, pixelsPerDip,
-            glyphIndexes, origin, advanceWidths, null, null, null, null,
-            null, null);
-
-        return glyphRun;
-    }
-
-
-
-    /// <summary>
-    /// Timer used to drive the clock.
-    /// </summary>
-    DispatcherTimer? _timer = null;
-
-
-
-    /// <summary>
-    /// Cache the clock's "last tick time".
-    /// </summary>
-    DateTime _lastTick = DateTime.Now;
-
-
-    /// <summary>
-    /// Radius of the circle used to position numerals on the clock face.
-    /// </summary>
-    //double              _numeralRadius = 36;
-
-
-    /// <summary>
-    /// Background brush for clock geometry.
-    /// </summary>
-    SolidColorBrush _brush = new SolidColorBrush(Color.FromRgb(64, 64, 64));
-
-
-
-    /// <summary>
-    /// Default font for the clock face.
-    /// </summary>
-    Typeface? _hourFont = null;
-
-
-    /// <summary>
-    /// A glyph-friendly typeface for rendering the actual clock glyphs.
-    /// </summary>
-    GlyphTypeface? _hourFontGlyph = null;
 }
