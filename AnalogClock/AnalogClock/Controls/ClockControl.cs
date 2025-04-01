@@ -139,10 +139,6 @@ public class ClockControl : System.Windows.Controls.Control
         //var pixelsPerDip = 1.5f;  // масштаб 150%
         //var pixelsPerDip = 1.75f;  // масштаб 175%
 
-        //var glyphRun = new GlyphRun(hourFontGlyph, 0, false, fontSize, pixelsPerDip,
-        //    glyphIndexes, point, advanceWidths, null, null, null, null, null, null);
-        //return glyphRun;
-
         return new GlyphRun(hourFontGlyph, 0, false, fontSize, pixelsPerDip, glyphIndexes,
                             point, advanceWidths, null, null, null, null, null, null);
     }
@@ -220,7 +216,7 @@ public class ClockControl : System.Windows.Controls.Control
             "DateTime",
             typeof(DateTime),
             typeof(ClockControl),
-            new PropertyMetadata(DateTime.Now, new PropertyChangedCallback(OnDateTimeInvalidated)));
+            new PropertyMetadata(DateTime.Now, new PropertyChangedCallback(OnDateTimePropertyChanged)));
 
     /// <summary>
     /// Register the "HourRadius" property as a formal dependency property.
@@ -238,7 +234,31 @@ public class ClockControl : System.Windows.Controls.Control
             "IsRunning",
             typeof(bool),
             typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningInvalidated)));
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
+
+    /// <summary>
+    /// Will be called every time the ClockControl.DateTime property changes.
+    /// </summary>
+    private static void OnDateTimePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (DateTime)e.OldValue;
+        var newValue = (DateTime)e.NewValue;
+        if (oldValue.Second != newValue.Second)
+            clock.OnDateTimeChanged(oldValue, newValue.AddMilliseconds(-newValue.Millisecond));
+    }
+
+    /// <summary>
+    /// Will be called every time the ClockControl.IsRunning property changes.
+    /// </summary>
+    private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnIsRunningChanged(oldValue, newValue);
+    }
 
     /// <summary>
     /// Set up a DateTimeChanged event.
@@ -265,8 +285,10 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     protected virtual void OnDateTimeChanged(DateTime oldValue, DateTime newValue)
     {
-        RoutedPropertyChangedEventArgs<DateTime> args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue);
-        args.RoutedEvent = DateTimeChangedEvent;
+        var args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue)
+        {
+            RoutedEvent = DateTimeChangedEvent
+        };
         RaiseEvent(args);
     }
 
@@ -278,39 +300,11 @@ public class ClockControl : System.Windows.Controls.Control
     protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
     {
         InitTimer(newValue);
-        RoutedPropertyChangedEventArgs<bool> args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue);
-        args.RoutedEvent = RunningChangedEvent;
-        RaiseEvent(args);
-    }
-
-    /// <summary>
-    /// Will be called every time the ClockControl.DateTime property changes.
-    /// </summary>
-    private static void OnDateTimeInvalidated(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        ClockControl clock = (ClockControl)d;
-
-        DateTime oldValue = (DateTime)e.OldValue;
-        DateTime newValue = (DateTime)e.NewValue;
-
-        if (oldValue.Second != newValue.Second)
+        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
-            clock.OnDateTimeChanged(oldValue, newValue.AddMilliseconds(-newValue.Millisecond));
-        }
-    }
-
-    /// <summary>
-    /// Will be called every time the ClockControl.IsRunning property changes.
-    /// </summary>
-    private static void OnIsRunningInvalidated(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        ClockControl clock = (ClockControl)d;
-
-        bool oldValue = (bool)e.OldValue;
-        bool newValue = (bool)e.NewValue;
-
-        if (oldValue != newValue)
-            clock.OnIsRunningChanged(oldValue, newValue);
+            RoutedEvent = RunningChangedEvent
+        };
+        RaiseEvent(args);
     }
 
 }
