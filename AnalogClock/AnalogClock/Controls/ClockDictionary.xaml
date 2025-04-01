@@ -4,7 +4,6 @@
                     xmlns:local="clr-namespace:AnalogClock.Controls"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <!--<local:MillisecondsConverter x:Key="MillisecondsConverter"/>-->
     <local:SecondsConverter x:Key="SecondsConverter"/>
     <local:MinutesConverter x:Key="MinutesConverter"/>
     <local:HoursConverter x:Key="HoursConverter"/>

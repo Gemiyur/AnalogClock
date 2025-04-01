@@ -8,21 +8,12 @@ using Size = System.Windows.Size;
 namespace AnalogClock.Controls;
 
 // TODO: Разобраться с модификаторами доступа.
-// TODOH: Убрать после рефакторинга непрерывный режим, оставить только дискретный (свойство IsDiscrete).
 
 /// <summary>
 /// Элемент управления "Часы".
 /// </summary>
 public class ClockControl : System.Windows.Controls.Control
 {
-    ///// <summary>
-    ///// Static constructor. Initialize the theme's default style. See generic.xaml.
-    ///// </summary>
-    //static ClockControl()
-    //{
-    //    DefaultStyleKeyProperty.OverrideMetadata(typeof(ClockControl), new FrameworkPropertyMetadata(typeof(ClockControl)));
-    //}
-
     /// <summary>
     /// Таймер часов.
     /// </summary>
@@ -59,19 +50,6 @@ public class ClockControl : System.Windows.Controls.Control
     {
         get => (double)GetValue(HourRadiusProperty);
         set => SetValue(HourRadiusProperty, value);
-    }
-
-    /// <summary>
-    /// Возвращает или задаёт дискретный или непрерывный режим работы часов.
-    /// </summary>
-    /// <remarks>
-    /// true - дискретный режим<br/>
-    /// false - непрерывный режим 
-    /// </remarks>
-    public bool IsDiscrete
-    {
-        get => (bool)GetValue(IsDiscreteProperty);
-        set => SetValue(IsDiscreteProperty, value);
     }
 
     /// <summary>
@@ -208,9 +186,8 @@ public class ClockControl : System.Windows.Controls.Control
         if (create && timer == null)
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(10);
-            //timer.Interval = TimeSpan.FromMilliseconds(1000);
-            //timer.Interval = TimeSpan.FromMilliseconds(100 - DateTime.Now.Millisecond / 10);
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            //timer.Interval = TimeSpan.FromMilliseconds(10);
             timer.Tick += Timer_Tick;
             timer.Start();
         }
@@ -229,17 +206,11 @@ public class ClockControl : System.Windows.Controls.Control
     private void Timer_Tick(object? sender, EventArgs e)
     {
         DateTime now = DateTime.Now;
-        if (!IsDiscrete || now.Second != lastTick.Second)
-            UpdateDateTime(now);
-    }
-
-    /// <summary>
-    /// Обновляет отображаемое время часов в текущее время.
-    /// </summary>
-    private void UpdateDateTime(DateTime newVal)
-    {
-        lastTick = newVal;
-        DateTime = (IsDiscrete) ? newVal.AddMilliseconds(-newVal.Millisecond) : newVal;
+        if (now.Second != lastTick.Second)
+        {
+            lastTick = now;
+            DateTime = now.AddMilliseconds(-now.Millisecond);
+        }
     }
 
     /// <summary>
@@ -261,15 +232,6 @@ public class ClockControl : System.Windows.Controls.Control
             new PropertyMetadata(36.0));
 
     /// <summary>
-    /// Register the "IsDiscrete" property as a formal dependency property.
-    /// </summary>
-    public static DependencyProperty IsDiscreteProperty = DependencyProperty.Register(
-            "IsDiscrete",
-            typeof(bool),
-            typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsDiscreteInvalidated)));
-
-    /// <summary>
     /// Register the "IsRunning" property as a formal dependency property.
     /// </summary>
     public static DependencyProperty IsRunningProperty = DependencyProperty.Register(
@@ -289,16 +251,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(ClockControl));
 
     /// <summary>
-    /// Set up an DiscreteChanged event.
-    /// </summary>
-    public static readonly RoutedEvent DiscreteChangedEvent =
-        EventManager.RegisterRoutedEvent(
-            "DiscreteChanged",
-            RoutingStrategy.Bubble,
-            typeof(RoutedPropertyChangedEventHandler<bool>),
-            typeof(ClockControl));
-
-    /// <summary>
     /// Set up an RunningChanged event.
     /// </summary>
     public static readonly RoutedEvent RunningChangedEvent =
@@ -315,18 +267,6 @@ public class ClockControl : System.Windows.Controls.Control
     {
         RoutedPropertyChangedEventArgs<DateTime> args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue);
         args.RoutedEvent = DateTimeChangedEvent;
-        RaiseEvent(args);
-    }
-
-    /// <summary>
-    /// Fire the IsDiscreteChanged event when the motion type changes.
-    /// </summary>
-    /// <param name="oldValue"></param>
-    /// <param name="newValue"></param>
-    protected virtual void OnIsDiscreteChanged(bool oldValue, bool newValue)
-    {
-        RoutedPropertyChangedEventArgs<bool> args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue);
-        args.RoutedEvent = DiscreteChangedEvent;
         RaiseEvent(args);
     }
 
@@ -357,20 +297,6 @@ public class ClockControl : System.Windows.Controls.Control
         {
             clock.OnDateTimeChanged(oldValue, newValue.AddMilliseconds(-newValue.Millisecond));
         }
-    }
-
-    /// <summary>
-    /// Will be called every time the ClockControl.IsDiscrete property changes.
-    /// </summary>
-    private static void OnIsDiscreteInvalidated(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        ClockControl clock = (ClockControl)d;
-
-        bool oldValue = (bool)e.OldValue;
-        bool newValue = (bool)e.NewValue;
-
-        if (oldValue != newValue)
-            clock.OnIsDiscreteChanged(oldValue, newValue);
     }
 
     /// <summary>

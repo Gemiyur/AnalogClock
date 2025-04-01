@@ -29,7 +29,7 @@
         <Viewbox>
             <Border BorderThickness="1">
 
-                <clock:ClockControl IsDiscrete="True" IsRunning="True" Template="{StaticResource ClockTemplate}" />
+                <clock:ClockControl IsRunning="True" Template="{StaticResource ClockTemplate}" />
 
             </Border>
         </Viewbox>
