@@ -25,11 +25,11 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Background="#232323">
+    <Grid>
         <Viewbox>
             <Border BorderThickness="1">
 
-                <clock:ClockControl IsDiscrete="True" IsRunning="True" Style="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type clock:ClockControl}, ResourceId=ClockStyleOffice}}" />
+                <clock:ClockControl IsDiscrete="True" IsRunning="True" Template="{StaticResource ClockTemplate}" />
 
             </Border>
         </Viewbox>

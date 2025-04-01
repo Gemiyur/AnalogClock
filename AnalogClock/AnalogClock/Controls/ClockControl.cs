@@ -112,7 +112,7 @@ public class ClockControl : System.Windows.Controls.Control
     public override void OnApplyTemplate()
     {
         // TODO: Возможно реализацию прорисовки часов следует вынести в отдельный метод.
-        var labels = ((DrawingGroup)Template.FindName("clockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
+        var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
         double innerOffset = (50 - HourRadius) + 1;
         double innerCircleDiameter = HourRadius * 2;
         double fontSize = FontSize;
