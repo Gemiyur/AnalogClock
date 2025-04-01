@@ -476,14 +476,6 @@
                                     </GeometryDrawing.Pen>
                                 </GeometryDrawing>
 
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
-                                        <GeometryGroup>
-                                            <EllipseGeometry Center="50,50" RadiusX="45" RadiusY="45" />
-                                        </GeometryGroup>
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
-
                             </DrawingGroup>
                         </DrawingImage.Drawing>
                     </DrawingImage>
