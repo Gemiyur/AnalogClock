@@ -20,4 +20,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    //private void ToggleClockButton_Click(object sender, RoutedEventArgs e)
+    //{
+    //    Clock.IsRunning = !Clock.IsRunning;
+    //}
 }

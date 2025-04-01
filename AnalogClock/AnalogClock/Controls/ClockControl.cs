@@ -17,7 +17,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Таймер часов.
     /// </summary>
-    private DispatcherTimer? timer = null;
+    private DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
 
     /// <summary>
     /// Время последнего срабатывания обработчика события таймера.
@@ -75,6 +75,7 @@ public class ClockControl : System.Windows.Controls.Control
         // TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
         if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
             throw new InvalidOperationException("Глиф для шрифта не найден.");
+        timer.Tick += Timer_Tick;
 
     }
 
@@ -84,12 +85,7 @@ public class ClockControl : System.Windows.Controls.Control
     protected override void OnInitialized(EventArgs e)
     {
         base.OnInitialized(e);
-        // TODO: Может нужно создать конструктор и часть или всё перенести туда?
-        InitTimer(IsRunning);
-        //hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
-        //// TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
-        //if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
-        //    throw new InvalidOperationException("Глиф для шрифта не найден.");
+        ToggleTimer(IsRunning);
     }
 
     /// <summary>
@@ -187,26 +183,19 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Инициализирует таймер часов.
+    /// Запускает или останавливает таймер часов.
     /// </summary>
-    protected void InitTimer(bool create)
+    /// <param name="start">Запустить или остановить таймер: true - запустить, false - остановить.</param>
+    /// <remarks>
+    ///  start = true - запустить<br/>
+    ///  start = false - остановить
+    /// </remarks>
+    protected void ToggleTimer(bool start)
     {
-        // TODO: Надо ли убивать таймер при остановке или просто останавливать?
-        if (create && timer == null)
-        {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
-            //timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Tick += Timer_Tick;
+        if (start)
             timer.Start();
-        }
-        else if (!create && timer != null)
-        {
+        else
             timer.Stop();
-            timer.Tick -= Timer_Tick;
-            timer.Interval = TimeSpan.Zero;
-            timer = null;
-        }
     }
 
     /// <summary>
@@ -312,7 +301,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// <param name="newValue"></param>
     protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
     {
-        InitTimer(newValue);
+        ToggleTimer(newValue);
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = RunningChangedEvent

@@ -29,9 +29,15 @@
         <Viewbox>
             <Border BorderThickness="1">
 
-                <clock:ClockControl IsRunning="True" Template="{StaticResource ClockTemplate}" />
+                <clock:ClockControl x:Name="Clock" IsRunning="True" Template="{StaticResource ClockTemplate}" />
 
             </Border>
         </Viewbox>
+
+        <!--<Button x:Name="ToggleClockButton" Content="Вкл./Выкл."
+                Width="75" Height="25"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="0,0,10,10" Click="ToggleClockButton_Click" />-->
+
     </Grid>
 </Window>
