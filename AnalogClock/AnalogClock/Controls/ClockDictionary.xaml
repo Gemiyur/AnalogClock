@@ -4,10 +4,10 @@
                     xmlns:local="clr-namespace:AnalogClock.Controls"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <local:MillisecondsConverter x:Key="milliConverter"/>
-    <local:SecondsConverter x:Key="secondsConverter"/>
-    <local:MinutesConverter x:Key="minutesConverter"/>
-    <local:HoursConverter x:Key="hoursConverter"/>
+    <!--<local:MillisecondsConverter x:Key="MillisecondsConverter"/>-->
+    <local:SecondsConverter x:Key="SecondsConverter"/>
+    <local:MinutesConverter x:Key="MinutesConverter"/>
+    <local:HoursConverter x:Key="HoursConverter"/>
 
     <ControlTemplate x:Key="ClockTemplate" TargetType="{x:Type local:ClockControl}">
         <Canvas Width="100" Height="100">
@@ -434,7 +434,7 @@
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
                                             <GeometryGroup.Transform>
-                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource hoursConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
+                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource HoursConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
                                             </GeometryGroup.Transform>
                                             <LineGeometry StartPoint="50,53" EndPoint="50, 25"/>
                                         </GeometryGroup>
@@ -450,7 +450,7 @@
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
                                             <GeometryGroup.Transform>
-                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource minutesConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
+                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource MinutesConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
                                             </GeometryGroup.Transform>
                                             <LineGeometry StartPoint="50,53" EndPoint="50, 14"/>
                                         </GeometryGroup>
@@ -466,7 +466,7 @@
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
                                             <GeometryGroup.Transform>
-                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource milliConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
+                                                <RotateTransform Angle="{Binding DateTime, Converter={StaticResource SecondsConverter}, RelativeSource={RelativeSource TemplatedParent}}" CenterX="50" CenterY="50"/>
                                             </GeometryGroup.Transform>
                                             <LineGeometry StartPoint="50,50" EndPoint="50, 10"/>
                                             <EllipseGeometry Center="50, 50" RadiusX="1" RadiusY="1" />

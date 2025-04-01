@@ -3,23 +3,23 @@ using System.Windows.Data;
 
 namespace AnalogClock.Controls;
 
-/// <summary>
-/// Преобразует миллисекунды в угол часов.
-/// </summary>
-[ValueConversion(typeof(DateTime), typeof(double))]
-public class MillisecondsConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        DateTime date = (DateTime)value;
-        return (date.Second * 6) + (date.Millisecond * 0.006);
-    }
+///// <summary>
+///// Преобразует миллисекунды в угол часов.
+///// </summary>
+//[ValueConversion(typeof(DateTime), typeof(double))]
+//public class MillisecondsConverter : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        DateTime date = (DateTime)value;
+//        return (date.Second * 6) + (date.Millisecond * 0.006);
+//    }
 
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return null;
-    }
-}
+//    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        return null;
+//    }
+//}
 
 /// <summary>
 /// Преобразует секунды в угол часов.
