@@ -27,12 +27,12 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Шрифт циферблата часов.
     /// </summary>
-    private Typeface? hourFont = null;
+    private readonly Typeface hourFont;
 
     /// <summary>
     /// Глиф шрифта циферблата часов.
     /// </summary>
-    private GlyphTypeface? hourFontGlyph = null;
+    private readonly GlyphTypeface hourFontGlyph;
 
     /// <summary>
     /// Возвращает или задаёт отображаемое на часах время.
@@ -66,6 +66,19 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
+    public ClockControl()
+    {
+        hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
+        // TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
+        if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
+            throw new InvalidOperationException("Глиф для шрифта не найден.");
+
+    }
+
+    /// <summary>
     /// Инициализирует элемент управления. Создаёт и запускает таймер.
     /// </summary>
     protected override void OnInitialized(EventArgs e)
@@ -73,10 +86,10 @@ public class ClockControl : System.Windows.Controls.Control
         base.OnInitialized(e);
         // TODO: Может нужно создать конструктор и часть или всё перенести туда?
         InitTimer(IsRunning);
-        hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
-        // TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
-        if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
-            throw new InvalidOperationException("Глиф для шрифта не найден.");
+        //hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
+        //// TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
+        //if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
+        //    throw new InvalidOperationException("Глиф для шрифта не найден.");
     }
 
     /// <summary>
