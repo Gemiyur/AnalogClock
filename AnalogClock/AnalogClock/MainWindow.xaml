@@ -34,10 +34,17 @@
             </Border>
         </Viewbox>
 
-        <!--<Button x:Name="ToggleClockButton" Content="Вкл./Выкл."
+        <Button x:Name="StartClockButton" Content="Пуск"
+                Width="75" Height="25"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="10,0,0,10"
+                Click="StartClockButton_Click" />
+
+        <Button x:Name="StopClockButton" Content="Стоп"
                 Width="75" Height="25"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                Margin="0,0,10,10" Click="ToggleClockButton_Click" />-->
+                Margin="0,0,10,10"
+                Click="StopClockButton_Click" />
 
     </Grid>
 </Window>

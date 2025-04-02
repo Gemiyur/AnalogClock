@@ -21,8 +21,13 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    //private void ToggleClockButton_Click(object sender, RoutedEventArgs e)
-    //{
-    //    Clock.IsRunning = !Clock.IsRunning;
-    //}
+    private void StartClockButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsRunning = true;
+    }
+
+    private void StopClockButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsRunning = false;
+    }
 }

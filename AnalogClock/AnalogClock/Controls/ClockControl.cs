@@ -7,8 +7,6 @@ using Size = System.Windows.Size;
 
 namespace AnalogClock.Controls;
 
-// TODO: Разобраться с модификаторами доступа.
-
 /// <summary>
 /// Элемент управления "Часы".
 /// </summary>
@@ -157,14 +155,10 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     /// <param name="hour">Час. Значение от 1 до 12.</param>
     /// <returns>Точка верхнего левого угла текста часа на циферблате.</returns>
-    public Point GetHourPosition(int hour)
+    private Point GetHourPosition(int hour)
     {
-        // Так в оригинале.
-        //double angle = (30.0 * hour) - 90;
-        //double rads = (Math.PI / 180) * angle;
-
         var angle = (Math.PI / 180) * ((30.0 * hour) - 90);
-        return new Point((50 + HourRadius * Math.Cos(angle)), (50 + HourRadius * Math.Sin(angle)));
+        return new Point(HourRadius * Math.Cos(angle) + 50, HourRadius * Math.Sin(angle) + 50);
     }
 
     /// <summary>
@@ -185,17 +179,14 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Запускает или останавливает таймер часов.
     /// </summary>
-    /// <param name="start">Запустить или остановить таймер: true - запустить, false - остановить.</param>
+    /// <param name="run">Запустить или остановить таймер: true - запустить, false - остановить.</param>
     /// <remarks>
-    ///  start = true - запустить<br/>
-    ///  start = false - остановить
+    ///  run = true - запустить<br/>
+    ///  run = false - остановить
     /// </remarks>
-    protected void ToggleTimer(bool start)
+    private void ToggleTimer(bool run)
     {
-        if (start)
-            timer.Start();
-        else
-            timer.Stop();
+        timer.IsEnabled = run;
     }
 
     /// <summary>
@@ -211,36 +202,24 @@ public class ClockControl : System.Windows.Controls.Control
         }
     }
 
-    /// <summary>
-    /// Register the "DateTime" property as a formal dependency property.
-    /// </summary>
-    public static DependencyProperty DateTimeProperty = DependencyProperty.Register(
+    internal static DependencyProperty DateTimeProperty = DependencyProperty.Register(
             "DateTime",
             typeof(DateTime),
             typeof(ClockControl),
             new PropertyMetadata(DateTime.Now, new PropertyChangedCallback(OnDateTimePropertyChanged)));
 
-    /// <summary>
-    /// Register the "HourRadius" property as a formal dependency property.
-    /// </summary>
-    public static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
+    internal static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
             "HourRadius",
             typeof(double),
             typeof(ClockControl),
             new PropertyMetadata(36.0));
 
-    /// <summary>
-    /// Register the "IsRunning" property as a formal dependency property.
-    /// </summary>
-    public static DependencyProperty IsRunningProperty = DependencyProperty.Register(
+    internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
             "IsRunning",
             typeof(bool),
             typeof(ClockControl),
             new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
 
-    /// <summary>
-    /// Will be called every time the ClockControl.DateTime property changes.
-    /// </summary>
     private static void OnDateTimePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var clock = (ClockControl)d;
@@ -250,9 +229,6 @@ public class ClockControl : System.Windows.Controls.Control
             clock.OnDateTimeChanged(oldValue, newValue.AddMilliseconds(-newValue.Millisecond));
     }
 
-    /// <summary>
-    /// Will be called every time the ClockControl.IsRunning property changes.
-    /// </summary>
     private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var clock = (ClockControl)d;
@@ -262,9 +238,6 @@ public class ClockControl : System.Windows.Controls.Control
             clock.OnIsRunningChanged(oldValue, newValue);
     }
 
-    /// <summary>
-    /// Set up a DateTimeChanged event.
-    /// </summary>
     public static readonly RoutedEvent DateTimeChangedEvent =
         EventManager.RegisterRoutedEvent(
             "DateTimeChanged",
@@ -272,9 +245,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(RoutedPropertyChangedEventHandler<DateTime>),
             typeof(ClockControl));
 
-    /// <summary>
-    /// Set up an RunningChanged event.
-    /// </summary>
     public static readonly RoutedEvent RunningChangedEvent =
         EventManager.RegisterRoutedEvent(
             "RunningChanged",
@@ -282,9 +252,6 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(RoutedPropertyChangedEventHandler<bool>),
             typeof(ClockControl));
 
-    /// <summary>
-    /// Fire the DateTimeChanged event when the time changes.
-    /// </summary>
     protected virtual void OnDateTimeChanged(DateTime oldValue, DateTime newValue)
     {
         var args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue)
@@ -294,11 +261,6 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    /// <summary>
-    /// Fire the OnIsRunningChanged event when the motion type changes.
-    /// </summary>
-    /// <param name="oldValue"></param>
-    /// <param name="newValue"></param>
     protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
     {
         ToggleTimer(newValue);
