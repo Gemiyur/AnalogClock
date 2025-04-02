@@ -135,14 +135,11 @@ public class ClockControl : System.Windows.Controls.Control
             advanceWidths[i] = width;
         }
 
-        // Устаревшее. Так в оригинале.
-        //GlyphRun glyphRun = new GlyphRun(hourFontGlyph, 0, false, fontSize,
-        //    glyphIndexes, point, advanceWidths, null, null, null, null, null, null);
-
-        // TODO: Тут надо поэкспериментировать с масштабом экрана.
-        // Возможные варианты: 100%, 125%, 150% и 175%.
-        var pixelsPerDip = 1.25f;  // мой масштаб 125%
+        // Значение пикселя, не зависящее от плотности, которое эквивалентно масштабному коэффициенту экрана.
+        // Поэкспериментировал. Разницы при разных коэффициентах никакой не заметил. Поставил 1.25 (свой).
+        // Возможные варианты:
         //var pixelsPerDip = 1f;  // масштаб 100%
+        var pixelsPerDip = 1.25f;  // масштаб 125% (мой)
         //var pixelsPerDip = 1.5f;  // масштаб 150%
         //var pixelsPerDip = 1.75f;  // масштаб 175%
 
