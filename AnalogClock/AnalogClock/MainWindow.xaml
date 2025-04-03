@@ -31,8 +31,6 @@
             <Border BorderThickness="1">
 
                 <clock:ClockControl x:Name="Clock"
-                                    IsRomanDigits="False"
-                                    IsRunning="True"
                                     Template="{StaticResource ClockTemplate}" />
                 
                 <!--<clock:ClockControl x:Name="Clock"

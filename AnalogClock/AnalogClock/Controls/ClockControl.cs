@@ -7,8 +7,6 @@ using Size = System.Windows.Size;
 
 namespace AnalogClock.Controls;
 
-// TODO: Сделать варианты отображения цифр на циферблате: не отображать, арабские цифры, римские цифры.
-
 /// <summary>
 /// Элемент управления "Часы".
 /// </summary>
@@ -130,8 +128,12 @@ public class ClockControl : System.Windows.Controls.Control
     /// </remarks>
     public override void OnApplyTemplate()
     {
-        // TODO: Возможно прорисовку цифр на циферблате следует вынести в отдельный метод.
-        if (hourFontGlyph == null)
+        DrawDigits();
+    }
+
+    private void DrawDigits()
+    {
+        if (hourFontGlyph == null || Template == null)
             return;
         string[] romanDigits = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
         var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
@@ -141,7 +143,6 @@ public class ClockControl : System.Windows.Controls.Control
         int index = 1;
         foreach (var label in labels)
         {
-            //var text = index.ToString();
             var text = IsRomanDigits ? romanDigits[index - 1] : index.ToString();
             var point = GetHourPosition(index);
             var size = MeasureString(text, fontSize);
@@ -240,16 +241,6 @@ public class ClockControl : System.Windows.Controls.Control
         }
     }
 
-    /// <summary>
-    /// Обновляет шаблон (применяет шаблон заново).
-    /// </summary>
-    private void UpdateTemplate()
-    {
-        var template = Template;
-        Template = null;
-        Template = template;
-    }
-
     internal static DependencyProperty DateTimeProperty = DependencyProperty.Register(
             "DateTime",
             typeof(DateTime),
@@ -325,7 +316,7 @@ public class ClockControl : System.Windows.Controls.Control
             "IsRomanDigits",
             typeof(bool),
             typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRomanDigitsPropertyChanged)));
+            new PropertyMetadata(false, new PropertyChangedCallback(OnIsRomanDigitsPropertyChanged)));
 
     private static void OnIsRomanDigitsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -345,7 +336,7 @@ public class ClockControl : System.Windows.Controls.Control
 
     protected virtual void OnIsRomanDigitsChanged(bool oldValue, bool newValue)
     {
-        UpdateTemplate();
+        DrawDigits();
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = RomanDigitsChangedEvent
