@@ -121,7 +121,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// </remarks>
     public override void OnApplyTemplate()
     {
-        // TODO: Возможно реализацию прорисовки часов следует вынести в отдельный метод.
+        // TODO: Возможно прорисовку цифр на циферблате следует вынести в отдельный метод.
         if (hourFontGlyph == null)
             return;
         var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
