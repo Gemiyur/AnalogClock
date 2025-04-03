@@ -7,13 +7,15 @@ using Size = System.Windows.Size;
 
 namespace AnalogClock.Controls;
 
+// TODO: Сделать варианты отображения цифр на циферблате: не отображать, арабские цифры, римские цифры.
+
 /// <summary>
 /// Элемент управления "Часы".
 /// </summary>
 public class ClockControl : System.Windows.Controls.Control
 {
     /// <summary>
-    /// Таймер часов.
+    /// Таймер.
     /// </summary>
     private DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
 
@@ -22,15 +24,25 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     private DateTime lastTick = DateTime.Now;
 
+    ///// <summary>
+    ///// Могут ли отображаться цифры на циферблате.
+    ///// </summary>
+    //private readonly bool canDigitsShown;
+
+    ///// <summary>
+    ///// Нужно ли отображать цифры на циферблате.
+    ///// </summary>
+    //private bool needDigitsShown = true;
+
     /// <summary>
-    /// Шрифт циферблата часов.
+    /// Шрифт циферблата.
     /// </summary>
     private readonly Typeface hourFont;
 
     /// <summary>
-    /// Глиф шрифта циферблата часов.
+    /// Глиф шрифта циферблата.
     /// </summary>
-    private readonly GlyphTypeface hourFontGlyph;
+    private readonly GlyphTypeface? hourFontGlyph;
 
     /// <summary>
     /// Возвращает или задаёт отображаемое на часах время.
@@ -42,13 +54,22 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Возвращает или задаёт радиус для отрисовки чисел часов.
+    /// Возвращает или задаёт радиус для отрисовки цифр на циферблате.
     /// </summary>
     public double HourRadius
     {
         get => (double)GetValue(HourRadiusProperty);
         set => SetValue(HourRadiusProperty, value);
     }
+
+    ///// <summary>
+    ///// Отображаются ли цифры на циферблате.
+    ///// </summary>
+    //public bool IsDigitsShown
+    //{
+    //    get => canDigitsShown && needDigitsShown;
+    //    set => needDigitsShown = value;
+    //}
 
     /// <summary>
     /// Возвращает или задаёт работают ли часы или они остановлены.
@@ -70,15 +91,19 @@ public class ClockControl : System.Windows.Controls.Control
     public ClockControl()
     {
         hourFont = new Typeface(FontFamily, FontStyle, FontWeight, FontStretch);
-        // TODO: Надо ли выбрасывать исключение или поступить как-то иначе?
         if (!hourFont.TryGetGlyphTypeface(out hourFontGlyph))
-            throw new InvalidOperationException("Глиф для шрифта не найден.");
-        timer.Tick += Timer_Tick;
+        {
+            // Тут, возможно, будут какие-то действия, если глиф для шрифта не найден.
+        }
 
+        // Это пока оставлено для отладки.
+        //hourFontGlyph = null;
+
+        timer.Tick += Timer_Tick;
     }
 
     /// <summary>
-    /// Инициализирует элемент управления. Создаёт и запускает таймер.
+    /// Инициализирует элемент управления. Запускает таймер.
     /// </summary>
     protected override void OnInitialized(EventArgs e)
     {
@@ -91,12 +116,14 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     /// <remarks>
     /// Здесь можно манипулировать шаблоном элемента управления на лету по своему усмотрению.<br/>
-    /// В данном случае рисуются числа часов на циферблате часов заданным шрифтом и цветом.<br/>
+    /// В данном случае рисуются числа на циферблате заданным шрифтом и цветом.<br/>
     /// Это можно было бы сделать и в XAML, но в данном проекте предпочтительней это делать в коде.
     /// </remarks>
     public override void OnApplyTemplate()
     {
         // TODO: Возможно реализацию прорисовки часов следует вынести в отдельный метод.
+        if (hourFontGlyph == null)
+            return;
         var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
         double innerOffset = (50 - HourRadius) + 1;
         double innerCircleDiameter = HourRadius * 2;
@@ -122,11 +149,12 @@ public class ClockControl : System.Windows.Controls.Control
     /// <param name="point">Верхняя левая точка.</param>
     /// <param name="fontSize">Размер шрифта.</param>
     /// <returns>Объект GlyphRun.</returns>
-    private GlyphRun CreateGlyphRun(string text, Point point, double fontSize)
+    private GlyphRun? CreateGlyphRun(string text, Point point, double fontSize)
     {
+        if (hourFontGlyph == null)
+            return null;
         var glyphIndexes = new ushort[text.Length];
         var advanceWidths = new double[text.Length];
-
         for (var i = 0; i < text.Length; i++)
         {
             var glyphIndex = hourFontGlyph.CharacterToGlyphMap[text[i]];
@@ -163,6 +191,8 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     private Size MeasureString(string text, double fontSize)
     {
+        if (hourFontGlyph == null)
+            return new();
         var size = new Size();
         for (var i = 0; i < text.Length; i++)
         {
@@ -174,7 +204,7 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Запускает или останавливает таймер часов.
+    /// Запускает или останавливает таймер.
     /// </summary>
     /// <param name="run">Запустить или остановить таймер: true - запустить, false - остановить.</param>
     /// <remarks>

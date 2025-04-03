@@ -14,9 +14,9 @@
         d:Width="500" d:Height="300"
         WindowStartupLocation="CenterScreen">
 
-    <i:Interaction.Behaviors>
+    <!--<i:Interaction.Behaviors>
         <ntIconBeh:TrayIconBehavior />
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
 
     <Window.Resources>
         <ResourceDictionary>
