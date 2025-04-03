@@ -30,4 +30,14 @@ public partial class MainWindow : Window
     {
         Clock.IsRunning = false;
     }
+
+    private void ArabicButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsRomanDigits = false;
+    }
+
+    private void RomanButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsRomanDigits = true;
+    }
 }

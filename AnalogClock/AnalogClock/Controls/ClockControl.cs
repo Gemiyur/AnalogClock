@@ -17,7 +17,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Таймер.
     /// </summary>
-    private DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
+    private readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
 
     /// <summary>
     /// Время последнего срабатывания обработчика события таймера.
@@ -72,6 +72,15 @@ public class ClockControl : System.Windows.Controls.Control
     //}
 
     /// <summary>
+    /// Возвращает или задаёт отображение римских чисел вместо арабских.
+    /// </summary>
+    public bool IsRomanDigits
+    {
+        get => (bool)GetValue(IsRomanDigitsProperty);
+        set => SetValue(IsRomanDigitsProperty, value);
+    }
+
+    /// <summary>
     /// Возвращает или задаёт работают ли часы или они остановлены.
     /// </summary>
     /// <remarks>
@@ -124,6 +133,7 @@ public class ClockControl : System.Windows.Controls.Control
         // TODO: Возможно прорисовку цифр на циферблате следует вынести в отдельный метод.
         if (hourFontGlyph == null)
             return;
+        string[] romanDigits = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
         var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
         double innerOffset = (50 - HourRadius) + 1;
         double innerCircleDiameter = HourRadius * 2;
@@ -131,7 +141,8 @@ public class ClockControl : System.Windows.Controls.Control
         int index = 1;
         foreach (var label in labels)
         {
-            var text = index.ToString();
+            //var text = index.ToString();
+            var text = IsRomanDigits ? romanDigits[index - 1] : index.ToString();
             var point = GetHourPosition(index);
             var size = MeasureString(text, fontSize);
             point.X -= ((point.X - innerOffset) / innerCircleDiameter) * size.Width;
@@ -229,6 +240,16 @@ public class ClockControl : System.Windows.Controls.Control
         }
     }
 
+    /// <summary>
+    /// Обновляет шаблон (применяет шаблон заново).
+    /// </summary>
+    private void UpdateTemplate()
+    {
+        var template = Template;
+        Template = null;
+        Template = template;
+    }
+
     internal static DependencyProperty DateTimeProperty = DependencyProperty.Register(
             "DateTime",
             typeof(DateTime),
@@ -294,6 +315,40 @@ public class ClockControl : System.Windows.Controls.Control
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = RunningChangedEvent
+        };
+        RaiseEvent(args);
+    }
+
+    // Римские цифры.
+
+    internal static DependencyProperty IsRomanDigitsProperty = DependencyProperty.Register(
+            "IsRomanDigits",
+            typeof(bool),
+            typeof(ClockControl),
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRomanDigitsPropertyChanged)));
+
+    private static void OnIsRomanDigitsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnIsRomanDigitsChanged(oldValue, newValue);
+    }
+
+    public static readonly RoutedEvent RomanDigitsChangedEvent =
+        EventManager.RegisterRoutedEvent(
+            "RomanDigitsChanged",
+            RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<bool>),
+            typeof(ClockControl));
+
+    protected virtual void OnIsRomanDigitsChanged(bool oldValue, bool newValue)
+    {
+        UpdateTemplate();
+        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
+        {
+            RoutedEvent = RomanDigitsChangedEvent
         };
         RaiseEvent(args);
     }
