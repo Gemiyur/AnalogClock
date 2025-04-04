@@ -50,4 +50,14 @@ public partial class MainWindow : Window
     {
         Clock.IsDigitsShown = false;
     }
+
+    private void BackgroundButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsTransparent = false;
+    }
+
+    private void TransparentButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsTransparent = true;
+    }
 }

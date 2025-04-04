@@ -18,7 +18,7 @@
 
                                 <!-- Круг циферблата часов. -->
 
-                                <GeometryDrawing>
+                                <GeometryDrawing x:Name="ClockBackgroundContainer">
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
                                             <EllipseGeometry Center="50,50" RadiusX="47.5" RadiusY="47.5" />

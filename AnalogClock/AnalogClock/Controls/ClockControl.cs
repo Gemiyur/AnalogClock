@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
@@ -23,6 +24,11 @@ public class ClockControl : System.Windows.Controls.Control
     private DateTime lastTick = DateTime.Now;
 
     /// <summary>
+    /// Кисть часов из шаблона.
+    /// </summary>
+    private Brush? backgroundBrush;
+
+    /// <summary>
     /// Шрифт циферблата.
     /// </summary>
     private readonly Typeface hourFont;
@@ -31,6 +37,11 @@ public class ClockControl : System.Windows.Controls.Control
     /// Глиф шрифта циферблата.
     /// </summary>
     private readonly GlyphTypeface? hourFontGlyph;
+
+    /// <summary>
+    /// Контейнер кисти фона циферблата.
+    /// </summary>
+    private GeometryDrawing BackgroundContainer => (GeometryDrawing)Template.FindName("ClockBackgroundContainer", this);
 
     /// <summary>
     /// Возвращает или задаёт отображаемое на часах время.
@@ -82,6 +93,19 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
+    /// Возвращает или задаёт прозрачность циферблата.
+    /// </summary>
+    /// <remarks>
+    /// true - циферблат имеет прозрачный фон<br/>
+    /// false - циферблат имеет фон из шаблона
+    /// </remarks>
+    public bool IsTransparent
+    {
+        get => (bool)GetValue(IsTransparentProperty);
+        set => SetValue(IsTransparentProperty, value);
+    }
+
+    /// <summary>
     /// Конструктор.
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
@@ -118,6 +142,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// </remarks>
     public override void OnApplyTemplate()
     {
+        backgroundBrush = BackgroundContainer.Brush;
         DrawDigits();
     }
 
@@ -215,6 +240,19 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
+    /// Устанавливает прозрачность циферблата.
+    /// </summary>
+    /// <param name="isTransparent">Прозрачность циферблата: true - прозрачный, false - фон из шаблона.</param>
+    /// <remarks>
+    /// true - циферблат имеет прозрачный фон<br/>
+    /// false - циферблат имеет фон из шаблона
+    /// </remarks>
+    private void SetTransparent(bool isTransparent)
+    {
+        BackgroundContainer.Brush = isTransparent ? null : backgroundBrush;
+    }
+
+    /// <summary>
     /// Запускает или останавливает таймер.
     /// </summary>
     /// <param name="run">Запустить или остановить таймер: true - запустить, false - остановить.</param>
@@ -283,36 +321,36 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(ClockControl),
             new PropertyMetadata(36.0));
 
-    // Запуск и остановка часов.
+    // Отображение цифр на циферблате.
 
-    internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
-            "IsRunning",
+    internal static DependencyProperty IsDigitsShownProperty = DependencyProperty.Register(
+            "IsDigitsShown",
             typeof(bool),
             typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsDigitsShownPropertyChanged)));
 
-    private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnIsDigitsShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var clock = (ClockControl)d;
         var oldValue = (bool)e.OldValue;
         var newValue = (bool)e.NewValue;
         if (oldValue != newValue)
-            clock.OnIsRunningChanged(oldValue, newValue);
+            clock.OnIsDigitsShownChanged(oldValue, newValue);
     }
 
-    public static readonly RoutedEvent RunningChangedEvent =
+    public static readonly RoutedEvent DigitsShownChangedEvent =
         EventManager.RegisterRoutedEvent(
-            "RunningChanged",
+            "DigitsShownChanged",
             RoutingStrategy.Bubble,
             typeof(RoutedPropertyChangedEventHandler<bool>),
             typeof(ClockControl));
 
-    protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
+    protected virtual void OnIsDigitsShownChanged(bool oldValue, bool newValue)
     {
-        ToggleTimer(newValue);
+        DrawDigits();
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
-            RoutedEvent = RunningChangedEvent
+            RoutedEvent = DigitsShownChangedEvent
         };
         RaiseEvent(args);
     }
@@ -351,36 +389,70 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Отображение цифр на циферблате.
+    // Запуск и остановка часов.
 
-    internal static DependencyProperty IsDigitsShownProperty = DependencyProperty.Register(
-            "IsDigitsShown",
+    internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
+            "IsRunning",
             typeof(bool),
             typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsDigitsShownPropertyChanged)));
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
 
-    private static void OnIsDigitsShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var clock = (ClockControl)d;
         var oldValue = (bool)e.OldValue;
         var newValue = (bool)e.NewValue;
         if (oldValue != newValue)
-            clock.OnIsDigitsShownChanged(oldValue, newValue);
+            clock.OnIsRunningChanged(oldValue, newValue);
     }
 
-    public static readonly RoutedEvent DigitsShownChangedEvent =
+    public static readonly RoutedEvent RunningChangedEvent =
         EventManager.RegisterRoutedEvent(
-            "DigitsShownChanged",
+            "RunningChanged",
             RoutingStrategy.Bubble,
             typeof(RoutedPropertyChangedEventHandler<bool>),
             typeof(ClockControl));
 
-    protected virtual void OnIsDigitsShownChanged(bool oldValue, bool newValue)
+    protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
     {
-        DrawDigits();
+        ToggleTimer(newValue);
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
-            RoutedEvent = DigitsShownChangedEvent
+            RoutedEvent = RunningChangedEvent
+        };
+        RaiseEvent(args);
+    }
+
+    // Прозрачность циферблата.
+
+    internal static DependencyProperty IsTransparentProperty = DependencyProperty.Register(
+            "IsTransparent",
+            typeof(bool),
+            typeof(ClockControl),
+            new PropertyMetadata(false, new PropertyChangedCallback(OnIsTransparentPropertyChanged)));
+
+    private static void OnIsTransparentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnIsTransparentChanged(oldValue, newValue);
+    }
+
+    public static readonly RoutedEvent TransparentChangedEvent =
+        EventManager.RegisterRoutedEvent(
+            "TransparentChanged",
+            RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<bool>),
+            typeof(ClockControl));
+
+    protected virtual void OnIsTransparentChanged(bool oldValue, bool newValue)
+    {
+        SetTransparent(newValue);
+        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
+        {
+            RoutedEvent = TransparentChangedEvent
         };
         RaiseEvent(args);
     }
