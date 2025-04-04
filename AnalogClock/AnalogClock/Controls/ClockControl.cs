@@ -22,16 +22,6 @@ public class ClockControl : System.Windows.Controls.Control
     /// </summary>
     private DateTime lastTick = DateTime.Now;
 
-    ///// <summary>
-    ///// Могут ли отображаться цифры на циферблате.
-    ///// </summary>
-    //private readonly bool canDigitsShown;
-
-    ///// <summary>
-    ///// Нужно ли отображать цифры на циферблате.
-    ///// </summary>
-    //private bool needDigitsShown = true;
-
     /// <summary>
     /// Шрифт циферблата.
     /// </summary>
@@ -250,23 +240,15 @@ public class ClockControl : System.Windows.Controls.Control
         }
     }
 
+    #region Свойства зависимостей.
+
+    // Отображаемое время.
+
     internal static DependencyProperty DateTimeProperty = DependencyProperty.Register(
             "DateTime",
             typeof(DateTime),
             typeof(ClockControl),
             new PropertyMetadata(DateTime.Now, new PropertyChangedCallback(OnDateTimePropertyChanged)));
-
-    internal static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
-            "HourRadius",
-            typeof(double),
-            typeof(ClockControl),
-            new PropertyMetadata(36.0));
-
-    internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
-            "IsRunning",
-            typeof(bool),
-            typeof(ClockControl),
-            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
 
     private static void OnDateTimePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -277,28 +259,12 @@ public class ClockControl : System.Windows.Controls.Control
             clock.OnDateTimeChanged(oldValue, newValue.AddMilliseconds(-newValue.Millisecond));
     }
 
-    private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var clock = (ClockControl)d;
-        var oldValue = (bool)e.OldValue;
-        var newValue = (bool)e.NewValue;
-        if (oldValue != newValue)
-            clock.OnIsRunningChanged(oldValue, newValue);
-    }
-
     public static readonly RoutedEvent DateTimeChangedEvent =
-        EventManager.RegisterRoutedEvent(
-            "DateTimeChanged",
-            RoutingStrategy.Bubble,
-            typeof(RoutedPropertyChangedEventHandler<DateTime>),
-            typeof(ClockControl));
-
-    public static readonly RoutedEvent RunningChangedEvent =
-        EventManager.RegisterRoutedEvent(
-            "RunningChanged",
-            RoutingStrategy.Bubble,
-            typeof(RoutedPropertyChangedEventHandler<bool>),
-            typeof(ClockControl));
+       EventManager.RegisterRoutedEvent(
+           "DateTimeChanged",
+           RoutingStrategy.Bubble,
+           typeof(RoutedPropertyChangedEventHandler<DateTime>),
+           typeof(ClockControl));
 
     protected virtual void OnDateTimeChanged(DateTime oldValue, DateTime newValue)
     {
@@ -308,6 +274,38 @@ public class ClockControl : System.Windows.Controls.Control
         };
         RaiseEvent(args);
     }
+
+    // Радиус для отрисовки цифр на циферблате.
+
+    internal static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
+            "HourRadius",
+            typeof(double),
+            typeof(ClockControl),
+            new PropertyMetadata(36.0));
+
+    // Запуск и остановка часов.
+
+    internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
+            "IsRunning",
+            typeof(bool),
+            typeof(ClockControl),
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsRunningPropertyChanged)));
+
+    private static void OnIsRunningPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnIsRunningChanged(oldValue, newValue);
+    }
+
+    public static readonly RoutedEvent RunningChangedEvent =
+        EventManager.RegisterRoutedEvent(
+            "RunningChanged",
+            RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<bool>),
+            typeof(ClockControl));
 
     protected virtual void OnIsRunningChanged(bool oldValue, bool newValue)
     {
@@ -387,4 +385,5 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
+    #endregion
 }
