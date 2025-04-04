@@ -65,5 +65,17 @@
                 Margin="0,10,10,0"
                 Click="RomanButton_Click" />
 
+        <Button x:Name="DigitsButton" Content="С цифрами"
+                Width="75" Height="25"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10,50,0,0"
+                Click="DigitsButton_Click" />
+
+        <Button x:Name="NoDigitsButton" Content="Без цифр"
+                Width="75" Height="25"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,50,10,0"
+                Click="NoDigitsButton_Click" />
+
     </Grid>
 </Window>

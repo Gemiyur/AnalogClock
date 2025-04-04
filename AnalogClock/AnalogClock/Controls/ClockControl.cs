@@ -60,14 +60,14 @@ public class ClockControl : System.Windows.Controls.Control
         set => SetValue(HourRadiusProperty, value);
     }
 
-    ///// <summary>
-    ///// Отображаются ли цифры на циферблате.
-    ///// </summary>
-    //public bool IsDigitsShown
-    //{
-    //    get => canDigitsShown && needDigitsShown;
-    //    set => needDigitsShown = value;
-    //}
+    /// <summary>
+    /// Возвращает или задаёт отображение цифр на циферблате.
+    /// </summary>
+    public bool IsDigitsShown
+    {
+        get => (bool)GetValue(IsDigitsShownProperty);
+        set => SetValue(IsDigitsShownProperty, value);
+    }
 
     /// <summary>
     /// Возвращает или задаёт отображение римских чисел вместо арабских.
@@ -131,16 +131,25 @@ public class ClockControl : System.Windows.Controls.Control
         DrawDigits();
     }
 
+    /// <summary>
+    /// Рисует цифры на циферблате.
+    /// </summary>
     private void DrawDigits()
     {
         if (hourFontGlyph == null || Template == null)
             return;
-        string[] romanDigits = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
         var labels = ((DrawingGroup)Template.FindName("ClockGlyphsContainer", this)).Children.OfType<GlyphRunDrawing>();
-        double innerOffset = (50 - HourRadius) + 1;
-        double innerCircleDiameter = HourRadius * 2;
-        double fontSize = FontSize;
-        int index = 1;
+        if (!IsDigitsShown)
+        {
+            foreach (var label in labels)
+                label.GlyphRun = null;
+            return;
+        }
+        string[] romanDigits = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+        var innerOffset = 50 - HourRadius + 1;
+        var innerCircleDiameter = HourRadius * 2;
+        var fontSize = FontSize;
+        var index = 1;
         foreach (var label in labels)
         {
             var text = IsRomanDigits ? romanDigits[index - 1] : index.ToString();
@@ -176,7 +185,7 @@ public class ClockControl : System.Windows.Controls.Control
         }
 
         // Значение пикселя, не зависящее от плотности, которое эквивалентно масштабному коэффициенту экрана.
-        // Поэкспериментировал. Разницы при разных коэффициентах никакой не заметил. Поставил 1.25 (свой).
+        // Разницы при разных коэффициентах никакой не заметил. Поставил 1.25 (свой). Может нужно поставить 1?
         // Возможные варианты:
         //var pixelsPerDip = 1f;  // масштаб 100%
         var pixelsPerDip = 1.25f;  // масштаб 125% (мой)
@@ -340,6 +349,40 @@ public class ClockControl : System.Windows.Controls.Control
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = RomanDigitsChangedEvent
+        };
+        RaiseEvent(args);
+    }
+
+    // Отображение цифр на циферблате.
+
+    internal static DependencyProperty IsDigitsShownProperty = DependencyProperty.Register(
+            "IsDigitsShown",
+            typeof(bool),
+            typeof(ClockControl),
+            new PropertyMetadata(true, new PropertyChangedCallback(OnIsDigitsShownPropertyChanged)));
+
+    private static void OnIsDigitsShownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnIsDigitsShownChanged(oldValue, newValue);
+    }
+
+    public static readonly RoutedEvent DigitsShownChangedEvent =
+        EventManager.RegisterRoutedEvent(
+            "DigitsShownChanged",
+            RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<bool>),
+            typeof(ClockControl));
+
+    protected virtual void OnIsDigitsShownChanged(bool oldValue, bool newValue)
+    {
+        DrawDigits();
+        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
+        {
+            RoutedEvent = DigitsShownChangedEvent
         };
         RaiseEvent(args);
     }

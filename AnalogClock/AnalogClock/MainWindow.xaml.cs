@@ -40,4 +40,14 @@ public partial class MainWindow : Window
     {
         Clock.IsRomanDigits = true;
     }
+
+    private void DigitsButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsDigitsShown = true;
+    }
+
+    private void NoDigitsButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.IsDigitsShown = false;
+    }
 }
