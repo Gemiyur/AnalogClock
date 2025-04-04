@@ -11,7 +11,7 @@ public class SecondsConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        DateTime date = (DateTime)value;
+        var date = (DateTime)value;
         return date.Second * 6;
     }
 
@@ -29,7 +29,7 @@ public class MinutesConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        DateTime date = (DateTime)value;
+        var date = (DateTime)value;
         return (date.Minute * 6) + (date.Second * 0.1);
     }
 
@@ -47,7 +47,7 @@ public class HoursConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        DateTime date = (DateTime)value;
+        var date = (DateTime)value;
         return (date.Hour * 30) + (date.Minute / 2);
     }
 
