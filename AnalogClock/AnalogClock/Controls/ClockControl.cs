@@ -16,7 +16,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Кисть (цвет) цифр на циферблате по умолчанию.
     /// </summary>
-    static public readonly Brush DefaultDigitBrush = Brushes.Black;
+    static public readonly SolidColorBrush DefaultDigitBrush = Brushes.Black;
 
     /// <summary>
     /// Таймер.
@@ -60,9 +60,9 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Возвращает или задаёт кисть (цвет) цифр на циферблате.
     /// </summary>
-    public Brush DigitBrush
+    public SolidColorBrush DigitBrush
     {
-        get => (Brush)GetValue(DigitBrushProperty);
+        get => (SolidColorBrush)GetValue(DigitBrushProperty);
         set => SetValue(DigitBrushProperty, value);
     }
 
