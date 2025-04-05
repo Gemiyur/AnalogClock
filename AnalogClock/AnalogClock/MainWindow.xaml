@@ -89,5 +89,17 @@
                 Margin="0,90,10,0"
                 Click="TransparentButton_Click" />
 
+        <Button x:Name="RedButton" Content="Красный"
+                Width="75" Height="25"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10,130,0,0"
+                Click="RedButton_Click" />
+
+        <Button x:Name="BlackButton" Content="Чёрный"
+                Width="75" Height="25"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,130,10,0"
+                Click="BlackButton_Click" />
+
     </Grid>
 </Window>

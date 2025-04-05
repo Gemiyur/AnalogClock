@@ -53,6 +53,15 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
+    /// Возвращает или задаёт кисть (цвет) цифр на циферблате.
+    /// </summary>
+    public Brush DigitBrush
+    {
+        get => (Brush)GetValue(DigitBrushProperty);
+        set => SetValue(DigitBrushProperty, value);
+    }
+
+    /// <summary>
     /// Возвращает или задаёт радиус для отрисовки цифр на циферблате.
     /// </summary>
     public double HourRadius
@@ -173,7 +182,7 @@ public class ClockControl : System.Windows.Controls.Control
             point.X -= ((point.X - innerOffset) / innerCircleDiameter) * size.Width;
             point.Y += (1.0 - ((point.Y - innerOffset) / innerCircleDiameter)) * size.Height;
             label.GlyphRun = CreateGlyphRun(text, point, fontSize);
-            label.ForegroundBrush = Brushes.DarkRed;
+            label.ForegroundBrush = DigitBrush;
             index++;
         }
     }
@@ -309,6 +318,42 @@ public class ClockControl : System.Windows.Controls.Control
         var args = new RoutedPropertyChangedEventArgs<DateTime>(oldValue, newValue)
         {
             RoutedEvent = DateTimeChangedEvent
+        };
+        RaiseEvent(args);
+    }
+
+    // Кисть (цвет) цифр на циферблате.
+
+    // TODO: Какой цвет цифр выбрать по умолчанию: DarkRed или Black? Пока выбран DarkRed.
+
+    internal static DependencyProperty DigitBrushProperty = DependencyProperty.Register(
+            "DigitBrush",
+            typeof(Brush),
+            typeof(ClockControl),
+            new PropertyMetadata(Brushes.DarkRed, new PropertyChangedCallback(OnDigitBrushPropertyChanged)));
+
+    private static void OnDigitBrushPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var clock = (ClockControl)d;
+        var oldValue = (Brush)e.OldValue;
+        var newValue = (Brush)e.NewValue;
+        if (oldValue != newValue)
+            clock.OnDigitBrushChanged(oldValue, newValue);
+    }
+
+    public static readonly RoutedEvent DigitBrushChangedEvent =
+        EventManager.RegisterRoutedEvent(
+            "DigitBrushChanged",
+            RoutingStrategy.Bubble,
+            typeof(RoutedPropertyChangedEventHandler<Brush>),
+            typeof(ClockControl));
+
+    protected virtual void OnDigitBrushChanged(Brush oldValue, Brush newValue)
+    {
+        DrawDigits();
+        var args = new RoutedPropertyChangedEventArgs<Brush>(oldValue, newValue)
+        {
+            RoutedEvent = DigitBrushChangedEvent
         };
         RaiseEvent(args);
     }

@@ -60,4 +60,14 @@ public partial class MainWindow : Window
     {
         Clock.IsTransparent = true;
     }
+
+    private void RedButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.DigitBrush = System.Windows.Media.Brushes.DarkRed;
+    }
+
+    private void BlackButton_Click(object sender, RoutedEventArgs e)
+    {
+        Clock.DigitBrush = System.Windows.Media.Brushes.Black;
+    }
 }
