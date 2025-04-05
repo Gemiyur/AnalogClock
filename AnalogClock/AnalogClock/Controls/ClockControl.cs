@@ -14,6 +14,11 @@ namespace AnalogClock.Controls;
 public class ClockControl : System.Windows.Controls.Control
 {
     /// <summary>
+    /// Кисть (цвет) цифр на циферблате по умолчанию.
+    /// </summary>
+    static public readonly Brush DefaultDigitBrush = Brushes.Black;
+
+    /// <summary>
     /// Таймер.
     /// </summary>
     private readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(100) };
@@ -289,7 +294,7 @@ public class ClockControl : System.Windows.Controls.Control
 
     #region Свойства зависимостей.
 
-    // Отображаемое время.
+    #region Отображаемое время (DateTimeProperty).
 
     internal static DependencyProperty DateTimeProperty = DependencyProperty.Register(
             "DateTime",
@@ -322,15 +327,15 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Кисть (цвет) цифр на циферблате.
+    #endregion
 
-    // TODO: Какой цвет цифр выбрать по умолчанию: DarkRed или Black? Пока выбран DarkRed.
+    #region Кисть (цвет) цифр на циферблате (DigitBrushProperty).
 
     internal static DependencyProperty DigitBrushProperty = DependencyProperty.Register(
             "DigitBrush",
             typeof(Brush),
             typeof(ClockControl),
-            new PropertyMetadata(Brushes.DarkRed, new PropertyChangedCallback(OnDigitBrushPropertyChanged)));
+            new PropertyMetadata(DefaultDigitBrush, new PropertyChangedCallback(OnDigitBrushPropertyChanged)));
 
     private static void OnDigitBrushPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -358,7 +363,9 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Радиус для отрисовки цифр на циферблате.
+    #endregion
+
+    #region Радиус для отрисовки цифр на циферблате (HourRadiusProperty).
 
     internal static DependencyProperty HourRadiusProperty = DependencyProperty.Register(
             "HourRadius",
@@ -366,7 +373,9 @@ public class ClockControl : System.Windows.Controls.Control
             typeof(ClockControl),
             new PropertyMetadata(36.0));
 
-    // Отображение цифр на циферблате.
+    #endregion
+
+    #region Отображение цифр на циферблате (IsDigitsShownProperty).
 
     internal static DependencyProperty IsDigitsShownProperty = DependencyProperty.Register(
             "IsDigitsShown",
@@ -400,7 +409,9 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Римские цифры.
+    #endregion
+
+    #region Римские цифры (IsRomanDigitsProperty).
 
     internal static DependencyProperty IsRomanDigitsProperty = DependencyProperty.Register(
             "IsRomanDigits",
@@ -434,7 +445,9 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Запуск и остановка часов.
+    #endregion
+
+    #region Запуск и остановка часов (IsRunningProperty).
 
     internal static DependencyProperty IsRunningProperty = DependencyProperty.Register(
             "IsRunning",
@@ -468,7 +481,9 @@ public class ClockControl : System.Windows.Controls.Control
         RaiseEvent(args);
     }
 
-    // Прозрачность циферблата.
+    #endregion
+
+    #region Прозрачность циферблата (IsTransparentProperty).
 
     internal static DependencyProperty IsTransparentProperty = DependencyProperty.Register(
             "IsTransparent",
@@ -501,6 +516,8 @@ public class ClockControl : System.Windows.Controls.Control
         };
         RaiseEvent(args);
     }
+
+    #endregion
 
     #endregion
 }

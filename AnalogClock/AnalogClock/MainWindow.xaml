@@ -101,5 +101,11 @@
                 Margin="0,130,10,0"
                 Click="BlackButton_Click" />
 
+        <Button x:Name="ColorButton" Content="Цвет цифр"
+                Width="75" Height="25"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,170,10,0"
+                Click="ColorButton_Click" />
+
     </Grid>
 </Window>

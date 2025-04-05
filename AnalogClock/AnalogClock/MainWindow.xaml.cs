@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AnalogClock.Controls;
 
 namespace AnalogClock;
 
@@ -69,5 +70,16 @@ public partial class MainWindow : Window
     private void BlackButton_Click(object sender, RoutedEventArgs e)
     {
         Clock.DigitBrush = System.Windows.Media.Brushes.Black;
+    }
+
+    private void ColorButton_Click(object sender, RoutedEventArgs e)
+    {
+        //var brush = ClockControl.DefaultDigitBrush;
+        var dialog = new ColorDialog();
+        if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            return;
+        var color = System.Windows.Media.Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
+        Clock.DigitBrush = new System.Windows.Media.SolidColorBrush(color);
+
     }
 }
