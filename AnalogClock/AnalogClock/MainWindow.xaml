@@ -14,9 +14,9 @@
         d:Width="500" d:Height="300"
         WindowStartupLocation="CenterScreen">
 
-    <!--<i:Interaction.Behaviors>
+    <i:Interaction.Behaviors>
         <ntIconBeh:TrayIconBehavior />
-    </i:Interaction.Behaviors>-->
+    </i:Interaction.Behaviors>
 
     <Window.Resources>
         <ResourceDictionary>
@@ -46,6 +46,12 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="10,10,0,0"
                 Click="PropertyButton_Click" />
+
+        <Button x:Name="AboutButton" Content="О программе"
+                Width="85" Height="25"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,10,10,0"
+                Click="AboutButton_Click" />
 
     </Grid>
 </Window>

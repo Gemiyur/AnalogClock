@@ -33,4 +33,9 @@ public partial class MainWindow : Window
         else
             App.DebugClockWindow.Activate();
     }
+
+    private void AboutButton_Click(object sender, RoutedEventArgs e)
+    {
+        App.ShowAboutDialog(this);
+    }
 }

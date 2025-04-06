@@ -122,15 +122,7 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void AboutMenuItem_Click(object? sender, EventArgs e)
     {
-        if (App.AboutDialog != null)
-        {
-            App.AboutDialog.Activate();
-        }
-        else
-        {
-            App.AboutDialog = new AboutDialog() { Owner = AssociatedObject };
-            App.AboutDialog.ShowDialog();
-        }
+        App.ShowAboutDialog(AssociatedObject);
     }
 
     private void OpenMenuItem_Click(object? sender, EventArgs e)
