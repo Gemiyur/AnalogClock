@@ -15,4 +15,6 @@ namespace AnalogClock;
 public partial class App : System.Windows.Application
 {
     public static AboutDialog? AboutDialog { get; set; }
+
+    public static DebugClockWindow? DebugClockWindow { get; set; }
 }

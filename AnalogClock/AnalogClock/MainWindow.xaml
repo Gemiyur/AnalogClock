@@ -41,71 +41,11 @@
             </Border>
         </Viewbox>
 
-        <Button x:Name="StartClockButton" Content="Пуск"
-                Width="75" Height="25"
-                HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                Margin="10,0,0,10"
-                Click="StartClockButton_Click" />
-
-        <Button x:Name="StopClockButton" Content="Стоп"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                Margin="0,0,10,10"
-                Click="StopClockButton_Click" />
-
-        <Button x:Name="ArabicButton" Content="Арабские"
+        <Button x:Name="PropertyButton" Content="Свойства"
                 Width="75" Height="25"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="10,10,0,0"
-                Click="ArabicButton_Click" />
-
-        <Button x:Name="RomanButton" Content="Римские"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,10,10,0"
-                Click="RomanButton_Click" />
-
-        <Button x:Name="DigitsButton" Content="С цифрами"
-                Width="75" Height="25"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="10,50,0,0"
-                Click="DigitsButton_Click" />
-
-        <Button x:Name="NoDigitsButton" Content="Без цифр"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,50,10,0"
-                Click="NoDigitsButton_Click" />
-
-        <Button x:Name="BackgroundButton" Content="С фоном"
-                Width="75" Height="25"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="10,90,0,0"
-                Click="BackgroundButton_Click" />
-
-        <Button x:Name="TransparentButton" Content="Прозрачно"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,90,10,0"
-                Click="TransparentButton_Click" />
-
-        <Button x:Name="RedButton" Content="Красный"
-                Width="75" Height="25"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="10,130,0,0"
-                Click="RedButton_Click" />
-
-        <Button x:Name="BlackButton" Content="Чёрный"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,130,10,0"
-                Click="BlackButton_Click" />
-
-        <Button x:Name="ColorButton" Content="Цвет цифр"
-                Width="75" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,170,10,0"
-                Click="ColorButton_Click" />
+                Click="PropertyButton_Click" />
 
     </Grid>
 </Window>

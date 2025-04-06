@@ -23,61 +23,14 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void StartClockButton_Click(object sender, RoutedEventArgs e)
+    private void PropertyButton_Click(object sender, RoutedEventArgs e)
     {
-        Clock.IsRunning = true;
-    }
-
-    private void StopClockButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsRunning = false;
-    }
-
-    private void ArabicButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsRomanDigits = false;
-    }
-
-    private void RomanButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsRomanDigits = true;
-    }
-
-    private void DigitsButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsDigitsShown = true;
-    }
-
-    private void NoDigitsButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsDigitsShown = false;
-    }
-
-    private void BackgroundButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsTransparent = false;
-    }
-
-    private void TransparentButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.IsTransparent = true;
-    }
-
-    private void RedButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.DigitBrush = System.Windows.Media.Brushes.DarkRed;
-    }
-
-    private void BlackButton_Click(object sender, RoutedEventArgs e)
-    {
-        Clock.DigitBrush = System.Windows.Media.Brushes.Black;
-    }
-
-    private void ColorButton_Click(object sender, RoutedEventArgs e)
-    {
-        var picker = new BrushPicker(Clock.DigitBrush);
-        if (!picker.Execute())
-            return;
-        Clock.DigitBrush = picker.Brush;
+        if (App.DebugClockWindow == null)
+        {
+            App.DebugClockWindow = new DebugClockWindow(Clock);
+            App.DebugClockWindow.Show();
+        }
+        else
+            App.DebugClockWindow.Activate();
     }
 }
