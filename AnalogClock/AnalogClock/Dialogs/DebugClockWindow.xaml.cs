@@ -21,7 +21,7 @@ public partial class DebugClockWindow : Window
     {
         IsRunningCheckBox.IsChecked = clock.IsRunning;
         IsTransparentCheckBox.IsChecked = clock.IsTransparent;
-        IsDigitsShownCheckBox.IsChecked =(clock.IsDigitsShown);
+        IsDigitsShownCheckBox.IsChecked = clock.IsDigitsShown;
         IsRomanDigitsCheckBox.IsChecked =clock.IsRomanDigits;
     }
 
