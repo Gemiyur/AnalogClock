@@ -6,11 +6,47 @@
         xmlns:local="clr-namespace:AnalogClock.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="300" ResizeMode="NoResize"
+        Width="300" Height="300" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         Closed="Window_Closed">
 
-    <Grid>
-        
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Часы">
+            <StackPanel>
+                <CheckBox Content="Часы включены"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />
+                <CheckBox Content="Прозрачный циферблат"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
+                <CheckBox Content="Цифры на циферблате"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
+                <CheckBox Content="Римские цифры"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}" />
+                <Button x:Name="DigitsColorButton" Content="Цвет цифр"
+                    Width="80" Height="25" HorizontalAlignment="Left"
+                    Margin="0,10,0,0" Click="DigitsColorButton_Click" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="Приложение" Margin="0,10,0,0">
+            
+        </GroupBox>
     </Grid>
 </Window>

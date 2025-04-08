@@ -33,4 +33,12 @@ public partial class SettingsWindow : Window
     {
         App.SettingsWindow = null;
     }
+
+    private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
+    {
+        var picker = new BrushPicker(clock.DigitBrush);
+        if (!picker.Execute())
+            return;
+        clock.DigitBrush = picker.Brush;
+    }
 }

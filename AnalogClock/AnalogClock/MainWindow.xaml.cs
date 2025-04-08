@@ -24,7 +24,7 @@ public partial class MainWindow : Window
         GridContextMenu.DataContext = Clock;
     }
 
-    private void PropertyButton_Click(object sender, RoutedEventArgs e)
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
     {
         App.ShowSettingsWindow(Clock);
 

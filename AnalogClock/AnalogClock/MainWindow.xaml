@@ -69,11 +69,11 @@
             </Border>
         </Viewbox>
 
-        <Button x:Name="PropertyButton" Content="Свойства"
+        <Button x:Name="SettingsButton" Content="Настройки"
                 Width="75" Height="25"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="10,10,0,0"
-                Click="PropertyButton_Click" />
+                Click="SettingsButton_Click" />
 
         <Button x:Name="AboutButton" Content="О программе"
                 Width="85" Height="25"
