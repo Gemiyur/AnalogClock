@@ -27,14 +27,6 @@ public partial class MainWindow : Window
     private void SettingsButton_Click(object sender, RoutedEventArgs e)
     {
         App.ShowSettingsWindow(Clock);
-
-        //if (App.DebugClockWindow == null)
-        //{
-        //    App.DebugClockWindow = new DebugClockWindow(Clock);
-        //    App.DebugClockWindow.Show();
-        //}
-        //else
-        //    App.DebugClockWindow.Activate();
     }
 
     private void AboutButton_Click(object sender, RoutedEventArgs e)
