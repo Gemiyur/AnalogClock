@@ -20,20 +20,22 @@
 
     <Grid Margin="10,10,10,10">
         <StackPanel>
-            <CheckBox x:Name="IsRunningCheckBox" Content="Часы включены"
-                      Style="{StaticResource CheckBoxStyle}" Click="IsRunningCheckBox_Click" />
+            <CheckBox Content="Часы включены"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />
 
             <CheckBox Content="Прозрачный циферблат"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
 
-            <!--<CheckBox x:Name="IsTransparentCheckBox" Content="Прозрачный циферблат"
-                      Style="{StaticResource CheckBoxStyle}" Click="IsTransparentCheckBox_Click" />-->
+            <CheckBox Content="Цифры на циферблате"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
 
-            <CheckBox x:Name="IsDigitsShownCheckBox" Content="Цифры на циферблате"
-                      Style="{StaticResource CheckBoxStyle}" Click="IsDigitsShownCheckBox_Click" />
-            <CheckBox x:Name="IsRomanDigitsCheckBox" Content="Римские цифры"
-                      Style="{StaticResource CheckBoxStyle}" Click="IsRomanDigitsCheckBox_Click" />
+            <CheckBox Content="Римские цифры"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}" />
+
             <Button x:Name="DigitsColorButton" Content="Цвет цифр"
                     Width="80" Height="25" HorizontalAlignment="Left"
                     Margin="0,10,0,0" Click="DigitsColorButton_Click" />
