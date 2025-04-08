@@ -21,6 +21,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        GridContextMenu.DataContext = Clock;
     }
 
     private void PropertyButton_Click(object sender, RoutedEventArgs e)

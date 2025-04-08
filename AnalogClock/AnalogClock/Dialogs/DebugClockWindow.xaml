@@ -22,8 +22,14 @@
         <StackPanel>
             <CheckBox x:Name="IsRunningCheckBox" Content="Часы включены"
                       Style="{StaticResource CheckBoxStyle}" Click="IsRunningCheckBox_Click" />
-            <CheckBox x:Name="IsTransparentCheckBox" Content="Прозрачный циферблат"
-                      Style="{StaticResource CheckBoxStyle}" Click="IsTransparentCheckBox_Click" />
+
+            <CheckBox Content="Прозрачный циферблат"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
+
+            <!--<CheckBox x:Name="IsTransparentCheckBox" Content="Прозрачный циферблат"
+                      Style="{StaticResource CheckBoxStyle}" Click="IsTransparentCheckBox_Click" />-->
+
             <CheckBox x:Name="IsDigitsShownCheckBox" Content="Цифры на циферблате"
                       Style="{StaticResource CheckBoxStyle}" Click="IsDigitsShownCheckBox_Click" />
             <CheckBox x:Name="IsRomanDigitsCheckBox" Content="Римские цифры"

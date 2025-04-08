@@ -14,13 +14,14 @@ public partial class DebugClockWindow : Window
     {
         InitializeComponent();
         this.clock = clock;
+        DataContext = clock;
         InitializeCheckBoxes();
     }
 
     private void InitializeCheckBoxes()
     {
         IsRunningCheckBox.IsChecked = clock.IsRunning;
-        IsTransparentCheckBox.IsChecked = clock.IsTransparent;
+        //IsTransparentCheckBox.IsChecked = clock.IsTransparent;
         IsDigitsShownCheckBox.IsChecked = clock.IsDigitsShown;
         IsRomanDigitsCheckBox.IsChecked =clock.IsRomanDigits;
     }
@@ -35,10 +36,10 @@ public partial class DebugClockWindow : Window
         clock.IsRunning = IsRunningCheckBox.IsChecked == true;
     }
 
-    private void IsTransparentCheckBox_Click(object sender, RoutedEventArgs e)
-    {
-        clock.IsTransparent = IsTransparentCheckBox.IsChecked == true;
-    }
+    //private void IsTransparentCheckBox_Click(object sender, RoutedEventArgs e)
+    //{
+    //    clock.IsTransparent = IsTransparentCheckBox.IsChecked == true;
+    //}
 
     private void IsDigitsShownCheckBox_Click(object sender, RoutedEventArgs e)
     {
