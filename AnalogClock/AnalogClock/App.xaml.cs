@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using AnalogClock.Controls;
 using AnalogClock.Dialogs;
 
 namespace AnalogClock;
@@ -18,6 +19,11 @@ public partial class App : System.Windows.Application
     /// Возвращает или задаёт окно "О программе".
     /// </summary>
     public static AboutDialog? AboutDialog { get; set; }
+
+    /// <summary>
+    /// Возвращает или задаёт окно настроек приложения.
+    /// </summary>
+    public static SettingsWindow? SettingsWindow { get; set; }
 
     /// <summary>
     /// Возвращает или задаёт окно свойств часов.
@@ -42,5 +48,20 @@ public partial class App : System.Windows.Application
             AboutDialog = new AboutDialog() { Owner = owner };
             AboutDialog.ShowDialog();
         }
+    }
+
+    /// <summary>
+    /// Отображает окно настроек приложения.
+    /// </summary>
+    /// <param name="clock">Элемент управления "Часы".</param>
+    public static void ShowSettingsWindow(ClockControl clock)
+    {
+        if (SettingsWindow == null)
+        {
+            SettingsWindow = new SettingsWindow(clock);
+            SettingsWindow.Show();
+        }
+        else
+            SettingsWindow.Activate();
     }
 }

@@ -26,16 +26,28 @@ public partial class MainWindow : Window
 
     private void PropertyButton_Click(object sender, RoutedEventArgs e)
     {
-        if (App.DebugClockWindow == null)
-        {
-            App.DebugClockWindow = new DebugClockWindow(Clock);
-            App.DebugClockWindow.Show();
-        }
-        else
-            App.DebugClockWindow.Activate();
+        App.ShowSettingsWindow(Clock);
+
+        //if (App.DebugClockWindow == null)
+        //{
+        //    App.DebugClockWindow = new DebugClockWindow(Clock);
+        //    App.DebugClockWindow.Show();
+        //}
+        //else
+        //    App.DebugClockWindow.Activate();
     }
 
     private void AboutButton_Click(object sender, RoutedEventArgs e)
+    {
+        App.ShowAboutDialog(this);
+    }
+
+    private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        App.ShowSettingsWindow(Clock);
+    }
+
+    private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
     {
         App.ShowAboutDialog(this);
     }
