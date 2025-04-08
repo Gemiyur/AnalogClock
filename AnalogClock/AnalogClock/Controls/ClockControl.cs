@@ -44,7 +44,7 @@ public class ClockControl : System.Windows.Controls.Control
     private readonly GlyphTypeface? hourFontGlyph;
 
     /// <summary>
-    /// Контейнер кисти фона циферблата.
+    /// Возвращает контейнер кисти фона циферблата.
     /// </summary>
     private GeometryDrawing BackgroundContainer => (GeometryDrawing)Template.FindName("ClockBackgroundContainer", this);
 
