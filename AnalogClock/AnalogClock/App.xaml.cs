@@ -26,11 +26,6 @@ public partial class App : System.Windows.Application
     public static SettingsWindow? SettingsWindow { get; set; }
 
     /// <summary>
-    /// Возвращает или задаёт окно свойств часов.
-    /// </summary>
-    public static DebugClockWindow? DebugClockWindow { get; set; }
-
-    /// <summary>
     /// Отображает окно "О программе".
     /// </summary>
     /// <param name="owner">Окно-владелец.</param>
