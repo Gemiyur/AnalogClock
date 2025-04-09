@@ -26,7 +26,7 @@ public partial class SettingsWindow : Window
     {
         InitializeComponent();
         this.clock = clock;
-        DataContext = clock;
+        ClockGroupBox.DataContext = clock;
     }
 
     private void Window_Closed(object sender, EventArgs e)
@@ -40,5 +40,15 @@ public partial class SettingsWindow : Window
         if (!picker.Execute())
             return;
         clock.DigitBrush = picker.Brush;
+    }
+
+    private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void ResetButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
