@@ -53,6 +53,11 @@ public partial class SettingsWindow : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-
+        grid.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
+        clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
+        clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;
+        clock.IsRomanDigits = Properties.Settings.Default.DefaultClockRomanDigits;
+        clock.IsRunning = Properties.Settings.Default.DefaultClockRunning;
+        clock.IsTransparent = Properties.Settings.Default.DefaultClockTransparent;
     }
 }

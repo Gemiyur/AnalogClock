@@ -12,7 +12,9 @@
         Title="Аналоговые часы"
         Width="500" Height="300" ResizeMode="CanResizeWithGrip"
         d:Width="500" d:Height="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
 
     <!--<i:Interaction.Behaviors>
         <ntIconBeh:TrayIconBehavior />

@@ -16,7 +16,9 @@ public class TrayIconBehavior : Behavior<Window>
 {
     private NotifyIcon? trayIcon;
 
-    private bool CloseToTray => false;
+    //private bool CloseToTray => false;
+
+    private bool CloseToTray => Properties.Settings.Default.CloseToTray;
 
     private bool MinimizeToTray => true;
 
