@@ -23,15 +23,192 @@ namespace AnalogClock.Properties {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
+        public global::System.Drawing.Color DefaultBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["DefaultBackgroundColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DefaultCloseToTray {
+            get {
+                return ((bool)(this["DefaultCloseToTray"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DefaultMinimizeToTray {
+            get {
+                return ((bool)(this["DefaultMinimizeToTray"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DefaultShowInTaskbar {
+            get {
+                return ((bool)(this["DefaultShowInTaskbar"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color DefaultClockDigitsColor {
+            get {
+                return ((global::System.Drawing.Color)(this["DefaultClockDigitsColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DefaultClockRomanDigits {
+            get {
+                return ((bool)(this["DefaultClockRomanDigits"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DefaultClockRunning {
+            get {
+                return ((bool)(this["DefaultClockRunning"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DefaultClockShowDigits {
+            get {
+                return ((bool)(this["DefaultClockShowDigits"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DefaultClockTransparent {
+            get {
+                return ((bool)(this["DefaultClockTransparent"]));
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
-        public global::System.Drawing.Color BackColor {
+        public global::System.Drawing.Color BackgroundColor {
             get {
-                return ((global::System.Drawing.Color)(this["BackColor"]));
+                return ((global::System.Drawing.Color)(this["BackgroundColor"]));
             }
             set {
-                this["BackColor"] = value;
+                this["BackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CloseToTray {
+            get {
+                return ((bool)(this["CloseToTray"]));
+            }
+            set {
+                this["CloseToTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MinimizeToTray {
+            get {
+                return ((bool)(this["MinimizeToTray"]));
+            }
+            set {
+                this["MinimizeToTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowInTaskbar {
+            get {
+                return ((bool)(this["ShowInTaskbar"]));
+            }
+            set {
+                this["ShowInTaskbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ClockDigitsColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ClockDigitsColor"]));
+            }
+            set {
+                this["ClockDigitsColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClockRomanDigits {
+            get {
+                return ((bool)(this["ClockRomanDigits"]));
+            }
+            set {
+                this["ClockRomanDigits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClockRunning {
+            get {
+                return ((bool)(this["ClockRunning"]));
+            }
+            set {
+                this["ClockRunning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClockShowDigits {
+            get {
+                return ((bool)(this["ClockShowDigits"]));
+            }
+            set {
+                this["ClockShowDigits"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClockTransparent {
+            get {
+                return ((bool)(this["ClockTransparent"]));
+            }
+            set {
+                this["ClockTransparent"] = value;
             }
         }
     }

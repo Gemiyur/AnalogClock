@@ -22,9 +22,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         GridContextMenu.DataContext = Clock;
-        //var color = Properties.Settings.Default.BackColor;
-        //var brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
-        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackColor);
+        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
     }
     private void SettingsButton_Click(object sender, RoutedEventArgs e)
     {
