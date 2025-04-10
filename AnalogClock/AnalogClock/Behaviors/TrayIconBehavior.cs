@@ -18,9 +18,13 @@ public class TrayIconBehavior : Behavior<Window>
 
     //private bool CloseToTray => false;
 
-    private bool CloseToTray => Properties.Settings.Default.CloseToTray;
+    //private bool MinimizeToTray => true;
 
-    private bool MinimizeToTray => true;
+    private static bool CloseToTray => Properties.Settings.Default.CloseToTray;
+
+    private static bool MinimizeToTray => Properties.Settings.Default.MinimizeToTray;
+
+    private static bool ShowInTaskbar => Properties.Settings.Default.ShowInTaskbar;
 
     private bool ShowNotification => false;
 
