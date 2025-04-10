@@ -22,10 +22,13 @@ public partial class SettingsWindow : Window
 {
     private readonly ClockControl clock;
 
-    public SettingsWindow(ClockControl clock)
+    private readonly Grid grid;
+
+    public SettingsWindow(ClockControl clock, Grid grid)
     {
         InitializeComponent();
         this.clock = clock;
+        this.grid = grid;
         ClockGroupBox.DataContext = clock;
     }
 
@@ -37,14 +40,15 @@ public partial class SettingsWindow : Window
     private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new BrushPicker(clock.DigitBrush);
-        if (!picker.Execute())
-            return;
-        clock.DigitBrush = picker.Brush;
+        if (picker.Execute())
+            clock.DigitBrush = picker.Brush;
     }
 
     private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var picker = new BrushPicker((SolidColorBrush)grid.Background);
+        if (picker.Execute())
+            grid.Background = picker.Brush;
     }
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)

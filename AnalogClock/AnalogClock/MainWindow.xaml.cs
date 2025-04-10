@@ -22,11 +22,13 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         GridContextMenu.DataContext = Clock;
+        //var color = Properties.Settings.Default.BackColor;
+        //var brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
+        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackColor);
     }
-
     private void SettingsButton_Click(object sender, RoutedEventArgs e)
     {
-        App.ShowSettingsWindow(Clock);
+        App.ShowSettingsWindow(Clock, MainGrid);
     }
 
     private void AboutButton_Click(object sender, RoutedEventArgs e)
@@ -36,7 +38,7 @@ public partial class MainWindow : Window
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
     {
-        App.ShowSettingsWindow(Clock);
+        App.ShowSettingsWindow(Clock, MainGrid);
     }
 
     private void AboutMenuItem_Click(object sender, RoutedEventArgs e)

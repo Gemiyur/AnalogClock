@@ -1,6 +1,4 @@
 ﻿using System.Windows.Media;
-using Brush = System.Windows.Media.Brush;
-using Color = System.Windows.Media.Color;
 
 namespace AnalogClock.Dialogs;
 
@@ -21,11 +19,10 @@ public class BrushPicker(SolidColorBrush brush)
     /// <returns>Была ли выбрана кисть.</returns>
     public bool Execute()
     {
-        var dialogColor = System.Drawing.Color.FromArgb(Brush.Color.A, Brush.Color.R, Brush.Color.G, Brush.Color.B);
-        var dialog = new ColorDialog { Color = dialogColor };
+        var dialog = new ColorDialog { Color = App.BrushToColor(Brush) };
         if (dialog.ShowDialog() != DialogResult.OK)
             return false;
-        Brush = new SolidColorBrush(Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B));
+        Brush = App.ColorToBrush(dialog.Color);
         return true;
     }
 }

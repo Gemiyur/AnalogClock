@@ -26,7 +26,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Background="Khaki">
+    <Grid x:Name="MainGrid" Background="LightGreen">
         <Grid.ContextMenu>
             <ContextMenu x:Name="GridContextMenu">
                 <MenuItem Header="Часы включены"
