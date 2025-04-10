@@ -22,8 +22,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         GridContextMenu.DataContext = Clock;
-        //MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
-        //LoadSettings();
     }
 
     private void LoadSettings()
@@ -39,13 +37,11 @@ public partial class MainWindow : Window
     private void SaveSettings()
     {
         Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainGrid.Background);
-
         Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
         Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.ClockRomanDigits = Clock.IsRomanDigits;
         Properties.Settings.Default.ClockRunning = Clock.IsRunning;
         Properties.Settings.Default.ClockTransparent = Clock.IsTransparent;
-
         Properties.Settings.Default.Save();
     }
 

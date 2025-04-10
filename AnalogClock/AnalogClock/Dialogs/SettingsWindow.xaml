@@ -50,11 +50,14 @@
         <GroupBox Grid.Row="1" x:Name="AppGroupBox" Header="Приложение" Margin="0,10,0,0">
             <StackPanel>
                 <CheckBox Content="Показывать значок на панели задач"
-                          Style="{StaticResource CheckBoxStyle}" />
+                          Style="{StaticResource CheckBoxStyle}"
+                          IsChecked="{Binding Path=ShowInTaskbar, Mode=TwoWay}" />
                 <CheckBox Content="Сворачивать в область уведомлений"
-                          Style="{StaticResource CheckBoxStyle}" />
+                          Style="{StaticResource CheckBoxStyle}"
+                          IsChecked="{Binding Path=MinimizeToTray, Mode=TwoWay}" />
                 <CheckBox Content="Сворачивать кнопкой закрытия окна"
-                          Style="{StaticResource CheckBoxStyle}" />
+                          Style="{StaticResource CheckBoxStyle}"
+                          IsChecked="{Binding Path=CloseToTray, Mode=TwoWay}" />
                 <Button x:Name="BackgroundColorButton" Content="Цвет фона"
                         Width="80" Height="25"
                         HorizontalAlignment="Left"

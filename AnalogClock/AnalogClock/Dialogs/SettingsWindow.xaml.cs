@@ -30,6 +30,7 @@ public partial class SettingsWindow : Window
         this.clock = clock;
         this.grid = grid;
         ClockGroupBox.DataContext = clock;
+        AppGroupBox.DataContext = Properties.Settings.Default;
     }
 
     private void Window_Closed(object sender, EventArgs e)
@@ -54,6 +55,9 @@ public partial class SettingsWindow : Window
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
         grid.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
+        Properties.Settings.Default.CloseToTray = Properties.Settings.Default.DefaultCloseToTray;
+        Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
+        Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.DefaultShowInTaskbar;
         clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
         clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;
         clock.IsRomanDigits = Properties.Settings.Default.DefaultClockRomanDigits;
