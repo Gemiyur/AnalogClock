@@ -26,8 +26,6 @@ public class TrayIconBehavior : Behavior<Window>
 
     private static bool ShowInTaskbar => Properties.Settings.Default.ShowInTaskbar;
 
-    private bool ShowNotification => false;
-
     protected override void OnAttached()
     {
         base.OnAttached();
@@ -55,8 +53,6 @@ public class TrayIconBehavior : Behavior<Window>
         {
             e.Cancel = true;
             AssociatedObject.Hide();
-            if (ShowNotification)
-                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
         }
         else
         {
@@ -69,8 +65,6 @@ public class TrayIconBehavior : Behavior<Window>
         if (AssociatedObject.WindowState == WindowState.Minimized)
         {
             AssociatedObject.ShowInTaskbar = !MinimizeToTray;
-            if (ShowNotification && MinimizeToTray)
-                ShowNotificationInTray("", "Приложение свёрнуто в область уведомлений.");
         }
         else
         {
@@ -149,11 +143,13 @@ public class TrayIconBehavior : Behavior<Window>
         AssociatedObject.Activate();
     }
 
-    private void ShowNotificationInTray(string title, string message)
-    {
-        // Отображает системное уведомление на 2 секунды (2000 миллисекунд).
-        trayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
-    }
+    // Отображение системных уведомлений. Не используется в данном проекте.
+    // Оставлено на всякий случай. Ну и как пример тоже.
+    //private void ShowNotificationInTray(string title, string message)
+    //{
+    //    // Отображает системное уведомление на 2 секунды (2000 миллисекунд).
+    //    trayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
+    //}
 
     private static Icon? GetIcon(Uri uri)
     {
