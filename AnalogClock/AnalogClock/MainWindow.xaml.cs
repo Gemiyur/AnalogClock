@@ -24,7 +24,7 @@ public partial class MainWindow : Window
         GridContextMenu.DataContext = Clock;
     }
 
-    private void LoadSettings()
+    private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
         Clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.ClockDigitsColor);
@@ -34,7 +34,7 @@ public partial class MainWindow : Window
         Clock.IsTransparent = Properties.Settings.Default.ClockTransparent;
     }
 
-    private void SaveSettings()
+    private void Window_Closed(object sender, EventArgs e)
     {
         Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainGrid.Background);
         Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
@@ -43,16 +43,6 @@ public partial class MainWindow : Window
         Properties.Settings.Default.ClockRunning = Clock.IsRunning;
         Properties.Settings.Default.ClockTransparent = Clock.IsTransparent;
         Properties.Settings.Default.Save();
-    }
-
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        LoadSettings();
-    }
-
-    private void Window_Closed(object sender, EventArgs e)
-    {
-        SaveSettings();
     }
 
     private void SettingsButton_Click(object sender, RoutedEventArgs e)
