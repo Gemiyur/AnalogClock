@@ -8,7 +8,7 @@ namespace AnalogClock.Behaviors;
 /// </summary>
 public class TrayIconBehavior : Behavior<Window>
 {
-    private NotifyIcon? trayIcon;
+    internal static NotifyIcon? TrayIcon;
 
     /// <summary>
     /// Скрывать окно приложения, а не закрывать.
@@ -55,7 +55,7 @@ public class TrayIconBehavior : Behavior<Window>
         }
         else
         {
-            trayIcon?.Dispose();
+            TrayIcon?.Dispose();
         }
     }
 
@@ -73,7 +73,7 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void InitializeTrayIcon()
     {
-        trayIcon = new NotifyIcon
+        TrayIcon = new NotifyIcon
         {
             Icon = GetIcon(new Uri("Images/TrayIcon.ico", UriKind.Relative)),
             Text = "Часы со стрелками",
@@ -109,8 +109,8 @@ public class TrayIconBehavior : Behavior<Window>
         contextMenu.Items.Add(exitMenuItem);
         exitMenuItem.Click += ExitMenuItem_Click;
 
-        trayIcon.ContextMenuStrip = contextMenu;
-        trayIcon.MouseClick += TrayIcon_MouseClick;
+        TrayIcon.ContextMenuStrip = contextMenu;
+        TrayIcon.MouseClick += TrayIcon_MouseClick;
     }
 
     private void TrayIcon_MouseClick(object? sender, MouseEventArgs e)
@@ -131,7 +131,7 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void ExitMenuItem_Click(object? sender, EventArgs e)
     {
-        trayIcon?.Dispose();
+        TrayIcon?.Dispose();
         System.Windows.Application.Current.Shutdown();
     }
 

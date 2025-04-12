@@ -39,23 +39,24 @@
                 <MenuItem Header="Прозрачный циферблат"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
-
                 <MenuItem Header="Цифры на циферблате"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
                 <MenuItem Header="Римские цифры"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}"  />
-                <MenuItem Header="Цвет цифр..." />
+                <!--<MenuItem Header="Цвет цифр..." />-->
                 <Separator />
                 <MenuItem x:Name="SettingsMenuItem" Header="Настройки..."
                           Click="SettingsMenuItem_Click" />
                 <Separator />
-                <MenuItem x:Name="AboutMenuItem" Header="О программе..." Click="AboutMenuItem_Click" />
+                <MenuItem x:Name="AboutMenuItem" Header="О программе..."
+                          Click="AboutMenuItem_Click" />
                 <Separator />
-                <MenuItem Header="Свернуть" />
-                <Separator />
-                <MenuItem Header="Выход" />
+                <!--<MenuItem Header="Свернуть" />
+                <Separator />-->
+                <MenuItem x:Name="ExitMenuItem" Header="Выход"
+                          Click="ExitMenuItem_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
 

@@ -81,4 +81,10 @@ public partial class MainWindow : Window
     {
         App.ShowAboutDialog(this);
     }
+
+    private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        Behaviors.TrayIconBehavior.TrayIcon?.Dispose();
+        System.Windows.Application.Current.Shutdown();
+    }
 }
