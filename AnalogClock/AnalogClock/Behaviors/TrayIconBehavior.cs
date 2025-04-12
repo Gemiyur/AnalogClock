@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using AnalogClock.Dialogs;
 
 namespace AnalogClock.Behaviors;
 
@@ -16,14 +10,19 @@ public class TrayIconBehavior : Behavior<Window>
 {
     private NotifyIcon? trayIcon;
 
-    //private bool CloseToTray => false;
-
-    //private bool MinimizeToTray => true;
-
+    /// <summary>
+    /// Скрывать окно приложения, а не закрывать.
+    /// </summary>
     private static bool CloseToTray => Properties.Settings.Default.CloseToTray;
 
+    /// <summary>
+    /// Скрывать окно приложения, а не сворачивать.
+    /// </summary>
     private static bool MinimizeToTray => Properties.Settings.Default.MinimizeToTray;
 
+    /// <summary>
+    /// Показывать приложение в панели задач.
+    /// </summary>
     private static bool ShowInTaskbar => Properties.Settings.Default.ShowInTaskbar;
 
     protected override void OnAttached()
@@ -62,13 +61,13 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void AssociatedObject_StateChanged(object? sender, EventArgs e)
     {
-        if (AssociatedObject.WindowState == WindowState.Minimized)
+        if (AssociatedObject.WindowState == WindowState.Minimized && (MinimizeToTray || !ShowInTaskbar))
         {
-            AssociatedObject.ShowInTaskbar = !MinimizeToTray;
+            AssociatedObject.Hide();
         }
         else
         {
-            AssociatedObject.ShowInTaskbar = true;
+            AssociatedObject.ShowInTaskbar = ShowInTaskbar;
         }
     }
 

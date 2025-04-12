@@ -21,12 +21,13 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
+        ShowInTaskbar = Properties.Settings.Default.ShowInTaskbar;
         GridContextMenu.DataContext = Clock;
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
         Clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.ClockDigitsColor);
         Clock.IsDigitsShown = Properties.Settings.Default.ClockShowDigits;
         Clock.IsRomanDigits = Properties.Settings.Default.ClockRomanDigits;
@@ -43,6 +44,22 @@ public partial class MainWindow : Window
         Properties.Settings.Default.ClockRunning = Clock.IsRunning;
         Properties.Settings.Default.ClockTransparent = Clock.IsTransparent;
         Properties.Settings.Default.Save();
+    }
+
+    private void Window_StateChanged(object sender, EventArgs e)
+    {
+        if (WindowState == WindowState.Minimized && App.SettingsWindow != null)
+        {
+            App.SettingsWindow.Close();
+        }
+    }
+
+    private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (Visibility == Visibility.Hidden && App.SettingsWindow != null)
+        {
+            App.SettingsWindow.Close();
+        }
     }
 
     private void SettingsButton_Click(object sender, RoutedEventArgs e)
