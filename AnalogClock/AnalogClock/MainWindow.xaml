@@ -9,9 +9,10 @@
         xmlns:clock="clr-namespace:AnalogClock.Controls"
         xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
         mc:Ignorable="d"
-        Title="Аналоговые часы"
-        Width="500" Height="300" ResizeMode="CanResizeWithGrip"
-        d:Width="500" d:Height="300"
+        Title="Часы"
+        Width="300" Height="300" ResizeMode="CanResizeWithGrip"
+        MinWidth="250" MinHeight="250"
+        d:Width="300" d:Height="300"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
@@ -45,7 +46,6 @@
                 <MenuItem Header="Римские цифры"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}"  />
-                <!--<MenuItem Header="Цвет цифр..." />-->
                 <Separator />
                 <MenuItem x:Name="SettingsMenuItem" Header="Настройки..."
                           Click="SettingsMenuItem_Click" />
@@ -53,8 +53,6 @@
                 <MenuItem x:Name="AboutMenuItem" Header="О программе..."
                           Click="AboutMenuItem_Click" />
                 <Separator />
-                <!--<MenuItem Header="Свернуть" />
-                <Separator />-->
                 <MenuItem x:Name="ExitMenuItem" Header="Выход"
                           Click="ExitMenuItem_Click" />
             </ContextMenu>
@@ -62,29 +60,8 @@
 
         <Viewbox>
             <Border BorderThickness="1">
-
-                <clock:ClockControl x:Name="Clock"
-                                    Template="{StaticResource ClockTemplate}" />
-                
-                <!--<clock:ClockControl x:Name="Clock"
-                                    IsRomanDigits="True"
-                                    IsRunning="True"
-                                    Template="{StaticResource ClockTemplate}" />-->
-
+                <clock:ClockControl x:Name="Clock" Template="{StaticResource ClockTemplate}" />
             </Border>
         </Viewbox>
-
-        <Button x:Name="SettingsButton" Content="Настройки"
-                Width="75" Height="25"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="10,10,0,0"
-                Click="SettingsButton_Click" />
-
-        <Button x:Name="AboutButton" Content="О программе"
-                Width="85" Height="25"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,10,10,0"
-                Click="AboutButton_Click" />
-
     </Grid>
 </Window>

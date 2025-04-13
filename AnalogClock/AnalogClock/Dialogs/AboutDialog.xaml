@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="О программе"
         Width="450" Height="230" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
         Closed="Window_Closed">
 

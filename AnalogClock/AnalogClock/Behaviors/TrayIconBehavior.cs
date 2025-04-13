@@ -8,6 +8,9 @@ namespace AnalogClock.Behaviors;
 /// </summary>
 public class TrayIconBehavior : Behavior<Window>
 {
+    /// <summary>
+    /// Значок в области уведомлений.
+    /// </summary>
     internal static NotifyIcon? TrayIcon;
 
     /// <summary>

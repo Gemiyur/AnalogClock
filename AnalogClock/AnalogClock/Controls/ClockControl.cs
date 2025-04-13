@@ -9,7 +9,7 @@ using Size = System.Windows.Size;
 namespace AnalogClock.Controls;
 
 /// <summary>
-/// Элемент управления "Часы".
+/// Класс элемента управления "Часы".
 /// </summary>
 public class ClockControl : System.Windows.Controls.Control
 {

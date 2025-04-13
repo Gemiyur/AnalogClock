@@ -6,14 +6,25 @@ using AnalogClock.Controls;
 namespace AnalogClock.Dialogs;
 
 /// <summary>
-/// Окно настроек приложения.
+/// Класс окна настроек приложения.
 /// </summary>
 public partial class SettingsWindow : Window
 {
+    /// <summary>
+    /// Элемент управления "Часы".
+    /// </summary>
     private readonly ClockControl clock;
 
+    /// <summary>
+    /// Сетка главного окна.
+    /// </summary>
     private readonly Grid grid;
 
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="clock">Элемент управления "Часы".</param>
+    /// <param name="grid">Сетка главного окна.</param>
     public SettingsWindow(ClockControl clock, Grid grid)
     {
         InitializeComponent();
