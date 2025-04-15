@@ -28,6 +28,69 @@ public class TrayIconBehavior : Behavior<Window>
     /// </summary>
     private static bool ShowInTaskbar => Properties.Settings.Default.ShowInTaskbar;
 
+    private static Icon? GetIcon(Uri uri)
+    {
+        using var stream = System.Windows.Application.GetResourceStream(uri)?.Stream;
+        return stream != null ? new Icon(stream) : null;
+    }
+
+    private void InitializeTrayIcon()
+    {
+        TrayIcon = new NotifyIcon
+        {
+            Icon = GetIcon(new Uri("Images/TrayIcon.ico", UriKind.Relative)),
+            Text = "Аналоговые часы",
+            Visible = true
+        };
+
+        ContextMenuStrip contextMenu = new();
+
+        ToolStripMenuItem openMenuItem = new()
+        {
+            Text = "Открыть"
+        };
+        var font = new Font(openMenuItem.Font, System.Drawing.FontStyle.Bold);
+        openMenuItem.Font = font;
+        contextMenu.Items.Add(openMenuItem);
+        openMenuItem.Click += OpenMenuItem_Click;
+
+        contextMenu.Items.Add(new ToolStripSeparator());
+
+        ToolStripMenuItem aboutMenuItem = new()
+        {
+            Text = "О программе..."
+        };
+        contextMenu.Items.Add(aboutMenuItem);
+        aboutMenuItem.Click += AboutMenuItem_Click;
+
+        contextMenu.Items.Add(new ToolStripSeparator());
+
+        ToolStripMenuItem exitMenuItem = new()
+        {
+            Text = "Выход"
+        };
+        contextMenu.Items.Add(exitMenuItem);
+        exitMenuItem.Click += ExitMenuItem_Click;
+
+        TrayIcon.ContextMenuStrip = contextMenu;
+        TrayIcon.MouseClick += TrayIcon_MouseClick;
+    }
+
+    private void ShowAssociatedWindow()
+    {
+        AssociatedObject.Show();
+        AssociatedObject.WindowState = WindowState.Normal;
+        AssociatedObject.Activate();
+    }
+
+    // Отображение системных уведомлений. Не используется в данном проекте.
+    // Оставлено на всякий случай. Ну и как пример тоже.
+    //private void ShowNotificationInTray(string title, string message)
+    //{
+    //    // Отображает системное уведомление на 2 секунды (2000 миллисекунд).
+    //    trayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
+    //}
+
     protected override void OnAttached()
     {
         base.OnAttached();
@@ -74,48 +137,6 @@ public class TrayIconBehavior : Behavior<Window>
         }
     }
 
-    private void InitializeTrayIcon()
-    {
-        TrayIcon = new NotifyIcon
-        {
-            Icon = GetIcon(new Uri("Images/TrayIcon.ico", UriKind.Relative)),
-            Text = "Часы со стрелками",
-            Visible = true
-        };
-
-        ContextMenuStrip contextMenu = new();
-
-        ToolStripMenuItem openMenuItem = new()
-        {
-            Text = "Открыть"
-        };
-        var font = new Font(openMenuItem.Font, System.Drawing.FontStyle.Bold);
-        openMenuItem.Font = font;
-        contextMenu.Items.Add(openMenuItem);
-        openMenuItem.Click += OpenMenuItem_Click;
-
-        contextMenu.Items.Add(new ToolStripSeparator());
-
-        ToolStripMenuItem aboutMenuItem = new()
-        {
-            Text = "О программе..."
-        };
-        contextMenu.Items.Add(aboutMenuItem);
-        aboutMenuItem.Click += AboutMenuItem_Click;
-
-        contextMenu.Items.Add(new ToolStripSeparator());
-
-        ToolStripMenuItem exitMenuItem = new()
-        {
-            Text = "Выход"
-        };
-        contextMenu.Items.Add(exitMenuItem);
-        exitMenuItem.Click += ExitMenuItem_Click;
-
-        TrayIcon.ContextMenuStrip = contextMenu;
-        TrayIcon.MouseClick += TrayIcon_MouseClick;
-    }
-
     private void TrayIcon_MouseClick(object? sender, MouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
@@ -136,26 +157,5 @@ public class TrayIconBehavior : Behavior<Window>
     {
         TrayIcon?.Dispose();
         System.Windows.Application.Current.Shutdown();
-    }
-
-    private void ShowAssociatedWindow()
-    {
-        AssociatedObject.Show();
-        AssociatedObject.WindowState = WindowState.Normal;
-        AssociatedObject.Activate();
-    }
-
-    // Отображение системных уведомлений. Не используется в данном проекте.
-    // Оставлено на всякий случай. Ну и как пример тоже.
-    //private void ShowNotificationInTray(string title, string message)
-    //{
-    //    // Отображает системное уведомление на 2 секунды (2000 миллисекунд).
-    //    trayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
-    //}
-
-    private static Icon? GetIcon(Uri uri)
-    {
-        using var stream = System.Windows.Application.GetResourceStream(uri)?.Stream;
-        return stream != null ? new Icon(stream) : null;
     }
 }

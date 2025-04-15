@@ -52,16 +52,6 @@ public partial class MainWindow : Window
         }
     }
 
-    //private void SettingsButton_Click(object sender, RoutedEventArgs e)
-    //{
-    //    App.ShowSettingsWindow(Clock, MainGrid);
-    //}
-
-    //private void AboutButton_Click(object sender, RoutedEventArgs e)
-    //{
-    //    App.ShowAboutDialog(this);
-    //}
-
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
     {
         App.ShowSettingsWindow(Clock, MainGrid);

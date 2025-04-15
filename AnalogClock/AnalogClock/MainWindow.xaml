@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="Часы"
         Width="300" Height="300" ResizeMode="CanResizeWithGrip"
-        MinWidth="250" MinHeight="250"
+        MinWidth="230" MinHeight="230"
         d:Width="300" d:Height="300"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
