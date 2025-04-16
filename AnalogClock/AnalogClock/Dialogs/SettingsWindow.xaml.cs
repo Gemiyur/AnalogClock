@@ -23,13 +23,12 @@ public partial class SettingsWindow : Window
     /// <summary>
     /// Конструктор.
     /// </summary>
-    /// <param name="clock">Элемент управления "Часы".</param>
-    /// <param name="grid">Сетка главного окна.</param>
-    public SettingsWindow(ClockControl clock, Grid grid)
+    /// <param name="mainWindow">Главное окно.</param>
+    public SettingsWindow(MainWindow mainWindow)
     {
         InitializeComponent();
-        this.clock = clock;
-        this.grid = grid;
+        clock = mainWindow.Clock;
+        grid = mainWindow.MainGrid;
         ClockGroupBox.DataContext = clock;
         AppGroupBox.DataContext = Properties.Settings.Default;
     }

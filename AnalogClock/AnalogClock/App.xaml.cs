@@ -60,12 +60,12 @@ public partial class App : System.Windows.Application
     /// <summary>
     /// Отображает окно настроек приложения.
     /// </summary>
-    /// <param name="clock">Элемент управления "Часы".</param>
-    public static void ShowSettingsWindow(ClockControl clock, Grid grid)
+    /// <param name="mainWindow">Главное окно.</param>
+    public static void ShowSettingsWindow(MainWindow mainWindow)
     {
         if (SettingsWindow == null)
         {
-            SettingsWindow = new SettingsWindow(clock, grid);
+            SettingsWindow = new SettingsWindow(mainWindow);
             SettingsWindow.Show();
         }
         else

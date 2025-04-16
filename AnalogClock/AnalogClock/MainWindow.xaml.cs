@@ -84,7 +84,7 @@ public partial class MainWindow : Window
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
     {
-        App.ShowSettingsWindow(Clock, MainGrid);
+        App.ShowSettingsWindow(this);
     }
 
     private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
