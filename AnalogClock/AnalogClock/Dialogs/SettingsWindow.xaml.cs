@@ -60,6 +60,7 @@ public partial class SettingsWindow : Window
         grid.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
         Properties.Settings.Default.CloseToTray = Properties.Settings.Default.DefaultCloseToTray;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
+        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.DefaultSaveLocation;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.DefaultShowInTaskbar;
         clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
         clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;

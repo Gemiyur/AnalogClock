@@ -19,9 +19,9 @@
         StateChanged="Window_StateChanged"
         IsVisibleChanged="Window_IsVisibleChanged">
 
-    <i:Interaction.Behaviors>
+    <!--<i:Interaction.Behaviors>
         <tray:TrayIconBehavior />
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
 
     <Window.Resources>
         <ResourceDictionary>

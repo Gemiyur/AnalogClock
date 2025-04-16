@@ -23,11 +23,41 @@ public partial class MainWindow : Window
         Clock.IsRomanDigits = Properties.Settings.Default.ClockRomanDigits;
         Clock.IsRunning = Properties.Settings.Default.ClockRunning;
         Clock.IsTransparent = Properties.Settings.Default.ClockTransparent;
+
+        if (Properties.Settings.Default.SaveLocation)
+        {
+            // В конструкторе это делать нельзя, ибо Left и Top ещё не определены.
+            Left = Properties.Settings.Default.WindowPoint.X;
+            Top = Properties.Settings.Default.WindowPoint.Y;
+            Width = Properties.Settings.Default.WindowSize.Width;
+            Height = Properties.Settings.Default.WindowSize.Height;
+        }
+
+        //var left = (int)Left;
+        //var top = (int)Top;
+        //var height = (int)Height;
+        //var width = (int)Width;
+
+        //var rectangle = new Rectangle(left, top, width, height);
+        //var screen = Screen.FromRectangle(rectangle);
     }
 
     private void Window_Closed(object sender, EventArgs e)
     {
         Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainGrid.Background);
+
+        if (Properties.Settings.Default.SaveLocation)
+        {
+            Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
+            Properties.Settings.Default.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
+        //else
+        //{
+        //    // TODO: Надо ли сбрасывать позицию и размер в нули, если положение окна не сохраняется?
+        //    Properties.Settings.Default.WindowPoint = new System.Drawing.Point(0, 0);
+        //    Properties.Settings.Default.WindowSize = new System.Drawing.Size(0, 0);
+        //}
+
         Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
         Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.ClockRomanDigits = Clock.IsRomanDigits;

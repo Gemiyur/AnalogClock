@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AnalogClock.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="300" Height="400" ResizeMode="NoResize"
+        Width="300" Height="425" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
         Closed="Window_Closed">
@@ -60,6 +60,9 @@
                 <CheckBox Content="Скрывать кнопкой закрытия окна"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=CloseToTray, Mode=TwoWay}" />
+                <CheckBox Content="Сохранять положение и размер окна"
+                          Style="{StaticResource CheckBoxStyle}"
+                          IsChecked="{Binding Path=SaveLocation, Mode=TwoWay}" />
                 <Button x:Name="BackgroundColorButton" Content="Цвет фона"
                         Width="80" Height="25"
                         HorizontalAlignment="Left"
