@@ -32,14 +32,6 @@ public partial class MainWindow : Window
             Width = Properties.Settings.Default.WindowSize.Width;
             Height = Properties.Settings.Default.WindowSize.Height;
         }
-
-        //var left = (int)Left;
-        //var top = (int)Top;
-        //var height = (int)Height;
-        //var width = (int)Width;
-
-        //var rectangle = new Rectangle(left, top, width, height);
-        //var screen = Screen.FromRectangle(rectangle);
     }
 
     private void Window_Closed(object sender, EventArgs e)

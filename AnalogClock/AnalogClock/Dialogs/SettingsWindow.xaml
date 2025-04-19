@@ -9,6 +9,7 @@
         Width="300" Height="425" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
+        Loaded="Window_Loaded"
         Closed="Window_Closed">
 
     <Window.Resources>
