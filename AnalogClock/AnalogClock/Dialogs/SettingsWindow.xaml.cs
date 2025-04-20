@@ -62,7 +62,7 @@ public partial class SettingsWindow : Window
     //    return screen.Bounds.Width / SystemParameters.PrimaryScreenWidth;
     //}
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void LocateWindow()
     {
         // Важно!
         // Позиция верхней левой точки окна задаётся относительно всего экрана, а не рабочей области.
@@ -94,37 +94,42 @@ public partial class SettingsWindow : Window
         var width = (int)(Width * ratio);
         var height = (int)(Height * ratio);
 
-        // Определяем координату X (левую) верхней левой точки окна настроек на экране.
-        if (freeLeft >= freeRight)
+        var showRight = false; // Это будет браться из настроек.
+
+        if (showRight)
         {
-            if (freeLeft < width)
-                left = area.Left;
-            else
-                left = mainLeft - width;
+            if (freeRight < width)
+                showRight = false;
         }
         else
         {
-            if (freeRight < width)
-                left = area.Right - width;
-            else
-                left = mainLeft + mainWidth;
+            if (freeLeft < width)
+                showRight = true;
+        }
+
+        // Определяем координату X (левую) верхней левой точки окна настроек на экране.
+        if (showRight)
+        {
+            left = freeRight < width ? area.Right - width : mainLeft + mainWidth;
+        }
+        else
+        {
+            left = freeLeft < width ? area.Left : mainLeft - width;
         }
 
         // Определяем координату Y (верхнюю) верхней левой точки окна настроек на экране.
-        if (mainTop + height <= area.Bottom)
-        {
-            top = mainTop;
-        }
-        else
-        {
-            top = area.Bottom - height;
-        }
+        top = mainTop + height <= area.Bottom ? mainTop : area.Bottom - height;
 
         // Устанавливаем значения верхней левой точки окна настроек.
         Left = left / ratio;
         Top = top / ratio;
 
         //var rectangle = new Rectangle(left, top, width, height);
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        LocateWindow();
     }
 
     private void Window_Closed(object sender, EventArgs e) => App.SettingsWindow = null;
