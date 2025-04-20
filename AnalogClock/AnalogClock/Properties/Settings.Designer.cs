@@ -256,5 +256,26 @@ namespace AnalogClock.Properties {
                 this["WindowSize"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DefaultSettingsOnRight {
+            get {
+                return ((bool)(this["DefaultSettingsOnRight"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingsOnRight {
+            get {
+                return ((bool)(this["SettingsOnRight"]));
+            }
+            set {
+                this["SettingsOnRight"] = value;
+            }
+        }
     }
 }

@@ -75,37 +75,38 @@ public partial class SettingsWindow : Window
 
         var screen = Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(mainWindow).Handle);
         var area = screen.WorkingArea;
-        //var bounds = screen.Bounds;
         var ratio = screen.Bounds.Width / SystemParameters.PrimaryScreenWidth;
 
         // Позиция и ширина главного окна на экране.
         var mainLeft = (int)(mainWindow.Left * ratio);
         var mainTop = (int)(mainWindow.Top * ratio);
         var mainWidth = (int)(mainWindow.Width * ratio);
-        //var mainHeight = (int)(mainWindow.Height * ratio);
 
         // Ширина свободного места рабочей области слева и справа от главного окна.
         var freeLeft = mainLeft - area.Left;
         var freeRight = area.Right - (mainLeft + mainWidth);
 
         // Позиция и размер окна настроек на экране.
-        int left; // = (int)(Left * ratio);
-        int top; // = (int)(Top * ratio);
+        int left;
+        int top;
         var width = (int)(Width * ratio);
         var height = (int)(Height * ratio);
 
-        var showRight = false; // Это будет браться из настроек.
+        // Получаем из настроек с какой стороны главного окна показывать окно настроек.
+        var showRight = Properties.Settings.Default.SettingsOnRight;
 
-        if (showRight)
-        {
-            if (freeRight < width)
-                showRight = false;
-        }
-        else
-        {
-            if (freeLeft < width)
-                showRight = true;
-        }
+        // Корректировка положения окна при нехватке свободного места.
+        // А надо ли? Пока закомментировано.
+        //if (showRight)
+        //{
+        //    if (freeRight < width)
+        //        showRight = false;
+        //}
+        //else
+        //{
+        //    if (freeLeft < width)
+        //        showRight = true;
+        //}
 
         // Определяем координату X (левую) верхней левой точки окна настроек на экране.
         if (showRight)
@@ -123,8 +124,6 @@ public partial class SettingsWindow : Window
         // Устанавливаем значения верхней левой точки окна настроек.
         Left = left / ratio;
         Top = top / ratio;
-
-        //var rectangle = new Rectangle(left, top, width, height);
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -134,14 +133,16 @@ public partial class SettingsWindow : Window
 
     private void Window_Closed(object sender, EventArgs e) => App.SettingsWindow = null;
 
-    private void ShowInTaskbarCheckBox_Click(object sender, RoutedEventArgs e) => CheckShowInTaskbar();
-
     private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new BrushPicker(clock.DigitBrush);
         if (picker.Execute())
             clock.DigitBrush = picker.Brush;
     }
+
+    private void ShowInTaskbarCheckBox_Click(object sender, RoutedEventArgs e) => CheckShowInTaskbar();
+
+    private void SettingsOnRightCheckBox_Click(object sender, RoutedEventArgs e) => LocateWindow();
 
     private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
@@ -156,6 +157,7 @@ public partial class SettingsWindow : Window
         Properties.Settings.Default.CloseToTray = Properties.Settings.Default.DefaultCloseToTray;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
         Properties.Settings.Default.SaveLocation = Properties.Settings.Default.DefaultSaveLocation;
+        Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.DefaultSettingsOnRight;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.DefaultShowInTaskbar;
         clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
         clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;
@@ -163,5 +165,6 @@ public partial class SettingsWindow : Window
         clock.IsRunning = Properties.Settings.Default.DefaultClockRunning;
         clock.IsTransparent = Properties.Settings.Default.DefaultClockTransparent;
         CheckShowInTaskbar();
+        LocateWindow();
     }
 }

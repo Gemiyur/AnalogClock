@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AnalogClock.Dialogs"
         mc:Ignorable="d"
         Title="Настройки часов"
-        Width="300" Height="425" ResizeMode="NoResize"
+        Width="300" Height="450" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
         Loaded="Window_Loaded"
@@ -68,6 +68,10 @@
                 <CheckBox Content="Сохранять положение и размер окна"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=SaveLocation, Mode=TwoWay}" />
+                <CheckBox x:Name="SettingsOnRightCheckBox" Content="Показывать окно настроек справа"
+                          Style="{StaticResource CheckBoxStyle}"
+                          IsChecked="{Binding Path=SettingsOnRight, Mode=TwoWay}"
+                          Click="SettingsOnRightCheckBox_Click" />
                 <Button x:Name="BackgroundColorButton" Content="Цвет фона"
                         Style="{StaticResource ColorButtonStyle}"
                         Click="BackgroundColorButton_Click" />
