@@ -53,7 +53,7 @@ public partial class MainWindow : Window
         Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
         Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.ClockRomanDigits = Clock.IsRomanDigits;
-        Properties.Settings.Default.ClockRunning = Clock.IsRunning;
+        //Properties.Settings.Default.ClockRunning = Clock.IsRunning;
         Properties.Settings.Default.ClockTransparent = Clock.IsTransparent;
         Properties.Settings.Default.Save();
     }

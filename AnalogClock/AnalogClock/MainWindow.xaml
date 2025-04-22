@@ -34,9 +34,9 @@
     <Grid x:Name="MainGrid" Background="Khaki">
         <Grid.ContextMenu>
             <ContextMenu x:Name="GridContextMenu">
-                <MenuItem Header="Часы включены"
+                <!--<MenuItem Header="Часы включены"
                           IsCheckable="True"
-                          IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />
+                          IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />-->
                 <MenuItem Header="Прозрачный циферблат"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />

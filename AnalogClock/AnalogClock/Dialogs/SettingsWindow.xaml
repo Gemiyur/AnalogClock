@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AnalogClock.Dialogs"
         mc:Ignorable="d"
         Title="Настройки часов"
-        Width="300" Height="450" ResizeMode="NoResize"
+        Width="300" Height="425" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
         Loaded="Window_Loaded"
@@ -35,9 +35,9 @@
 
         <GroupBox Grid.Row="0" x:Name="ClockGroupBox" Header="Часы">
             <StackPanel>
-                <CheckBox Content="Часы включены"
+                <!--<CheckBox Content="Часы включены"
                           Style="{StaticResource CheckBoxStyle}"
-                          IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />
+                          IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />-->
                 <CheckBox Content="Прозрачный циферблат"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
