@@ -80,15 +80,6 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DefaultClockRunning {
-            get {
-                return ((bool)(this["DefaultClockRunning"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DefaultClockShowDigits {
             get {
                 return ((bool)(this["DefaultClockShowDigits"]));
@@ -173,18 +164,6 @@ namespace AnalogClock.Properties {
             }
             set {
                 this["ClockRomanDigits"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ClockRunning {
-            get {
-                return ((bool)(this["ClockRunning"]));
-            }
-            set {
-                this["ClockRunning"] = value;
             }
         }
         

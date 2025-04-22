@@ -35,9 +35,6 @@
 
         <GroupBox Grid.Row="0" x:Name="ClockGroupBox" Header="Часы">
             <StackPanel>
-                <!--<CheckBox Content="Часы включены"
-                          Style="{StaticResource CheckBoxStyle}"
-                          IsChecked="{Binding Path=IsRunning, Mode=TwoWay}" />-->
                 <CheckBox Content="Прозрачный циферблат"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />

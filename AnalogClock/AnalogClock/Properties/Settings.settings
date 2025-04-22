@@ -20,9 +20,6 @@
     <Setting Name="DefaultClockRomanDigits" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DefaultClockRunning" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="DefaultClockShowDigits" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -46,9 +43,6 @@
     </Setting>
     <Setting Name="ClockRomanDigits" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ClockRunning" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ClockShowDigits" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
