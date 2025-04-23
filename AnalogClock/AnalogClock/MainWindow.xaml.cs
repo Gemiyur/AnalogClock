@@ -22,10 +22,8 @@ public partial class MainWindow : Window
         Clock.IsDigitsShown = Properties.Settings.Default.ClockShowDigits;
         Clock.IsRomanDigits = Properties.Settings.Default.ClockRomanDigits;
         Clock.IsTransparent = Properties.Settings.Default.ClockTransparent;
-
         if (Properties.Settings.Default.SaveLocation)
         {
-            // В конструкторе это делать нельзя, ибо Left и Top ещё не определены.
             Left = Properties.Settings.Default.WindowPoint.X;
             Top = Properties.Settings.Default.WindowPoint.Y;
             Width = Properties.Settings.Default.WindowSize.Width;
@@ -36,19 +34,11 @@ public partial class MainWindow : Window
     private void Window_Closed(object sender, EventArgs e)
     {
         Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainGrid.Background);
-
         if (Properties.Settings.Default.SaveLocation)
         {
             Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        //else
-        //{
-        //    // TODO: Надо ли сбрасывать позицию и размер в нули, если положение окна не сохраняется?
-        //    Properties.Settings.Default.WindowPoint = new System.Drawing.Point(0, 0);
-        //    Properties.Settings.Default.WindowSize = new System.Drawing.Size(0, 0);
-        //}
-
         Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
         Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.ClockRomanDigits = Clock.IsRomanDigits;

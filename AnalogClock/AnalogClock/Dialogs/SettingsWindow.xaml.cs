@@ -42,26 +42,6 @@ public partial class SettingsWindow : Window
     private void CheckShowInTaskbar() =>
         System.Windows.Application.Current.MainWindow.ShowInTaskbar = ShowInTaskbarCheckBox.IsChecked == true;
 
-    //public static int GetWindowsScalePercent()
-    //{
-    //    return (int)(100 * Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth);
-    //}
-
-    //public static int GetWindowsScalePercent(Screen screen)
-    //{
-    //    return (int)(100 * screen.Bounds.Width / SystemParameters.PrimaryScreenWidth);
-    //}
-
-    //public static double GetWindowsScaleRatio()
-    //{
-    //    return Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth;
-    //}
-
-    //public static double GetWindowsScaleRatio(Screen screen)
-    //{
-    //    return screen.Bounds.Width / SystemParameters.PrimaryScreenWidth;
-    //}
-
     private void LocateWindow()
     {
         // Важно!
