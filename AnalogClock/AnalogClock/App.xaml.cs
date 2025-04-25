@@ -33,7 +33,7 @@ public partial class App : System.Windows.Application
     /// <param name="color">Цвет System.Drawing.Color.</param>
     /// <returns>Кисть SolidColorBrush.</returns>
     public static SolidColorBrush ColorToBrush(System.Drawing.Color color) =>
-        new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
+        new(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
 
     /// <summary>
     /// Отображает окно "О программе".

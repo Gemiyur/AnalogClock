@@ -16,7 +16,7 @@
                         <DrawingImage.Drawing>
                             <DrawingGroup x:Name="ClockGlyphsContainer">
 
-                                <!-- Круг циферблата часов. -->
+                                <!-- Круг циферблата. -->
 
                                 <GeometryDrawing x:Name="ClockBackgroundContainer">
                                     <GeometryDrawing.Geometry>
@@ -28,15 +28,17 @@
                                         <Pen Thickness="5" Brush="Black" />
                                     </GeometryDrawing.Pen>
                                     <GeometryDrawing.Brush>
-                                        <RadialGradientBrush >
+                                        <SolidColorBrush Color="White" />
+                                        <!-- С такой градиентной кистью выглядит как-то не очень. -->
+                                        <!--<RadialGradientBrush>
                                             <GradientStop Color="#FFFFFF" Offset="0"/>
                                             <GradientStop Color="#FFFFEF" Offset="0.65"/>
                                             <GradientStop Color="#FFBCBCAC" Offset="1"/>
-                                        </RadialGradientBrush>
+                                        </RadialGradientBrush>-->
                                     </GeometryDrawing.Brush>
                                 </GeometryDrawing>
 
-                                <!-- Минутные отметки по краям часов. -->
+                                <!-- Минутные отметки. -->
 
                                 <GeometryDrawing>
                                     <GeometryDrawing.Geometry>
@@ -344,7 +346,7 @@
                                     </GeometryDrawing.Pen>
                                 </GeometryDrawing>
 
-                                <!-- Часовые отметки по краям часов. -->
+                                <!-- Часовые отметки. -->
 
                                 <GeometryDrawing>
                                     <GeometryDrawing.Geometry>
@@ -412,7 +414,7 @@
                                     </GeometryDrawing.Pen>
                                 </GeometryDrawing>
 
-                                <!-- Цифры на часах. -->
+                                <!-- Цифры часов. -->
 
                                 <GlyphRunDrawing />
                                 <GlyphRunDrawing />
@@ -461,7 +463,7 @@
 
                                 <!-- Секундная стрелка. -->
 
-                                <GeometryDrawing Brush="Red">
+                                <GeometryDrawing>
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
                                             <GeometryGroup.Transform>

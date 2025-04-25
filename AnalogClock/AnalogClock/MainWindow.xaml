@@ -10,18 +10,18 @@
         xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
         mc:Ignorable="d"
         Title="Часы"
-        Width="300" Height="300" ResizeMode="CanResizeWithGrip"
-        MinWidth="230" MinHeight="230"
-        d:Width="300" d:Height="300"
+        Width="230" Height="250" ResizeMode="CanResizeWithGrip"
+        MinWidth="230" MinHeight="250"
+        d:Width="230" d:Height="250"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
         StateChanged="Window_StateChanged"
         IsVisibleChanged="Window_IsVisibleChanged">
 
-    <!--<i:Interaction.Behaviors>
+    <i:Interaction.Behaviors>
         <tray:TrayIconBehavior />
-    </i:Interaction.Behaviors>-->
+    </i:Interaction.Behaviors>
 
     <Window.Resources>
         <ResourceDictionary>

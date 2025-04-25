@@ -83,12 +83,12 @@ public class TrayIconBehavior : Behavior<Window>
         AssociatedObject.Activate();
     }
 
-    // Отображение системных уведомлений. Не используется в данном проекте.
-    // Оставлено на всякий случай. Ну и как пример тоже.
+    // Отображение системных уведомлений. Не используется в данной версии.
+    // Оставлено на всякий случай. Возможно, будет использоваться в будущем.
     //private void ShowNotificationInTray(string title, string message)
     //{
     //    // Отображает системное уведомление на 2 секунды (2000 миллисекунд).
-    //    trayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
+    //    TrayIcon?.ShowBalloonTip(2000, title, message, ToolTipIcon.Info);
     //}
 
     protected override void OnAttached()

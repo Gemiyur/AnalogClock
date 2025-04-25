@@ -75,19 +75,6 @@ public partial class SettingsWindow : Window
         // Получаем из настроек с какой стороны главного окна показывать окно настроек.
         var showRight = Properties.Settings.Default.SettingsOnRight;
 
-        // Корректировка положения окна при нехватке свободного места.
-        // А надо ли? Пока закомментировано.
-        //if (showRight)
-        //{
-        //    if (freeRight < width)
-        //        showRight = false;
-        //}
-        //else
-        //{
-        //    if (freeLeft < width)
-        //        showRight = true;
-        //}
-
         // Определяем координату X (левую) верхней левой точки окна настроек на экране.
         if (showRight)
         {
