@@ -128,7 +128,6 @@ public partial class SettingsWindow : Window
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.DefaultShowInTaskbar;
         clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
         clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;
-        clock.IsRomanDigits = Properties.Settings.Default.DefaultClockRomanDigits;
         clock.IsTransparent = Properties.Settings.Default.DefaultClockTransparent;
         CheckShowInTaskbar();
         LocateWindow();

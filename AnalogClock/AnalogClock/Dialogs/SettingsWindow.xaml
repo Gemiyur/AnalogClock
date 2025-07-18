@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AnalogClock.Dialogs"
         mc:Ignorable="d"
         Title="Настройки часов"
-        Width="300" Height="425" ResizeMode="NoResize"
+        Width="300" Height="400" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
         Loaded="Window_Loaded"
@@ -41,9 +41,6 @@
                 <CheckBox Content="Цифры на циферблате"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
-                <CheckBox Content="Римские цифры"
-                          Style="{StaticResource CheckBoxStyle}"
-                          IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}" />
                 <Button x:Name="DigitsColorButton" Content="Цвет цифр"
                         Style="{StaticResource ColorButtonStyle}"
                         Click="DigitsColorButton_Click" />

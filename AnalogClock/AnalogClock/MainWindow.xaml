@@ -40,9 +40,6 @@
                 <MenuItem Header="Цифры на циферблате"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
-                <MenuItem Header="Римские цифры"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=IsRomanDigits, Mode=TwoWay}"  />
                 <Separator />
                 <MenuItem x:Name="SettingsMenuItem" Header="Настройки..."
                           Click="SettingsMenuItem_Click" />

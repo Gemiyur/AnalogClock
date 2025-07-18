@@ -85,15 +85,6 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Возвращает или задаёт отображение римских чисел вместо арабских.
-    /// </summary>
-    public bool IsRomanDigits
-    {
-        get => (bool)GetValue(IsRomanDigitsProperty);
-        set => SetValue(IsRomanDigitsProperty, value);
-    }
-
-    /// <summary>
     /// Возвращает или задаёт работают ли часы или они остановлены.
     /// </summary>
     /// <remarks>
@@ -174,14 +165,13 @@ public class ClockControl : System.Windows.Controls.Control
                 label.GlyphRun = null;
             return;
         }
-        string[] romanDigits = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
         var innerOffset = 50 - HourRadius + 1;
         var innerCircleDiameter = HourRadius * 2;
         var fontSize = FontSize;
         var index = 1;
         foreach (var label in labels)
         {
-            var text = IsRomanDigits ? romanDigits[index - 1] : index.ToString();
+            var text = index.ToString();
             var point = GetHourPosition(index);
             var size = MeasureString(text, fontSize);
             point.X -= ((point.X - innerOffset) / innerCircleDiameter) * size.Width;
@@ -405,42 +395,6 @@ public class ClockControl : System.Windows.Controls.Control
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = DigitsShownChangedEvent
-        };
-        RaiseEvent(args);
-    }
-
-    #endregion
-
-    #region Римские цифры (IsRomanDigitsProperty).
-
-    internal static DependencyProperty IsRomanDigitsProperty = DependencyProperty.Register(
-            "IsRomanDigits",
-            typeof(bool),
-            typeof(ClockControl),
-            new PropertyMetadata(false, new PropertyChangedCallback(OnIsRomanDigitsPropertyChanged)));
-
-    private static void OnIsRomanDigitsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var clock = (ClockControl)d;
-        var oldValue = (bool)e.OldValue;
-        var newValue = (bool)e.NewValue;
-        if (oldValue != newValue)
-            clock.OnIsRomanDigitsChanged(oldValue, newValue);
-    }
-
-    public static readonly RoutedEvent RomanDigitsChangedEvent =
-        EventManager.RegisterRoutedEvent(
-            "RomanDigitsChanged",
-            RoutingStrategy.Bubble,
-            typeof(RoutedPropertyChangedEventHandler<bool>),
-            typeof(ClockControl));
-
-    protected virtual void OnIsRomanDigitsChanged(bool oldValue, bool newValue)
-    {
-        DrawDigits();
-        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
-        {
-            RoutedEvent = RomanDigitsChangedEvent
         };
         RaiseEvent(args);
     }
