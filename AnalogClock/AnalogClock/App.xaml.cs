@@ -12,11 +12,6 @@ public partial class App : System.Windows.Application
     private readonly Mutex mutex = new(false, "AnalogClock");
 
     /// <summary>
-    /// Возвращает или задаёт окно настроек приложения.
-    /// </summary>
-    public static SettingsWindow? SettingsWindow { get; set; }
-
-    /// <summary>
     /// Возвращает цвет System.Drawing.Color указанной кисти SolidColorBrush.
     /// </summary>
     /// <param name="brush">Кисть SolidColorBrush.</param>
@@ -51,6 +46,18 @@ public partial class App : System.Windows.Application
     }
 
     /// <summary>
+    /// Возвращает окно настроек или null, если окна нет.
+    /// </summary>
+    /// <returns>Окно настроек или null, если окна нет.</returns>
+    public static SettingsWindow? FindSettingsWindow()
+    {
+        foreach (var window in Current.Windows)
+            if (window is SettingsWindow settingsWindow)
+                return settingsWindow;
+        return null;
+    }
+
+    /// <summary>
     /// Отображает окно "О программе".
     /// </summary>
     /// <param name="owner">Окно-владелец.</param>
@@ -61,28 +68,31 @@ public partial class App : System.Windows.Application
     {
         var window = FindAboutWindow();
         if (window != null)
-        {
             window.Activate();
-        }
         else
-        {
             new AboutDialog() { Owner = owner }.ShowDialog();
-        }
     }
 
     /// <summary>
     /// Отображает окно настроек приложения.
     /// </summary>
-    /// <param name="mainWindow">Главное окно.</param>
-    public static void ShowSettingsWindow(MainWindow mainWindow)
+    public static void ShowSettingsWindow()
     {
-        if (SettingsWindow == null)
-        {
-            SettingsWindow = new SettingsWindow(mainWindow);
-            SettingsWindow.Show();
-        }
+        var window = FindSettingsWindow();
+        if (window != null)
+            window.Activate();
         else
-            SettingsWindow.Activate();
+            new SettingsWindow(GetMainWindow()).Show();
+    }
+
+    /// <summary>
+    /// Закрывает окно настроек приложения если оно открыто.
+    /// </summary>
+    public static void CloseSettingsWindow()
+    {
+        var window = FindSettingsWindow();
+        if (window != null)
+            window.Close();
     }
 
     private void Application_Startup(object sender, StartupEventArgs e)

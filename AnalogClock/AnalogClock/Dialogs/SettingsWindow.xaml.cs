@@ -98,7 +98,7 @@ public partial class SettingsWindow : Window
         LocateWindow();
     }
 
-    private void Window_Closed(object sender, EventArgs e) => App.SettingsWindow = null;
+    private void Window_Closed(object sender, EventArgs e) => App.GetMainWindow().Activate();
 
     private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
     {

@@ -46,21 +46,21 @@ public partial class MainWindow : Window
 
     private void Window_StateChanged(object sender, EventArgs e)
     {
-        if (WindowState == WindowState.Minimized && App.SettingsWindow != null)
+        if (WindowState == WindowState.Minimized)
         {
-            App.SettingsWindow.Close();
+            App.CloseSettingsWindow();
         }
     }
 
     private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        if (Visibility == Visibility.Hidden && App.SettingsWindow != null)
+        if (Visibility == Visibility.Hidden)
         {
-            App.SettingsWindow.Close();
+            App.CloseSettingsWindow();
         }
     }
 
-    private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowSettingsWindow(this);
+    private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowSettingsWindow();
 
     private void AboutMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowAboutDialog(this);
 
