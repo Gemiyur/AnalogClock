@@ -31,7 +31,7 @@ public partial class AboutDialog : Window
         VersionTextBlock.Text = version;
     }
 
-    private void Window_Closed(object sender, EventArgs e) => App.AboutDialog = null;
+    private void Window_Closed(object sender, EventArgs e) => App.GetMainWindow().Activate();
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }

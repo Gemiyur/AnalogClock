@@ -12,11 +12,6 @@ public partial class App : System.Windows.Application
     private readonly Mutex mutex = new(false, "AnalogClock");
 
     /// <summary>
-    /// Возвращает или задаёт окно "О программе".
-    /// </summary>
-    public static AboutDialog? AboutDialog { get; set; }
-
-    /// <summary>
     /// Возвращает или задаёт окно настроек приложения.
     /// </summary>
     public static SettingsWindow? SettingsWindow { get; set; }
@@ -38,6 +33,24 @@ public partial class App : System.Windows.Application
         new(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
 
     /// <summary>
+    /// Возвращает главное окно приложения.
+    /// </summary>
+    /// <returns>Главное окно приложения.</returns>
+    public static MainWindow GetMainWindow() => (MainWindow)Current.MainWindow;
+
+    /// <summary>
+    /// Возвращает окно "О программе" или null, если окна нет.
+    /// </summary>
+    /// <returns>Окно "О программе" или null, если окна нет.</returns>
+    public static AboutDialog? FindAboutWindow()
+    {
+        foreach (var window in Current.Windows)
+            if (window is AboutDialog aboutWindow)
+                return aboutWindow;
+        return null;
+    }
+
+    /// <summary>
     /// Отображает окно "О программе".
     /// </summary>
     /// <param name="owner">Окно-владелец.</param>
@@ -46,14 +59,14 @@ public partial class App : System.Windows.Application
     /// </remarks>
     public static void ShowAboutDialog(Window owner)
     {
-        if (AboutDialog != null)
+        var window = FindAboutWindow();
+        if (window != null)
         {
-            AboutDialog.Activate();
+            window.Activate();
         }
         else
         {
-            AboutDialog = new AboutDialog() { Owner = owner };
-            AboutDialog.ShowDialog();
+            new AboutDialog() { Owner = owner }.ShowDialog();
         }
     }
 
