@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using AnalogClock.Dialogs;
+using System.Windows;
 using System.Windows.Media;
-using AnalogClock.Dialogs;
 
 namespace AnalogClock;
 
@@ -9,6 +9,8 @@ namespace AnalogClock;
 /// </summary>
 public partial class App : System.Windows.Application
 {
+    private readonly Mutex mutex = new(false, "AnalogClock");
+
     /// <summary>
     /// Возвращает или задаёт окно "О программе".
     /// </summary>
@@ -68,5 +70,14 @@ public partial class App : System.Windows.Application
         }
         else
             SettingsWindow.Activate();
+    }
+
+    private void Application_Startup(object sender, StartupEventArgs e)
+    {
+        if (!mutex.WaitOne(500, false))
+        {
+            System.Windows.MessageBox.Show("Приложение уже запущено.", "Часы");
+            Environment.Exit(0);
+        }
     }
 }
