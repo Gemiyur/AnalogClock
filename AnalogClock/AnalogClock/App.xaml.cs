@@ -64,13 +64,13 @@ public partial class App : System.Windows.Application
     /// <remarks>
     /// Отображает окно как из главного окна, так и из меню значка в области уведомлений, без конфликта.
     /// </remarks>
-    public static void ShowAboutDialog(Window owner)
+    public static void ShowAboutDialog()
     {
         var window = FindAboutWindow();
         if (window != null)
             window.Activate();
         else
-            new AboutDialog() { Owner = owner }.ShowDialog();
+            new AboutDialog() { Owner = GetMainWindow() }.ShowDialog();
     }
 
     /// <summary>

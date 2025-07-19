@@ -145,7 +145,7 @@ public class TrayIconBehavior : Behavior<Window>
 
     private void AboutMenuItem_Click(object? sender, EventArgs e)
     {
-        App.ShowAboutDialog(AssociatedObject);
+        App.ShowAboutDialog();
     }
 
     private void OpenMenuItem_Click(object? sender, EventArgs e)

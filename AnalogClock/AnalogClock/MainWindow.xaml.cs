@@ -62,7 +62,7 @@ public partial class MainWindow : Window
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowSettingsWindow();
 
-    private void AboutMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowAboutDialog(this);
+    private void AboutMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowAboutDialog();
 
     private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
     {
