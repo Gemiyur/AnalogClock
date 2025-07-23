@@ -1,4 +1,6 @@
 ﻿using AnalogClock.Dialogs;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,6 +11,12 @@ namespace AnalogClock;
 /// </summary>
 public partial class App : System.Windows.Application
 {
+    [DllImport("user32.dll")]
+    private static extern bool ShowWindow(IntPtr handle, int cmdShow);
+
+    [DllImport("user32.dll")]
+    private static extern int SetForegroundWindow(IntPtr handle);
+
     private readonly Mutex mutex = new(false, "AnalogClock");
 
     /// <summary>
@@ -99,8 +107,20 @@ public partial class App : System.Windows.Application
     {
         if (!mutex.WaitOne(500, false))
         {
-            System.Windows.MessageBox.Show("Приложение уже запущено.", "Часы");
-            Environment.Exit(0);
+#if DEBUG
+            //System.Windows.MessageBox.Show("Приложение уже запущено.", "Аналоговые часы");
+#endif
+            // Важно! Окно не активируется если оно не отображается в панели задач.
+            var processName = Process.GetCurrentProcess().ProcessName;
+            var process = Process.GetProcesses().Where(p => p.ProcessName == processName).FirstOrDefault();
+            if (process != null)
+            {
+                IntPtr handle = process.MainWindowHandle;
+                ShowWindow(handle, 1);
+                if (SetForegroundWindow(handle) == 0)
+                    System.Windows.MessageBox.Show("Приложение уже запущено.", "Аналоговые часы");
+                Environment.Exit(0);
+            }
         }
     }
 }

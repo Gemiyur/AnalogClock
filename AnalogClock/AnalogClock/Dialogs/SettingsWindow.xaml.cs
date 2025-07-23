@@ -98,6 +98,7 @@ public partial class SettingsWindow : Window
         LocateWindow();
     }
 
+    // TODOH: При закрытии приложения GetMainWindow возвращает null и выбрасывается исключение.
     private void Window_Closed(object sender, EventArgs e) => App.GetMainWindow().Activate();
 
     private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
