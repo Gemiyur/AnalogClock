@@ -12,6 +12,7 @@
         Title="Часы"
         Width="230" Height="250" ResizeMode="CanResizeWithGrip"
         MinWidth="230" MinHeight="250"
+        MaxWidth="480" MaxHeight="500"
         d:Width="230" d:Height="250"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
