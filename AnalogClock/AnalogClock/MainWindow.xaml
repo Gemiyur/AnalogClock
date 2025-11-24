@@ -17,7 +17,8 @@
         Loaded="Window_Loaded"
         Closed="Window_Closed"
         StateChanged="Window_StateChanged"
-        IsVisibleChanged="Window_IsVisibleChanged">
+        IsVisibleChanged="Window_IsVisibleChanged"
+        SourceInitialized="Window_SourceInitialized">
 
     <i:Interaction.Behaviors>
         <tray:TrayIconBehavior />

@@ -1,8 +1,8 @@
-﻿using AnalogClock.Dialogs;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
+using AnalogClock.Dialogs;
 
 namespace AnalogClock;
 
