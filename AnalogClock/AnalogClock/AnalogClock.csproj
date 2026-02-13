@@ -7,10 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <Version>2.2.0</Version>
+    <Version>3.0.0</Version>
     <Product>Аналоговые часы</Product>
     <Description>Часы со стрелками.</Description>
-    <Copyright>Copyright © Gemiyur 2025</Copyright>
+    <Copyright>Copyright © Gemiyur 2026</Copyright>
     <ApplicationIcon>Images\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
