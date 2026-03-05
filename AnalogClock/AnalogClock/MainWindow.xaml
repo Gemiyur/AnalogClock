@@ -10,16 +10,16 @@
         xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
         mc:Ignorable="d"
         Title="Часы"
-        Width="230" Height="250" ResizeMode="CanResizeWithGrip"
-        MinWidth="230" MinHeight="250"
-        MaxWidth="480" MaxHeight="500"
-        d:Width="230" d:Height="250"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
+	    WindowStyle="None"
+	    AllowsTransparency="True"
+	    Background="Transparent"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
         StateChanged="Window_StateChanged"
         IsVisibleChanged="Window_IsVisibleChanged"
-        SourceInitialized="Window_SourceInitialized">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <i:Interaction.Behaviors>
         <tray:TrayIconBehavior />
@@ -33,8 +33,13 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="MainGrid" Background="Khaki">
-        <Grid.ContextMenu>
+    <Canvas x:Name="MainCanvas" Width="200" Height="200">
+
+        <Viewbox Width="200" Height="200">
+            <clock:ClockControl x:Name="Clock" Template="{StaticResource ClockTemplate}" />
+        </Viewbox>
+
+        <Canvas.ContextMenu>
             <ContextMenu x:Name="GridContextMenu">
                 <MenuItem Header="Прозрачный циферблат"
                           IsCheckable="True"
@@ -52,12 +57,7 @@
                 <MenuItem x:Name="ExitMenuItem" Header="Выход"
                           Click="ExitMenuItem_Click" />
             </ContextMenu>
-        </Grid.ContextMenu>
+        </Canvas.ContextMenu>
 
-        <Viewbox>
-            <Border BorderThickness="1">
-                <clock:ClockControl x:Name="Clock" Template="{StaticResource ClockTemplate}" />
-            </Border>
-        </Viewbox>
-    </Grid>
+    </Canvas>
 </Window>

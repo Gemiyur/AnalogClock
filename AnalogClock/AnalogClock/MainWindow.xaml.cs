@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Interop;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace AnalogClock;
@@ -10,18 +8,10 @@ namespace AnalogClock;
 /// </summary>
 public partial class MainWindow : Window
 {
-    [DllImport("user32.dll")]
-    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-    [DllImport("user32.dll")]
-    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-    private const int GWL_STYLE = -16;
-    private const int WS_MAXIMIZEBOX = 0x10000;
-
     public MainWindow()
     {
         InitializeComponent();
-        MainGrid.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
+        //MainCanvas.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
         ShowInTaskbar = Properties.Settings.Default.ShowInTaskbar;
         GridContextMenu.DataContext = Clock;
     }
@@ -42,7 +32,7 @@ public partial class MainWindow : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainGrid.Background);
+        //Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainCanvas.Background);
         if (Properties.Settings.Default.SaveLocation)
         {
             Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
@@ -70,10 +60,9 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Window_SourceInitialized(object sender, EventArgs e)
+    private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        IntPtr handle = new WindowInteropHelper(this).Handle;
-        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+        DragMove();
     }
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowSettingsWindow();

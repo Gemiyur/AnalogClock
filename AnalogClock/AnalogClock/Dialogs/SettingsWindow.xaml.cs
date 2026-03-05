@@ -21,9 +21,9 @@ public partial class SettingsWindow : Window
     private readonly ClockControl clock;
 
     /// <summary>
-    /// Сетка главного окна.
+    /// Холст главного окна.
     /// </summary>
-    private readonly Grid grid;
+    private readonly Canvas canvas;
 
     /// <summary>
     /// Конструктор.
@@ -34,7 +34,7 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         this.mainWindow = mainWindow;
         clock = mainWindow.Clock;
-        grid = mainWindow.MainGrid;
+        canvas = mainWindow.MainCanvas;
         ClockGroupBox.DataContext = clock;
         AppGroupBox.DataContext = Properties.Settings.Default;
     }
@@ -118,14 +118,14 @@ public partial class SettingsWindow : Window
 
     private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
-        var picker = new BrushPicker((SolidColorBrush)grid.Background);
-        if (picker.Execute())
-            grid.Background = picker.Brush;
+        //var picker = new BrushPicker((SolidColorBrush)canvas.Background);
+        //if (picker.Execute())
+        //    canvas.Background = picker.Brush;
     }
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        grid.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
+        //canvas.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
         Properties.Settings.Default.CloseToTray = Properties.Settings.Default.DefaultCloseToTray;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
         Properties.Settings.Default.SaveLocation = Properties.Settings.Default.DefaultSaveLocation;
