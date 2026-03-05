@@ -112,7 +112,7 @@ public partial class App : System.Windows.Application
 #endif
             // Важно! Окно не активируется если оно не отображается в панели задач.
             var processName = Process.GetCurrentProcess().ProcessName;
-            var process = Process.GetProcesses().Where(p => p.ProcessName == processName).FirstOrDefault();
+            var process = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == processName);
             if (process != null)
             {
                 IntPtr handle = process.MainWindowHandle;
