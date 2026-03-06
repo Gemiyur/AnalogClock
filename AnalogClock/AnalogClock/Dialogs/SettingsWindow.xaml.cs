@@ -125,14 +125,13 @@ public partial class SettingsWindow : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        //canvas.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
-        Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
-        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.DefaultSaveLocation;
-        Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.DefaultSettingsOnRight;
-        Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.DefaultShowInTaskbar;
-        clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.DefaultClockDigitsColor);
-        clock.IsDigitsShown = Properties.Settings.Default.DefaultClockShowDigits;
-        clock.IsTransparent = Properties.Settings.Default.DefaultClockTransparent;
+        Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
+        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
+        Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.PresetSettingsOnRight;
+        Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
+        clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockDigitsColor);
+        clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;
+        clock.IsTransparent = Properties.Settings.Default.PresetClockTransparent;
         CheckShowInTaskbar();
         LocateWindow();
     }

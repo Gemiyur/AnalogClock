@@ -25,88 +25,46 @@ namespace AnalogClock.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
-        public global::System.Drawing.Color DefaultBackgroundColor {
-            get {
-                return ((global::System.Drawing.Color)(this["DefaultBackgroundColor"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultCloseToTray {
+        public bool PresetMinimizeToTray {
             get {
-                return ((bool)(this["DefaultCloseToTray"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultMinimizeToTray {
-            get {
-                return ((bool)(this["DefaultMinimizeToTray"]));
+                return ((bool)(this["PresetMinimizeToTray"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DefaultShowInTaskbar {
+        public bool PresetShowInTaskbar {
             get {
-                return ((bool)(this["DefaultShowInTaskbar"]));
+                return ((bool)(this["PresetShowInTaskbar"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color DefaultClockDigitsColor {
+        public global::System.Drawing.Color PresetClockDigitsColor {
             get {
-                return ((global::System.Drawing.Color)(this["DefaultClockDigitsColor"]));
+                return ((global::System.Drawing.Color)(this["PresetClockDigitsColor"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DefaultClockShowDigits {
+        public bool PresetClockShowDigits {
             get {
-                return ((bool)(this["DefaultClockShowDigits"]));
+                return ((bool)(this["PresetClockShowDigits"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultClockTransparent {
+        public bool PresetClockTransparent {
             get {
-                return ((bool)(this["DefaultClockTransparent"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
-        public global::System.Drawing.Color BackgroundColor {
-            get {
-                return ((global::System.Drawing.Color)(this["BackgroundColor"]));
-            }
-            set {
-                this["BackgroundColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CloseToTray {
-            get {
-                return ((bool)(this["CloseToTray"]));
-            }
-            set {
-                this["CloseToTray"] = value;
+                return ((bool)(this["PresetClockTransparent"]));
             }
         }
         
@@ -173,9 +131,9 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultSaveLocation {
+        public bool PresetSaveLocation {
             get {
-                return ((bool)(this["DefaultSaveLocation"]));
+                return ((bool)(this["PresetSaveLocation"]));
             }
         }
         
@@ -218,9 +176,9 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultSettingsOnRight {
+        public bool PresetSettingsOnRight {
             get {
-                return ((bool)(this["DefaultSettingsOnRight"]));
+                return ((bool)(this["PresetSettingsOnRight"]));
             }
         }
         
@@ -233,6 +191,27 @@ namespace AnalogClock.Properties {
             }
             set {
                 this["SettingsOnRight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ClockBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ClockBackgroundColor"]));
+            }
+            set {
+                this["ClockBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color PresetClockBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["PresetClockBackgroundColor"]));
             }
         }
     }

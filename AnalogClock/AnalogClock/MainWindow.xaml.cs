@@ -11,7 +11,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        //MainCanvas.Background = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
         ShowInTaskbar = Properties.Settings.Default.ShowInTaskbar;
         GridContextMenu.DataContext = Clock;
     }
@@ -32,7 +31,6 @@ public partial class MainWindow : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        //Properties.Settings.Default.BackgroundColor = App.BrushToColor((SolidColorBrush)MainCanvas.Background);
         if (Properties.Settings.Default.SaveLocation)
         {
             Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
