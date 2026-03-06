@@ -14,11 +14,6 @@ public class TrayIconBehavior : Behavior<Window>
     internal static NotifyIcon? TrayIcon;
 
     /// <summary>
-    /// Скрывать окно приложения, а не закрывать.
-    /// </summary>
-    private static bool CloseToTray => Properties.Settings.Default.CloseToTray;
-
-    /// <summary>
     /// Скрывать окно приложения, а не сворачивать.
     /// </summary>
     private static bool MinimizeToTray => Properties.Settings.Default.MinimizeToTray;
@@ -95,7 +90,6 @@ public class TrayIconBehavior : Behavior<Window>
     {
         base.OnAttached();
         AssociatedObject.Loaded += AssociatedObject_Loaded;
-        AssociatedObject.Closing += AssociatedObject_Closing;
         AssociatedObject.StateChanged += AssociatedObject_StateChanged;
     }
 
@@ -103,26 +97,12 @@ public class TrayIconBehavior : Behavior<Window>
     {
         base.OnDetaching();
         AssociatedObject.Loaded -= AssociatedObject_Loaded;
-        AssociatedObject.Closing -= AssociatedObject_Closing;
         AssociatedObject.StateChanged -= AssociatedObject_StateChanged;
     }
 
     private void AssociatedObject_Loaded(object sender, RoutedEventArgs e)
     {
         InitializeTrayIcon();
-    }
-
-    private void AssociatedObject_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
-    {
-        if (CloseToTray)
-        {
-            e.Cancel = true;
-            AssociatedObject.Hide();
-        }
-        else
-        {
-            TrayIcon?.Dispose();
-        }
     }
 
     private void AssociatedObject_StateChanged(object? sender, EventArgs e)

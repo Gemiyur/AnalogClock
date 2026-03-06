@@ -56,9 +56,6 @@
                 <CheckBox Content="Сворачивать в область уведомлений"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=MinimizeToTray, Mode=TwoWay}" />
-                <CheckBox Content="Скрывать кнопкой закрытия окна"
-                          Style="{StaticResource CheckBoxStyle}"
-                          IsChecked="{Binding Path=CloseToTray, Mode=TwoWay}" />
                 <CheckBox Content="Сохранять положение и размер окна"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=SaveLocation, Mode=TwoWay}" />

@@ -126,7 +126,6 @@ public partial class SettingsWindow : Window
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
         //canvas.Background = App.ColorToBrush(Properties.Settings.Default.DefaultBackgroundColor);
-        Properties.Settings.Default.CloseToTray = Properties.Settings.Default.DefaultCloseToTray;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.DefaultMinimizeToTray;
         Properties.Settings.Default.SaveLocation = Properties.Settings.Default.DefaultSaveLocation;
         Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.DefaultSettingsOnRight;
