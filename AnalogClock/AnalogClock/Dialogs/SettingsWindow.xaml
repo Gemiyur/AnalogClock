@@ -56,10 +56,6 @@
                 <CheckBox Content="Сохранять положение и размер окна"
                           Style="{StaticResource CheckBoxStyle}"
                           IsChecked="{Binding Path=SaveLocation, Mode=TwoWay}" />
-                <CheckBox x:Name="SettingsOnRightCheckBox" Content="Показывать окно настроек справа"
-                          Style="{StaticResource CheckBoxStyle}"
-                          IsChecked="{Binding Path=SettingsOnRight, Mode=TwoWay}"
-                          Click="SettingsOnRightCheckBox_Click" />
             </StackPanel>
         </GroupBox>
 

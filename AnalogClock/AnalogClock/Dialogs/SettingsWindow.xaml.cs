@@ -62,31 +62,15 @@ public partial class SettingsWindow : Window
         var mainTop = (int)(mainWindow.Top * ratio);
         var mainWidth = (int)(mainWindow.Width * ratio);
 
-        // Ширина свободного места рабочей области слева и справа от главного окна.
-        var freeLeft = mainLeft - area.Left;
-        var freeRight = area.Right - (mainLeft + mainWidth);
-
-        // Позиция и размер окна настроек на экране.
-        int left;
-        int top;
+        // Размер окна настроек на экране.
         var width = (int)(Width * ratio);
         var height = (int)(Height * ratio);
 
-        // Получаем из настроек с какой стороны главного окна показывать окно настроек.
-        var showRight = Properties.Settings.Default.SettingsOnRight;
-
         // Определяем координату X (левую) верхней левой точки окна настроек на экране.
-        if (showRight)
-        {
-            left = freeRight < width ? area.Right - width : mainLeft + mainWidth;
-        }
-        else
-        {
-            left = freeLeft < width ? area.Left : mainLeft - width;
-        }
+        var left = mainLeft - area.Left < width ? mainLeft + mainWidth : mainLeft - width;
 
         // Определяем координату Y (верхнюю) верхней левой точки окна настроек на экране.
-        top = mainTop + height <= area.Bottom ? mainTop : area.Bottom - height;
+        var top = mainTop + height <= area.Bottom ? mainTop : area.Bottom - height;
 
         // Устанавливаем значения верхней левой точки окна настроек.
         Left = left / ratio;
@@ -114,13 +98,10 @@ public partial class SettingsWindow : Window
 
     private void ShowInTaskbarCheckBox_Click(object sender, RoutedEventArgs e) => CheckShowInTaskbar();
 
-    private void SettingsOnRightCheckBox_Click(object sender, RoutedEventArgs e) => LocateWindow();
-
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
         Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
-        Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.PresetSettingsOnRight;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
         clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockBackgroundColor);
         clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;

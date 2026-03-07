@@ -107,18 +107,6 @@ namespace AnalogClock.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SettingsOnRight {
-            get {
-                return ((bool)(this["SettingsOnRight"]));
-            }
-            set {
-                this["SettingsOnRight"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
@@ -161,15 +149,6 @@ namespace AnalogClock.Properties {
         public bool PresetSaveLocation {
             get {
                 return ((bool)(this["PresetSaveLocation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSettingsOnRight {
-            get {
-                return ((bool)(this["PresetSettingsOnRight"]));
             }
         }
     }
