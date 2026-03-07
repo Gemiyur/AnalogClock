@@ -105,23 +105,16 @@ public partial class SettingsWindow : Window
             mainWindow.Activate();
     }
 
-    private void DigitsColorButton_Click(object sender, RoutedEventArgs e)
+    private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
-        var picker = new BrushPicker(clock.DigitBrush);
+        var picker = new BrushPicker(clock.BackgroundBrush);
         if (picker.Execute())
-            clock.DigitBrush = picker.Brush;
+            clock.BackgroundBrush = picker.Brush;
     }
 
     private void ShowInTaskbarCheckBox_Click(object sender, RoutedEventArgs e) => CheckShowInTaskbar();
 
     private void SettingsOnRightCheckBox_Click(object sender, RoutedEventArgs e) => LocateWindow();
-
-    private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
-    {
-        //var picker = new BrushPicker((SolidColorBrush)canvas.Background);
-        //if (picker.Execute())
-        //    canvas.Background = picker.Brush;
-    }
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
@@ -129,9 +122,8 @@ public partial class SettingsWindow : Window
         Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
         Properties.Settings.Default.SettingsOnRight = Properties.Settings.Default.PresetSettingsOnRight;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
-        clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockDigitsColor);
+        clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockBackgroundColor);
         clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;
-        clock.IsTransparent = Properties.Settings.Default.PresetClockTransparent;
         CheckShowInTaskbar();
         LocateWindow();
     }

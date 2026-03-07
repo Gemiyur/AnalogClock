@@ -41,9 +41,6 @@
 
         <Canvas.ContextMenu>
             <ContextMenu x:Name="GridContextMenu">
-                <MenuItem Header="Прозрачный циферблат"
-                          IsCheckable="True"
-                          IsChecked="{Binding Path=IsTransparent, Mode=TwoWay}" />
                 <MenuItem Header="Цифры на циферблате"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />

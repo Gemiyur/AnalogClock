@@ -29,12 +29,6 @@
                                     </GeometryDrawing.Pen>
                                     <GeometryDrawing.Brush>
                                         <SolidColorBrush Color="White" />
-                                        <!-- С такой градиентной кистью выглядит как-то не очень. -->
-                                        <!--<RadialGradientBrush>
-                                            <GradientStop Color="#FFFFFF" Offset="0"/>
-                                            <GradientStop Color="#FFFFEF" Offset="0.65"/>
-                                            <GradientStop Color="#FFBCBCAC" Offset="1"/>
-                                        </RadialGradientBrush>-->
                                     </GeometryDrawing.Brush>
                                 </GeometryDrawing>
 

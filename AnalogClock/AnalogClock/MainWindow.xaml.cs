@@ -17,9 +17,8 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        Clock.DigitBrush = App.ColorToBrush(Properties.Settings.Default.ClockDigitsColor);
+        Clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.ClockBackgroundColor);
         Clock.IsDigitsShown = Properties.Settings.Default.ClockShowDigits;
-        Clock.IsTransparent = Properties.Settings.Default.ClockTransparent;
         if (Properties.Settings.Default.SaveLocation)
         {
             Left = Properties.Settings.Default.WindowPoint.X;
@@ -36,9 +35,8 @@ public partial class MainWindow : Window
             Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        Properties.Settings.Default.ClockDigitsColor = App.BrushToColor(Clock.DigitBrush);
+        Properties.Settings.Default.ClockBackgroundColor = App.BrushToColor(Clock.BackgroundBrush);
         Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
-        Properties.Settings.Default.ClockTransparent = Clock.IsTransparent;
         Properties.Settings.Default.Save();
     }
 

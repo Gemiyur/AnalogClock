@@ -14,9 +14,9 @@ namespace AnalogClock.Controls;
 public class ClockControl : System.Windows.Controls.Control
 {
     /// <summary>
-    /// Кисть (цвет) цифр на циферблате по умолчанию.
+    /// Кисть (цвет) фона циферблата по умолчанию.
     /// </summary>
-    static public readonly SolidColorBrush DefaultDigitBrush = Brushes.Black;
+    static public readonly SolidColorBrush DefaultBackgroundBrush = Brushes.White;
 
     /// <summary>
     /// Таймер.
@@ -27,11 +27,6 @@ public class ClockControl : System.Windows.Controls.Control
     /// Время последнего срабатывания обработчика события таймера.
     /// </summary>
     private DateTime lastTick = DateTime.Now;
-
-    /// <summary>
-    /// Кисть часов из шаблона.
-    /// </summary>
-    private Brush? backgroundBrush;
 
     /// <summary>
     /// Шрифт циферблата.
@@ -58,12 +53,12 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Возвращает или задаёт кисть (цвет) цифр на циферблате.
+    /// Возвращает или задаёт кисть (цвет) фона циферблата.
     /// </summary>
-    public SolidColorBrush DigitBrush
+    public SolidColorBrush BackgroundBrush
     {
-        get => (SolidColorBrush)GetValue(DigitBrushProperty);
-        set => SetValue(DigitBrushProperty, value);
+        get => (SolidColorBrush)GetValue(BackgroundBrushProperty);
+        set => SetValue(BackgroundBrushProperty, value);
     }
 
     /// <summary>
@@ -95,19 +90,6 @@ public class ClockControl : System.Windows.Controls.Control
     {
         get => (bool)GetValue(IsRunningProperty);
         set => SetValue(IsRunningProperty, value);
-    }
-
-    /// <summary>
-    /// Возвращает или задаёт прозрачность циферблата.
-    /// </summary>
-    /// <remarks>
-    /// true - циферблат имеет прозрачный фон<br/>
-    /// false - циферблат имеет фон из шаблона
-    /// </remarks>
-    public bool IsTransparent
-    {
-        get => (bool)GetValue(IsTransparentProperty);
-        set => SetValue(IsTransparentProperty, value);
     }
 
     /// <summary>
@@ -147,7 +129,6 @@ public class ClockControl : System.Windows.Controls.Control
     /// </remarks>
     public override void OnApplyTemplate()
     {
-        backgroundBrush = BackgroundContainer.Brush;
         DrawDigits();
     }
 
@@ -177,7 +158,7 @@ public class ClockControl : System.Windows.Controls.Control
             point.X -= ((point.X - innerOffset) / innerCircleDiameter) * size.Width;
             point.Y += (1.0 - ((point.Y - innerOffset) / innerCircleDiameter)) * size.Height;
             label.GlyphRun = CreateGlyphRun(text, point, fontSize);
-            label.ForegroundBrush = DigitBrush;
+            label.ForegroundBrush = Brushes.Black;
             index++;
         }
     }
@@ -244,19 +225,6 @@ public class ClockControl : System.Windows.Controls.Control
     }
 
     /// <summary>
-    /// Устанавливает прозрачность циферблата.
-    /// </summary>
-    /// <param name="isTransparent">Прозрачность циферблата: true - прозрачный, false - фон из шаблона.</param>
-    /// <remarks>
-    /// true - циферблат имеет прозрачный фон<br/>
-    /// false - циферблат имеет фон из шаблона
-    /// </remarks>
-    private void SetTransparent(bool isTransparent)
-    {
-        BackgroundContainer.Brush = isTransparent ? null : backgroundBrush;
-    }
-
-    /// <summary>
     /// Запускает или останавливает таймер.
     /// </summary>
     /// <param name="run">Запустить или остановить таймер: true - запустить, false - остановить.</param>
@@ -319,36 +287,36 @@ public class ClockControl : System.Windows.Controls.Control
 
     #endregion
 
-    #region Кисть (цвет) цифр на циферблате (DigitBrushProperty).
+    #region Кисть (цвет) фона циферблата (BackgroundBrushProperty).
 
-    internal static DependencyProperty DigitBrushProperty = DependencyProperty.Register(
-            "DigitBrush",
+    internal static DependencyProperty BackgroundBrushProperty = DependencyProperty.Register(
+            "BackgroundBrush",
             typeof(Brush),
             typeof(ClockControl),
-            new PropertyMetadata(DefaultDigitBrush, new PropertyChangedCallback(OnDigitBrushPropertyChanged)));
+            new PropertyMetadata(DefaultBackgroundBrush, new PropertyChangedCallback(OnBackgroundBrushPropertyChanged)));
 
-    private static void OnDigitBrushPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnBackgroundBrushPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var clock = (ClockControl)d;
         var oldValue = (Brush)e.OldValue;
         var newValue = (Brush)e.NewValue;
         if (oldValue != newValue)
-            clock.OnDigitBrushChanged(oldValue, newValue);
+            clock.OnBackgroundBrushChanged(oldValue, newValue);
     }
 
-    public static readonly RoutedEvent DigitBrushChangedEvent =
+    public static readonly RoutedEvent BackgroundBrushChangedEvent =
         EventManager.RegisterRoutedEvent(
-            "DigitBrushChanged",
+            "BackgroundBrushChanged",
             RoutingStrategy.Bubble,
             typeof(RoutedPropertyChangedEventHandler<Brush>),
             typeof(ClockControl));
 
-    protected virtual void OnDigitBrushChanged(Brush oldValue, Brush newValue)
+    protected virtual void OnBackgroundBrushChanged(Brush oldValue, Brush newValue)
     {
-        DrawDigits();
+        BackgroundContainer.Brush = newValue;
         var args = new RoutedPropertyChangedEventArgs<Brush>(oldValue, newValue)
         {
-            RoutedEvent = DigitBrushChangedEvent
+            RoutedEvent = BackgroundBrushChangedEvent
         };
         RaiseEvent(args);
     }
@@ -431,42 +399,6 @@ public class ClockControl : System.Windows.Controls.Control
         var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
         {
             RoutedEvent = RunningChangedEvent
-        };
-        RaiseEvent(args);
-    }
-
-    #endregion
-
-    #region Прозрачность циферблата (IsTransparentProperty).
-
-    internal static DependencyProperty IsTransparentProperty = DependencyProperty.Register(
-            "IsTransparent",
-            typeof(bool),
-            typeof(ClockControl),
-            new PropertyMetadata(false, new PropertyChangedCallback(OnIsTransparentPropertyChanged)));
-
-    private static void OnIsTransparentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var clock = (ClockControl)d;
-        var oldValue = (bool)e.OldValue;
-        var newValue = (bool)e.NewValue;
-        if (oldValue != newValue)
-            clock.OnIsTransparentChanged(oldValue, newValue);
-    }
-
-    public static readonly RoutedEvent TransparentChangedEvent =
-        EventManager.RegisterRoutedEvent(
-            "TransparentChanged",
-            RoutingStrategy.Bubble,
-            typeof(RoutedPropertyChangedEventHandler<bool>),
-            typeof(ClockControl));
-
-    protected virtual void OnIsTransparentChanged(bool oldValue, bool newValue)
-    {
-        SetTransparent(newValue);
-        var args = new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue)
-        {
-            RoutedEvent = TransparentChangedEvent
         };
         RaiseEvent(args);
     }
