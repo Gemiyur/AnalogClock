@@ -23,48 +23,27 @@ namespace AnalogClock.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetMinimizeToTray {
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ClockBackgroundColor {
             get {
-                return ((bool)(this["PresetMinimizeToTray"]));
+                return ((global::System.Drawing.Color)(this["ClockBackgroundColor"]));
+            }
+            set {
+                this["ClockBackgroundColor"] = value;
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetShowInTaskbar {
+        public bool ClockShowDigits {
             get {
-                return ((bool)(this["PresetShowInTaskbar"]));
+                return ((bool)(this["ClockShowDigits"]));
             }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color PresetClockDigitsColor {
-            get {
-                return ((global::System.Drawing.Color)(this["PresetClockDigitsColor"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetClockShowDigits {
-            get {
-                return ((bool)(this["PresetClockShowDigits"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetClockTransparent {
-            get {
-                return ((bool)(this["PresetClockTransparent"]));
+            set {
+                this["ClockShowDigits"] = value;
             }
         }
         
@@ -89,51 +68,6 @@ namespace AnalogClock.Properties {
             }
             set {
                 this["ShowInTaskbar"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color ClockDigitsColor {
-            get {
-                return ((global::System.Drawing.Color)(this["ClockDigitsColor"]));
-            }
-            set {
-                this["ClockDigitsColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ClockShowDigits {
-            get {
-                return ((bool)(this["ClockShowDigits"]));
-            }
-            set {
-                this["ClockShowDigits"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ClockTransparent {
-            get {
-                return ((bool)(this["ClockTransparent"]));
-            }
-            set {
-                this["ClockTransparent"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSaveLocation {
-            get {
-                return ((bool)(this["PresetSaveLocation"]));
             }
         }
         
@@ -173,15 +107,6 @@ namespace AnalogClock.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSettingsOnRight {
-            get {
-                return ((bool)(this["PresetSettingsOnRight"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -194,24 +119,57 @@ namespace AnalogClock.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("White")]
-        public global::System.Drawing.Color ClockBackgroundColor {
-            get {
-                return ((global::System.Drawing.Color)(this["ClockBackgroundColor"]));
-            }
-            set {
-                this["ClockBackgroundColor"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
         public global::System.Drawing.Color PresetClockBackgroundColor {
             get {
                 return ((global::System.Drawing.Color)(this["PresetClockBackgroundColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PresetClockShowDigits {
+            get {
+                return ((bool)(this["PresetClockShowDigits"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PresetMinimizeToTray {
+            get {
+                return ((bool)(this["PresetMinimizeToTray"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PresetShowInTaskbar {
+            get {
+                return ((bool)(this["PresetShowInTaskbar"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PresetSaveLocation {
+            get {
+                return ((bool)(this["PresetSaveLocation"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PresetSettingsOnRight {
+            get {
+                return ((bool)(this["PresetSettingsOnRight"]));
             }
         }
     }
