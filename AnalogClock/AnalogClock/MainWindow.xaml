@@ -35,7 +35,7 @@
 
     <Canvas x:Name="MainCanvas" Width="200" Height="200">
 
-        <Viewbox Width="200" Height="200">
+        <Viewbox x:Name="ClockViewbox" Width="200" Height="200">
             <clock:ClockControl x:Name="Clock" Template="{StaticResource ClockTemplate}" />
         </Viewbox>
 

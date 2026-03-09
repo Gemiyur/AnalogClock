@@ -36,6 +36,7 @@ public partial class SettingsWindow : Window
         clock = mainWindow.Clock;
         canvas = mainWindow.MainCanvas;
         ClockGroupBox.DataContext = clock;
+        SizeGroupBox.DataContext = mainWindow;
         AppGroupBox.DataContext = Properties.Settings.Default;
     }
 
@@ -100,11 +101,12 @@ public partial class SettingsWindow : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
-        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
-        Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
         clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockBackgroundColor);
         clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;
+        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
+        Properties.Settings.Default.CanvasSize = Properties.Settings.Default.PresetCanvasSize;
+        Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
+        Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
         CheckShowInTaskbar();
         LocateWindow();
     }

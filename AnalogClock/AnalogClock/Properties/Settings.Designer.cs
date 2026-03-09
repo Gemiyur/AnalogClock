@@ -151,5 +151,26 @@ namespace AnalogClock.Properties {
                 return ((bool)(this["PresetSaveLocation"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int CanvasSize {
+            get {
+                return ((int)(this["CanvasSize"]));
+            }
+            set {
+                this["CanvasSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int PresetCanvasSize {
+            get {
+                return ((int)(this["PresetCanvasSize"]));
+            }
+        }
     }
 }

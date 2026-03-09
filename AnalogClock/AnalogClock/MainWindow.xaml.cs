@@ -15,6 +15,21 @@ public partial class MainWindow : Window
         GridContextMenu.DataContext = Clock;
     }
 
+    //private int canvasSize = 200;
+
+    public int CanvasSize
+    {
+        get => (int)MainCanvas.Width;
+        set
+        {
+            //canvasSize = value;
+            MainCanvas.Height = value;
+            MainCanvas.Width = value;
+            ClockViewbox.Height = value;
+            ClockViewbox.Width = value;
+        }
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         Clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.ClockBackgroundColor);
@@ -23,20 +38,22 @@ public partial class MainWindow : Window
         {
             Left = Properties.Settings.Default.WindowPoint.X;
             Top = Properties.Settings.Default.WindowPoint.Y;
-            Width = Properties.Settings.Default.WindowSize.Width;
-            Height = Properties.Settings.Default.WindowSize.Height;
+            CanvasSize = Properties.Settings.Default.CanvasSize;
+            //Width = Properties.Settings.Default.WindowSize.Width;
+            //Height = Properties.Settings.Default.WindowSize.Height;
         }
     }
 
     private void Window_Closed(object sender, EventArgs e)
     {
+        Properties.Settings.Default.ClockBackgroundColor = App.BrushToColor(Clock.BackgroundBrush);
+        Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         if (Properties.Settings.Default.SaveLocation)
         {
             Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
-            Properties.Settings.Default.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
+            Properties.Settings.Default.CanvasSize = CanvasSize;
+            //Properties.Settings.Default.WindowSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        Properties.Settings.Default.ClockBackgroundColor = App.BrushToColor(Clock.BackgroundBrush);
-        Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.Save();
     }
 
