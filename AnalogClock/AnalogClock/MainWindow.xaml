@@ -33,9 +33,9 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Canvas x:Name="MainCanvas" Width="200" Height="200">
+    <Canvas x:Name="MainCanvas" Width="150" Height="150">
 
-        <Viewbox x:Name="ClockViewbox" Width="200" Height="200">
+        <Viewbox x:Name="ClockViewbox" Width="150" Height="150">
             <clock:ClockControl x:Name="Clock" Template="{StaticResource ClockTemplate}" />
         </Viewbox>
 

@@ -61,7 +61,7 @@ namespace AnalogClock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
         public int Size {
             get {
                 return ((int)(this["Size"]));
@@ -115,7 +115,7 @@ namespace AnalogClock.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
         public int PresetSize {
             get {
                 return ((int)(this["PresetSize"]));
