@@ -41,7 +41,7 @@
 
         <Canvas.ContextMenu>
             <ContextMenu x:Name="GridContextMenu">
-                <MenuItem Header="Цифры на циферблате"
+                <MenuItem Header="Показывать цифры часов"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
                 <Separator />
