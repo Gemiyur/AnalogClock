@@ -9,8 +9,7 @@
         Width="300" Height="350" ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         ShowInTaskbar="False"
-        Loaded="Window_Loaded"
-        Closed="Window_Closed">
+        Loaded="Window_Loaded">
 
     <Window.Resources>
         <ResourceDictionary>

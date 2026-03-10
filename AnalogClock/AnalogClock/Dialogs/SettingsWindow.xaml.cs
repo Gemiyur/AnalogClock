@@ -69,8 +69,6 @@ public partial class SettingsWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e) => LocateWindow();
 
-    private void Window_Closed(object sender, EventArgs e) => App.GetMainWindow()?.Activate();
-
     private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new BrushPicker(clock.BackgroundBrush);
