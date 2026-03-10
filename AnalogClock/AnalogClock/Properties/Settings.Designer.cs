@@ -73,18 +73,6 @@ namespace AnalogClock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SaveLocation {
-            get {
-                return ((bool)(this["SaveLocation"]));
-            }
-            set {
-                this["SaveLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
         public global::System.Drawing.Point WindowPoint {
             get {
@@ -92,18 +80,6 @@ namespace AnalogClock.Properties {
             }
             set {
                 this["WindowPoint"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size WindowSize {
-            get {
-                return ((global::System.Drawing.Size)(this["WindowSize"]));
-            }
-            set {
-                this["WindowSize"] = value;
             }
         }
         
@@ -140,15 +116,6 @@ namespace AnalogClock.Properties {
         public bool PresetShowInTaskbar {
             get {
                 return ((bool)(this["PresetShowInTaskbar"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSaveLocation {
-            get {
-                return ((bool)(this["PresetSaveLocation"]));
             }
         }
         

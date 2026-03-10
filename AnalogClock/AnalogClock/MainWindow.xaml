@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="Часы"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="Manual"
 	    WindowStyle="None"
 	    AllowsTransparency="True"
 	    Background="Transparent"

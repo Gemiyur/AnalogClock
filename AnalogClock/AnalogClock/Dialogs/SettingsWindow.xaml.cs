@@ -11,19 +11,9 @@ namespace AnalogClock.Dialogs;
 public partial class SettingsWindow : Window
 {
     /// <summary>
-    /// Главное окно.
-    /// </summary>
-    private readonly MainWindow mainWindow;
-
-    /// <summary>
     /// Элемент управления "Часы".
     /// </summary>
     private readonly ClockControl clock;
-
-    /// <summary>
-    /// Холст главного окна.
-    /// </summary>
-    private readonly Canvas canvas;
 
     /// <summary>
     /// Конструктор.
@@ -32,9 +22,7 @@ public partial class SettingsWindow : Window
     public SettingsWindow(MainWindow mainWindow)
     {
         InitializeComponent();
-        this.mainWindow = mainWindow;
         clock = mainWindow.Clock;
-        canvas = mainWindow.MainCanvas;
         ClockGroupBox.DataContext = clock;
         SizeGroupBox.DataContext = mainWindow;
         AppGroupBox.DataContext = Properties.Settings.Default;
@@ -54,6 +42,7 @@ public partial class SettingsWindow : Window
         // Позиция верхней левой точки рабочей области так же задаётся относительно всего экрана.
         // От масштаба экрана не зависят. Это физические размеры экрана и рабочей области в пикселях.
 
+        var mainWindow = App.GetMainWindow();
         var screen = Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(mainWindow).Handle);
         var area = screen.WorkingArea;
         var ratio = screen.Bounds.Width / SystemParameters.PrimaryScreenWidth;
@@ -78,17 +67,9 @@ public partial class SettingsWindow : Window
         Top = top / ratio;
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        LocateWindow();
-    }
+    private void Window_Loaded(object sender, RoutedEventArgs e) => LocateWindow();
 
-    private void Window_Closed(object sender, EventArgs e)
-    {
-        var mainWindow = App.GetMainWindow();
-        if (mainWindow != null)
-            mainWindow.Activate();
-    }
+    private void Window_Closed(object sender, EventArgs e) => App.GetMainWindow()?.Activate();
 
     private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
     {
@@ -103,11 +84,10 @@ public partial class SettingsWindow : Window
     {
         clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockBackgroundColor);
         clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;
-        Properties.Settings.Default.SaveLocation = Properties.Settings.Default.PresetSaveLocation;
         Properties.Settings.Default.CanvasSize = Properties.Settings.Default.PresetCanvasSize;
+        App.GetMainWindow().CanvasSize = Properties.Settings.Default.CanvasSize;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
         CheckShowInTaskbar();
-        LocateWindow();
     }
 }
