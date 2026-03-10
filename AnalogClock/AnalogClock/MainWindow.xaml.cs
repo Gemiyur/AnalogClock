@@ -14,7 +14,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         InitializeComponent();
         ShowInTaskbar = Properties.Settings.Default.ShowInTaskbar;
-        GridContextMenu.DataContext = Clock;
+        CanvasContextMenu.DataContext = Clock;
     }
 
     public int CanvasSize

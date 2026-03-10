@@ -40,7 +40,7 @@
         </Viewbox>
 
         <Canvas.ContextMenu>
-            <ContextMenu x:Name="GridContextMenu">
+            <ContextMenu x:Name="CanvasContextMenu">
                 <MenuItem Header="Показывать цифры часов"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
