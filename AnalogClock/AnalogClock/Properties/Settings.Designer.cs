@@ -26,24 +26,24 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
-        public global::System.Drawing.Color ClockBackgroundColor {
+        public global::System.Drawing.Color BackgroundColor {
             get {
-                return ((global::System.Drawing.Color)(this["ClockBackgroundColor"]));
+                return ((global::System.Drawing.Color)(this["BackgroundColor"]));
             }
             set {
-                this["ClockBackgroundColor"] = value;
+                this["BackgroundColor"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ClockShowDigits {
+        public bool ShowDigits {
             get {
-                return ((bool)(this["ClockShowDigits"]));
+                return ((bool)(this["ShowDigits"]));
             }
             set {
-                this["ClockShowDigits"] = value;
+                this["ShowDigits"] = value;
             }
         }
         
@@ -74,30 +74,30 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point WindowPoint {
+        public global::System.Drawing.Point Location {
             get {
-                return ((global::System.Drawing.Point)(this["WindowPoint"]));
+                return ((global::System.Drawing.Point)(this["Location"]));
             }
             set {
-                this["WindowPoint"] = value;
+                this["Location"] = value;
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
-        public global::System.Drawing.Color PresetClockBackgroundColor {
+        public global::System.Drawing.Color PresetBackgroundColor {
             get {
-                return ((global::System.Drawing.Color)(this["PresetClockBackgroundColor"]));
+                return ((global::System.Drawing.Color)(this["PresetBackgroundColor"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetClockShowDigits {
+        public bool PresetShowDigits {
             get {
-                return ((bool)(this["PresetClockShowDigits"]));
+                return ((bool)(this["PresetShowDigits"]));
             }
         }
         
@@ -122,21 +122,21 @@ namespace AnalogClock.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public int CanvasSize {
+        public int Size {
             get {
-                return ((int)(this["CanvasSize"]));
+                return ((int)(this["Size"]));
             }
             set {
-                this["CanvasSize"] = value;
+                this["Size"] = value;
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public int PresetCanvasSize {
+        public int PresetSize {
             get {
-                return ((int)(this["PresetCanvasSize"]));
+                return ((int)(this["PresetSize"]));
             }
         }
     }

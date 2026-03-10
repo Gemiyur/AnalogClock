@@ -40,19 +40,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        Left = Properties.Settings.Default.WindowPoint.X;
-        Top = Properties.Settings.Default.WindowPoint.Y;
-        CanvasSize = Properties.Settings.Default.CanvasSize;
-        Clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.ClockBackgroundColor);
-        Clock.IsDigitsShown = Properties.Settings.Default.ClockShowDigits;
+        Left = Properties.Settings.Default.Location.X;
+        Top = Properties.Settings.Default.Location.Y;
+        CanvasSize = Properties.Settings.Default.Size;
+        Clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.BackgroundColor);
+        Clock.IsDigitsShown = Properties.Settings.Default.ShowDigits;
     }
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        Properties.Settings.Default.WindowPoint = new System.Drawing.Point((int)Left, (int)Top);
-        Properties.Settings.Default.CanvasSize = CanvasSize;
-        Properties.Settings.Default.ClockBackgroundColor = App.BrushToColor(Clock.BackgroundBrush);
-        Properties.Settings.Default.ClockShowDigits = Clock.IsDigitsShown;
+        Properties.Settings.Default.Location = new System.Drawing.Point((int)Left, (int)Top);
+        Properties.Settings.Default.Size = CanvasSize;
+        Properties.Settings.Default.BackgroundColor = App.BrushToColor(Clock.BackgroundBrush);
+        Properties.Settings.Default.ShowDigits = Clock.IsDigitsShown;
         Properties.Settings.Default.Save();
     }
 

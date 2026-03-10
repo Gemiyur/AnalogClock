@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AnalogClock.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ClockBackgroundColor" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="BackgroundColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">White</Value>
     </Setting>
-    <Setting Name="ClockShowDigits" Type="System.Boolean" Scope="User">
+    <Setting Name="ShowDigits" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="MinimizeToTray" Type="System.Boolean" Scope="User">
@@ -14,13 +14,13 @@
     <Setting Name="ShowInTaskbar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="WindowPoint" Type="System.Drawing.Point" Scope="User">
+    <Setting Name="Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="PresetClockBackgroundColor" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="PresetBackgroundColor" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">White</Value>
     </Setting>
-    <Setting Name="PresetClockShowDigits" Type="System.Boolean" Scope="Application">
+    <Setting Name="PresetShowDigits" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PresetMinimizeToTray" Type="System.Boolean" Scope="Application">
@@ -29,10 +29,10 @@
     <Setting Name="PresetShowInTaskbar" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="CanvasSize" Type="System.Int32" Scope="User">
+    <Setting Name="Size" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
-    <Setting Name="PresetCanvasSize" Type="System.Int32" Scope="Application">
+    <Setting Name="PresetSize" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">200</Value>
     </Setting>
   </Settings>

@@ -82,10 +82,10 @@ public partial class SettingsWindow : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetClockBackgroundColor);
-        clock.IsDigitsShown = Properties.Settings.Default.PresetClockShowDigits;
-        Properties.Settings.Default.CanvasSize = Properties.Settings.Default.PresetCanvasSize;
-        App.GetMainWindow().CanvasSize = Properties.Settings.Default.CanvasSize;
+        clock.BackgroundBrush = App.ColorToBrush(Properties.Settings.Default.PresetBackgroundColor);
+        clock.IsDigitsShown = Properties.Settings.Default.PresetShowDigits;
+        Properties.Settings.Default.Size = Properties.Settings.Default.PresetSize;
+        App.GetMainWindow().CanvasSize = Properties.Settings.Default.Size;
         Properties.Settings.Default.MinimizeToTray = Properties.Settings.Default.PresetMinimizeToTray;
         Properties.Settings.Default.ShowInTaskbar = Properties.Settings.Default.PresetShowInTaskbar;
         CheckShowInTaskbar();
