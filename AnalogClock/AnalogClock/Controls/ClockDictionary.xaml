@@ -28,7 +28,7 @@
                                         <Pen Thickness="5" Brush="Black" />
                                     </GeometryDrawing.Pen>
                                     <GeometryDrawing.Brush>
-                                        <SolidColorBrush Color="White" />
+                                        <SolidColorBrush Color="Khaki" />
                                     </GeometryDrawing.Brush>
                                 </GeometryDrawing>
 

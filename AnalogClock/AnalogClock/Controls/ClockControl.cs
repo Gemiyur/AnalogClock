@@ -16,7 +16,7 @@ public class ClockControl : System.Windows.Controls.Control
     /// <summary>
     /// Кисть (цвет) фона циферблата по умолчанию.
     /// </summary>
-    static public readonly SolidColorBrush DefaultBackgroundBrush = Brushes.White;
+    static public readonly SolidColorBrush DefaultBackgroundBrush = Brushes.Khaki;
 
     /// <summary>
     /// Таймер.
