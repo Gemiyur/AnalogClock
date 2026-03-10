@@ -41,9 +41,19 @@
 
         <Canvas.ContextMenu>
             <ContextMenu x:Name="CanvasContextMenu">
-                <MenuItem Header="Показывать цифры часов"
+                <MenuItem x:Name="MinimizeMenuItem" Header="Свернуть"
+                          Click="MinimizeMenuItem_Click" />
+                <Separator />
+                <MenuItem x:Name="ShowDigitsMenuItem" Header="Показывать цифры часов"
                           IsCheckable="True"
                           IsChecked="{Binding Path=IsDigitsShown, Mode=TwoWay}" />
+                <MenuItem x:Name="ShowInTaskbarMenuItem" Header="Показывать значок на панели задач"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=ShowInTaskbar, Mode=TwoWay}"
+                          Click="ShowInTaskbarMenuItem_Click" />
+                <MenuItem x:Name="MinimizeToTrayMenuItem" Header="Сворачивать в область уведомлений"
+                          IsCheckable="True"
+                          IsChecked="{Binding Path=MinimizeToTray, Mode=TwoWay}" />
                 <Separator />
                 <MenuItem x:Name="SettingsMenuItem" Header="Настройки..."
                           Click="SettingsMenuItem_Click" />

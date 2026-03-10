@@ -14,7 +14,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         InitializeComponent();
         ShowInTaskbar = Properties.Settings.Default.ShowInTaskbar;
-        CanvasContextMenu.DataContext = Clock;
+        ShowDigitsMenuItem.DataContext = Clock;
+        ShowInTaskbarMenuItem.DataContext = Properties.Settings.Default;
+        MinimizeToTrayMenuItem.DataContext = Properties.Settings.Default;
     }
 
     public int CanvasSize
@@ -37,6 +39,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
     }
 
+    private void CheckShowInTaskbar() => ShowInTaskbar = ShowInTaskbarMenuItem.IsChecked == true;
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
@@ -72,10 +75,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        DragMove();
-    }
+    private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
+
+    private void MinimizeMenuItem_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+
+    private void ShowInTaskbarMenuItem_Click(object sender, RoutedEventArgs e) => CheckShowInTaskbar();
 
     private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => App.ShowSettingsWindow();
 
